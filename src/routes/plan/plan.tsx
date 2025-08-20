@@ -221,8 +221,9 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 									)}
 							</span>
 							<span className="text-md text-foreground-tertiary mb-0.5">
-								{plan?.source !== "planlekcji" &&
-									`(${plan?.source})`}
+								{plan &&
+									plan.source !== "planlekcji" &&
+									`(${plan.source})`}
 							</span>
 						</div>
 						<div className="self-end flex gap-3 text-foreground-secondary text-xl items-end">
