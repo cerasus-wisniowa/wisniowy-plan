@@ -67,6 +67,7 @@ export default function Modal({
 				)}
 				<motion.div
 					variants={itemVariants}
+					initial={itemInitial}
 					className="flex flex-col gap-4 mt-2 overflow-y-auto max-h-[70vh]"
 				>
 					{children}
@@ -75,7 +76,7 @@ export default function Modal({
 					<motion.div
 						variants={itemVariants}
 						initial={itemInitial}
-						className="flex gap-2 mt-4 h-12 justify-center mr-12"
+						className="flex gap-2 mt-4 h-12 justify-center"
 					>
 						<Button
 							onClick={onHide}
@@ -96,8 +97,9 @@ const modalVariants: Variants = {
 		scaleY: [0.1, 0.1, 1],
 		transition: {
 			duration: 0.35,
+			times: [0, 0.3, 1],
 			ease: "easeInOut",
-			delayChildren: stagger(0.15, { startDelay: 0.35 }),
+			delayChildren: stagger(0.15, { startDelay: 0.1 }),
 		},
 	},
 };
@@ -109,7 +111,7 @@ const itemVariants: Variants = {
 		transition: {
 			y: { stiffness: 1000, velocity: -100 },
 			ease: "easeInOut",
-			delayChildren: stagger(0.05),
+			delayChildren: stagger(0.1),
 		},
 	},
 };
