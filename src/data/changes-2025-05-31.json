@@ -1,0 +1,599 @@
+{
+	"apiVersion": "2.2",
+	"lastUpdate": "2025-05-31T15:39:42.062Z",
+	"dates": ["2025-06-02", "2025-06-03", "2025-06-04"],
+	"changes": [
+		{
+			"sections": [{ "class": "3tm2" }],
+			"type": "cancelled",
+			"consequence": "Uczniowie przychodzą później",
+			"teacher": { "firstName": "Ewa", "lastName": "Biaduń" },
+			"date": "2025-06-02",
+			"hour": 1
+		},
+		{
+			"sections": [{ "class": "3tm1" }],
+			"type": "substitution",
+			"consequence": "Chemia",
+			"teacher": { "firstName": "Ewa", "lastName": "Biaduń" },
+			"date": "2025-06-02",
+			"hour": 2,
+			"classroom": { "room": "406", "name": "Chemia" },
+			"substitutionTeacher": {
+				"firstName": "Aleksandra",
+				"lastName": "Szemet"
+			},
+			"note": "za 1 lekcję"
+		},
+		{
+			"sections": [{ "class": "3la" }],
+			"type": "substitution",
+			"consequence": "Chemia",
+			"teacher": { "firstName": "Ewa", "lastName": "Biaduń" },
+			"date": "2025-06-02",
+			"hour": 3,
+			"classroom": { "room": "406", "name": "Chemia" },
+			"substitutionTeacher": {
+				"firstName": "Aleksandra",
+				"lastName": "Szemet"
+			},
+			"note": "za nieobecny oddział"
+		},
+		{
+			"sections": [{ "class": "2lb" }],
+			"type": "no_consequence",
+			"consequence": "Bez konsekwencji (nieobecny oddział nauczyciela)",
+			"teacher": { "firstName": "Ewa", "lastName": "Biaduń" },
+			"date": "2025-06-02",
+			"hour": 4
+		},
+		{
+			"sections": [{ "class": "2lb" }],
+			"type": "no_consequence",
+			"consequence": "Bez konsekwencji (nieobecny oddział nauczyciela)",
+			"teacher": { "firstName": "Ewa", "lastName": "Biaduń" },
+			"date": "2025-06-02",
+			"hour": 5
+		},
+		{
+			"sections": [{ "class": "2lc" }],
+			"type": "substitution",
+			"consequence": "Historia",
+			"teacher": { "firstName": "Sylwia", "lastName": "Dorożko" },
+			"date": "2025-06-02",
+			"hour": 4,
+			"classroom": { "room": "313", "name": "Historia" },
+			"substitutionTeacher": {
+				"firstName": "Anna",
+				"lastName": "Szyndler"
+			}
+		},
+		{
+			"sections": [{ "class": "1la" }],
+			"type": "cancelled",
+			"consequence": "Uczniowie zwolnieni do domu",
+			"teacher": { "firstName": "Sylwia", "lastName": "Dorożko" },
+			"date": "2025-06-02",
+			"hour": 6
+		},
+		{
+			"sections": [{ "class": "1tc" }],
+			"type": "cancelled",
+			"consequence": "Uczniowie zwolnieni do domu",
+			"teacher": { "firstName": "Sylwia", "lastName": "Dorożko" },
+			"date": "2025-06-02",
+			"hour": 7
+		},
+		{
+			"sections": [{ "class": "2lb" }],
+			"type": "no_consequence",
+			"consequence": "Bez konsekwencji (nieobecny oddział nauczyciela)",
+			"teacher": { "firstName": "Sylwia", "lastName": "Dorożko" },
+			"date": "2025-06-02",
+			"hour": 8
+		},
+		{
+			"sections": [{ "class": "3MKa" }],
+			"type": "cancelled",
+			"consequence": "Uczniowie przychodzą później",
+			"teacher": { "firstName": "Izabela", "lastName": "Grudzień" },
+			"date": "2025-06-02",
+			"hour": 1
+		},
+		{
+			"sections": [{ "class": "3ld" }],
+			"type": "cancelled",
+			"consequence": "Uczniowie przychodzą później",
+			"teacher": { "firstName": "Izabela", "lastName": "Grudzień" },
+			"date": "2025-06-02",
+			"hour": 2
+		},
+		{
+			"sections": [{ "class": "3lc" }],
+			"type": "substitution",
+			"consequence": "Matematyka",
+			"teacher": { "firstName": "Izabela", "lastName": "Grudzień" },
+			"date": "2025-06-02",
+			"hour": 3,
+			"classroom": { "room": "306", "name": "Matematyka" },
+			"substitutionTeacher": {
+				"firstName": "Ewelina",
+				"lastName": "Dobrzańska"
+			},
+			"note": "za 2 l."
+		},
+		{
+			"sections": [{ "class": "3lc" }, { "class": "3ld" }],
+			"type": "cancelled",
+			"consequence": "Uczniowie przychodzą później",
+			"teacher": { "firstName": "Justyna", "lastName": "Kozłowska" },
+			"date": "2025-06-02",
+			"hour": 1
+		},
+		{
+			"sections": [{ "class": "2lc", "group": 2 }],
+			"type": "cancelled",
+			"consequence": "Czytelnia",
+			"teacher": { "firstName": "Justyna", "lastName": "Kozłowska" },
+			"date": "2025-06-02",
+			"hour": 2
+		},
+		{
+			"sections": [{ "class": "3ld" }],
+			"type": "substitution",
+			"consequence": "Zajęcia z wychowawcą",
+			"teacher": { "firstName": "Justyna", "lastName": "Kozłowska" },
+			"date": "2025-06-02",
+			"hour": 3,
+			"classroom": { "room": "313", "name": "Historia" },
+			"substitutionTeacher": {
+				"firstName": "Weronika",
+				"lastName": "Topolewska"
+			}
+		},
+		{
+			"sections": [{ "class": "3lc", "group": 2 }],
+			"type": "cancelled",
+			"consequence": "Uczniowie przychodzą później",
+			"teacher": { "firstName": "Marta", "lastName": "Łukasiak" },
+			"date": "2025-06-02",
+			"hour": 2
+		},
+		{
+			"sections": [{ "class": "2la", "group": 1 }],
+			"type": "substitution",
+			"consequence": "Wychowanie fizyczne",
+			"teacher": { "firstName": "Marta", "lastName": "Łukasiak" },
+			"date": "2025-06-02",
+			"hour": 3,
+			"substitutionTeacher": {
+				"firstName": "Adam",
+				"lastName": "Łukaszewicz"
+			},
+			"note": "złączenie grup"
+		},
+		{
+			"sections": [{ "class": "1tm" }],
+			"type": "no_consequence",
+			"consequence": "Bez konsekwencji (nieobecny oddział nauczyciela)",
+			"teacher": { "firstName": "Marta", "lastName": "Łukasiak" },
+			"date": "2025-06-02",
+			"hour": 4
+		},
+		{
+			"sections": [{ "class": "1tm", "group": 1 }],
+			"type": "no_consequence",
+			"consequence": "Bez konsekwencji (nieobecny oddział nauczyciela)",
+			"teacher": { "firstName": "Marta", "lastName": "Łukasiak" },
+			"date": "2025-06-02",
+			"hour": 6
+		},
+		{
+			"sections": [{ "class": "1tm", "group": 1 }],
+			"type": "no_consequence",
+			"consequence": "Bez konsekwencji (nieobecny oddział nauczyciela)",
+			"teacher": { "firstName": "Marta", "lastName": "Łukasiak" },
+			"date": "2025-06-02",
+			"hour": 7
+		},
+		{
+			"sections": [{ "class": "1tc", "group": 1 }],
+			"type": "cancelled",
+			"consequence": "Czytelnia",
+			"teacher": { "firstName": "Mariusz", "lastName": "Mołodowiec" },
+			"date": "2025-06-02",
+			"hour": 3
+		},
+		{
+			"sections": [{ "class": "1la", "group": 2 }],
+			"type": "no_consequence",
+			"consequence": "Bez konsekwencji (nieobecny oddział nauczyciela)",
+			"teacher": { "firstName": "Aneta", "lastName": "Oryszewska" },
+			"date": "2025-06-02",
+			"hour": 2
+		},
+		{
+			"sections": [{ "class": "1tc", "group": 2 }],
+			"type": "cancelled",
+			"consequence": "Czytelnia",
+			"teacher": { "firstName": "Aneta", "lastName": "Oryszewska" },
+			"date": "2025-06-02",
+			"hour": 4
+		},
+		{
+			"sections": [{ "class": "3lc" }],
+			"type": "substitution",
+			"consequence": "Podstawy przedsiębiorczości",
+			"teacher": { "firstName": "Tomasz", "lastName": "Pawlak" },
+			"date": "2025-06-02",
+			"hour": 4,
+			"classroom": { "room": "303", "name": "Przedsiębiorczość" },
+			"substitutionTeacher": {
+				"firstName": "Tomasz",
+				"lastName": "Pawełek"
+			}
+		},
+		{
+			"sections": [{ "class": "3la" }],
+			"type": "substitution",
+			"consequence": "Podstawy przedsiębiorczości",
+			"teacher": { "firstName": "Tomasz", "lastName": "Pawlak" },
+			"date": "2025-06-02",
+			"hour": 5,
+			"classroom": { "room": "303", "name": "Przedsiębiorczość" },
+			"substitutionTeacher": {
+				"firstName": "Emilia",
+				"lastName": "Cizio"
+			},
+			"note": "zaj. dor. zawodowe"
+		},
+		{
+			"sections": [{ "class": "3tc" }],
+			"type": "substitution",
+			"consequence": "Podstawy przedsiębiorczości",
+			"teacher": { "firstName": "Tomasz", "lastName": "Pawlak" },
+			"date": "2025-06-02",
+			"hour": 6,
+			"classroom": { "room": "303", "name": "Przedsiębiorczość" },
+			"substitutionTeacher": {
+				"firstName": "Elżbieta",
+				"lastName": "Jaskólska"
+			},
+			"note": "za nieobecny oddział"
+		},
+		{
+			"sections": [{ "class": "2lb" }],
+			"type": "no_consequence",
+			"consequence": "Bez konsekwencji (nieobecny oddział nauczyciela)",
+			"teacher": { "firstName": "Tomasz", "lastName": "Pawlak" },
+			"date": "2025-06-02",
+			"hour": 7
+		},
+		{
+			"sections": [{ "class": "3tm2" }],
+			"type": "cancelled",
+			"consequence": "Uczniowie zwolnieni do domu",
+			"teacher": { "firstName": "Tomasz", "lastName": "Pawlak" },
+			"date": "2025-06-02",
+			"hour": 8
+		},
+		{
+			"sections": [{ "class": "2tm", "group": 1 }],
+			"type": "substitution",
+			"consequence": "M08 Montaż i demontaż układów elektrycznych",
+			"teacher": { "firstName": "Małgorzata", "lastName": "Bolimowska" },
+			"date": "2025-06-03",
+			"hour": 5,
+			"classroom": { "room": "19", "name": "Mechatronika" },
+			"substitutionTeacher": {
+				"firstName": "Dominik",
+				"lastName": "Męczkowski"
+			}
+		},
+		{
+			"sections": [{ "class": "2tm", "group": 1 }],
+			"type": "substitution",
+			"consequence": "M08 Montaż i demontaż układów elektrycznych",
+			"teacher": { "firstName": "Małgorzata", "lastName": "Bolimowska" },
+			"date": "2025-06-03",
+			"hour": 6,
+			"classroom": { "room": "19", "name": "Mechatronika" },
+			"substitutionTeacher": {
+				"firstName": "Dominik",
+				"lastName": "Męczkowski"
+			}
+		},
+		{
+			"sections": [{ "class": "1tc", "group": 1 }],
+			"type": "cancelled",
+			"consequence": "Czytelnia",
+			"teacher": { "firstName": "Mariusz", "lastName": "Mołodowiec" },
+			"date": "2025-06-03",
+			"hour": 3
+		},
+		{
+			"sections": [{ "class": "1tc", "group": 1 }],
+			"type": "cancelled",
+			"consequence": "Czytelnia",
+			"teacher": { "firstName": "Mariusz", "lastName": "Mołodowiec" },
+			"date": "2025-06-03",
+			"hour": 4
+		},
+		{
+			"sections": [{ "class": "3tc", "group": 2 }],
+			"type": "cancelled",
+			"consequence": "Czytelnia",
+			"teacher": { "firstName": "Mariusz", "lastName": "Mołodowiec" },
+			"date": "2025-06-03",
+			"hour": 5
+		},
+		{
+			"sections": [{ "class": "3tc", "group": 2 }],
+			"type": "cancelled",
+			"consequence": "Uczniowie zwolnieni do domu",
+			"teacher": { "firstName": "Mariusz", "lastName": "Mołodowiec" },
+			"date": "2025-06-03",
+			"hour": 6
+		},
+		{
+			"sections": [{ "class": "1ta", "group": 1 }],
+			"type": "cancelled",
+			"consequence": "Uczniowie przychodzą później",
+			"teacher": { "firstName": "Aneta", "lastName": "Oryszewska" },
+			"date": "2025-06-03",
+			"hour": 1
+		},
+		{
+			"sections": [{ "class": "1ta", "group": 1 }],
+			"type": "cancelled",
+			"consequence": "Uczniowie przychodzą później",
+			"teacher": { "firstName": "Aneta", "lastName": "Oryszewska" },
+			"date": "2025-06-03",
+			"hour": 2
+		},
+		{
+			"sections": [{ "class": "1la" }],
+			"type": "no_consequence",
+			"consequence": "Bez konsekwencji (nieobecny oddział nauczyciela)",
+			"teacher": { "firstName": "Aneta", "lastName": "Oryszewska" },
+			"date": "2025-06-03",
+			"hour": 3
+		},
+		{
+			"sections": [{ "class": "1la", "group": 2 }],
+			"type": "no_consequence",
+			"consequence": "Bez konsekwencji (nieobecny oddział nauczyciela)",
+			"teacher": { "firstName": "Aneta", "lastName": "Oryszewska" },
+			"date": "2025-06-03",
+			"hour": 5
+		},
+		{
+			"sections": [{ "class": "1la", "group": 2 }],
+			"type": "no_consequence",
+			"consequence": "Bez konsekwencji (nieobecny oddział nauczyciela)",
+			"teacher": { "firstName": "Aneta", "lastName": "Oryszewska" },
+			"date": "2025-06-03",
+			"hour": 6
+		},
+		{
+			"sections": [{ "class": "1la", "group": 1 }],
+			"type": "no_consequence",
+			"consequence": "Bez konsekwencji (nieobecny oddział nauczyciela)",
+			"teacher": { "firstName": "Aneta", "lastName": "Oryszewska" },
+			"date": "2025-06-03",
+			"hour": 7
+		},
+		{
+			"sections": [{ "class": "1ta", "group": 2 }],
+			"type": "cancelled",
+			"consequence": "Uczniowie zwolnieni do domu",
+			"teacher": { "firstName": "Aneta", "lastName": "Oryszewska" },
+			"date": "2025-06-03",
+			"hour": 8
+		},
+		{
+			"sections": [{ "class": "3lb" }],
+			"type": "cancelled",
+			"consequence": "Uczniowie przychodzą później",
+			"teacher": { "firstName": "Tomasz", "lastName": "Pawlak" },
+			"date": "2025-06-03",
+			"hour": 2
+		},
+		{
+			"sections": [{ "class": "3MKo" }],
+			"type": "cancelled",
+			"consequence": "Uczniowie przychodzą później",
+			"teacher": { "firstName": "Tomasz", "lastName": "Pawlak" },
+			"date": "2025-06-03",
+			"hour": 3
+		},
+		{
+			"sections": [{ "class": "3MKo" }],
+			"type": "cancelled",
+			"consequence": "Uczniowie przychodzą później",
+			"teacher": { "firstName": "Tomasz", "lastName": "Pawlak" },
+			"date": "2025-06-03",
+			"hour": 4
+		},
+		{
+			"sections": [{ "class": "3tm1" }],
+			"type": "substitution",
+			"consequence": "Podstawy przedsiębiorczości",
+			"teacher": { "firstName": "Tomasz", "lastName": "Pawlak" },
+			"date": "2025-06-03",
+			"hour": 5,
+			"classroom": { "room": "303", "name": "Przedsiębiorczość" },
+			"substitutionTeacher": {
+				"firstName": "Emilia",
+				"lastName": "Cizio"
+			},
+			"note": "zaj. dor. zawodowe"
+		},
+		{
+			"sections": [{ "class": "3ld" }],
+			"type": "substitution",
+			"consequence": "Podstawy przedsiębiorczości",
+			"teacher": { "firstName": "Tomasz", "lastName": "Pawlak" },
+			"date": "2025-06-03",
+			"hour": 6,
+			"classroom": { "room": "303", "name": "Przedsiębiorczość" },
+			"substitutionTeacher": {
+				"firstName": "Emilia",
+				"lastName": "Cizio"
+			},
+			"note": "zaj. dor. zawodowe"
+		},
+		{
+			"sections": [{ "class": "1tb", "group": 1 }],
+			"type": "cancelled",
+			"consequence": "Uczniowie zwolnieni do domu",
+			"teacher": { "firstName": "Tomasz", "lastName": "Pawlak" },
+			"date": "2025-06-03",
+			"hour": 7
+		},
+		{
+			"sections": [{ "class": "3tm2", "group": 2 }],
+			"type": "substitution",
+			"consequence": "M12.1 Obsługa",
+			"teacher": { "firstName": "Małgorzata", "lastName": "Bolimowska" },
+			"date": "2025-06-04",
+			"hour": 3,
+			"classroom": { "room": "19", "name": "Mechatronika" },
+			"substitutionTeacher": { "firstName": "Marek", "lastName": "Bora" }
+		},
+		{
+			"sections": [{ "class": "3tm2", "group": 2 }],
+			"type": "substitution",
+			"consequence": "M12.1 Obsługa",
+			"teacher": { "firstName": "Małgorzata", "lastName": "Bolimowska" },
+			"date": "2025-06-04",
+			"hour": 4,
+			"classroom": { "room": "19", "name": "Mechatronika" },
+			"substitutionTeacher": { "firstName": "Marek", "lastName": "Bora" }
+		},
+		{
+			"sections": [{ "class": "3tm2", "group": 2 }],
+			"type": "substitution",
+			"consequence": "M12.1 Obsługa",
+			"teacher": { "firstName": "Małgorzata", "lastName": "Bolimowska" },
+			"date": "2025-06-04",
+			"hour": 5,
+			"classroom": { "room": "19", "name": "Mechatronika" },
+			"substitutionTeacher": { "firstName": "Marek", "lastName": "Bora" }
+		},
+		{
+			"sections": [{ "class": "1tb" }],
+			"type": "substitution",
+			"consequence": "Zajęcia z wychowawcą",
+			"teacher": { "firstName": "Daniel", "lastName": "Dąber" },
+			"date": "2025-06-04",
+			"hour": 4,
+			"classroom": { "room": "209", "name": "Matematyka" },
+			"substitutionTeacher": {
+				"firstName": "Emilia",
+				"lastName": "Cizio"
+			},
+			"note": "zaj dor. zawodowe"
+		},
+		{
+			"sections": [{ "class": "3tb", "group": 1 }],
+			"type": "cancelled",
+			"consequence": "Czytelnia",
+			"teacher": { "firstName": "Daniel", "lastName": "Dąber" },
+			"date": "2025-06-04",
+			"hour": 7
+		},
+		{
+			"sections": [{ "class": "3tb", "group": 1 }],
+			"type": "cancelled",
+			"consequence": "Uczniowie zwolnieni do domu",
+			"teacher": { "firstName": "Daniel", "lastName": "Dąber" },
+			"date": "2025-06-04",
+			"hour": 8
+		},
+		{
+			"sections": [{ "class": "3tb", "group": 1 }],
+			"type": "cancelled",
+			"consequence": "Uczniowie zwolnieni do domu",
+			"teacher": { "firstName": "Daniel", "lastName": "Dąber" },
+			"date": "2025-06-04",
+			"hour": 9
+		},
+		{
+			"sections": [{ "class": "1tm", "group": 1 }],
+			"type": "no_consequence",
+			"consequence": "Bez konsekwencji (nieobecny oddział nauczyciela)",
+			"teacher": { "firstName": "Marta", "lastName": "Łukasiak" },
+			"date": "2025-06-04",
+			"hour": 1
+		},
+		{
+			"sections": [{ "class": "3lc", "group": 2 }],
+			"type": "cancelled",
+			"consequence": "Czytelnia",
+			"teacher": { "firstName": "Marta", "lastName": "Łukasiak" },
+			"date": "2025-06-04",
+			"hour": 3
+		},
+		{
+			"sections": [{ "class": "2la", "group": 1 }],
+			"type": "cancelled",
+			"consequence": "Uczniowie zwolnieni do domu",
+			"teacher": { "firstName": "Marta", "lastName": "Łukasiak" },
+			"date": "2025-06-04",
+			"hour": 7
+		},
+		{
+			"sections": [{ "class": "2la", "group": 1 }],
+			"type": "cancelled",
+			"consequence": "Uczniowie zwolnieni do domu",
+			"teacher": { "firstName": "Marta", "lastName": "Łukasiak" },
+			"date": "2025-06-04",
+			"hour": 8
+		},
+		{
+			"sections": [{ "class": "1tm", "group": 2 }],
+			"type": "no_consequence",
+			"consequence": "Bez konsekwencji (nieobecny oddział nauczyciela)",
+			"teacher": { "firstName": "Marta", "lastName": "Łukasiak" },
+			"date": "2025-06-04",
+			"hour": 9
+		},
+		{
+			"sections": [{ "class": "3tc", "group": 2 }],
+			"type": "cancelled",
+			"consequence": "Uczniowie przychodzą później",
+			"teacher": { "firstName": "Mariusz", "lastName": "Mołodowiec" },
+			"date": "2025-06-04",
+			"hour": 1
+		},
+		{
+			"sections": [{ "class": "3tc", "group": 1 }],
+			"type": "cancelled",
+			"consequence": "Uczniowie przychodzą później",
+			"teacher": { "firstName": "Mariusz", "lastName": "Mołodowiec" },
+			"date": "2025-06-04",
+			"hour": 2
+		},
+		{
+			"sections": [{ "class": "3tm1" }],
+			"type": "moved",
+			"consequence": "Czytelnia",
+			"teacher": { "firstName": "Aleksandra", "lastName": "Szemet" },
+			"date": "2025-06-02",
+			"hour": 1,
+			"note": "Przeniesione na 2 lekcję",
+			"generated": true
+		},
+		{
+			"sections": [{ "class": "3lc" }],
+			"type": "moved",
+			"consequence": "Czytelnia",
+			"teacher": { "firstName": "Ewelina", "lastName": "Dobrzańska" },
+			"date": "2025-06-02",
+			"hour": 2,
+			"note": "Przeniesione na 3 lekcję",
+			"generated": true
+		}
+	]
+}

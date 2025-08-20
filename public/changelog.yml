@@ -1,0 +1,19 @@
+- version: 1.1.0-alpha.0
+  date: 2025-08-19
+  changes:
+      - Ulepszono widok filtrów.
+      - Zaktualizowano widok pozycji w planie z wieloma lekcjami na raz.
+      - Dodano nowe animacje.
+      - Dodano ekran ładowania strony.
+      - Usprawniono działanie ulubionych planów.
+      - Usunięto rozmycie w celu optymalizacji.
+
+- version: 1.0.2
+  date: 2025-08-16
+  changes:
+      - Dodano stopkę na dole strony z informacjami o wersjach
+
+- version: 1.0.0
+  date: 2025-06-21
+  changes:
+      - Pierwsze pełne wydanie

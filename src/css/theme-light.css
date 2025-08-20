@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+:root {
+	--background: #f0f0f0;
+	--background-secondary: #ffffff;
+	--background-tertiary: #cfcfcf;
+
+	--background-dropdown: #f0f0f0;
+
+	--background-inverse: #212124;
+	--background-inverse-secondary: #323235;
+	--background-inverse-tertiary: #454549;
+
+	--foreground: #171717;
+	--foreground-secondary: #4d4d4d;
+	--foreground-tertiary: #9a9a9a;
+
+	--foreground-inverse: #ededed;
+	--foreground-inverse-secondary: #cccccc;
+	--foreground-inverse-tertiary: #9a9a9a;
+
+	--notification: #ee3040;
+	--deny: #dc2626;
+	--accept: #51bc61;
+	--warning: #ffca58;
+	--info: #708fdf;
+
+	--deny-inverse: #ee4e51;
+
+	--change-cancelled: var(--deny);
+	--change-cancelled-bg: #f1c6c6;
+
+	--change-substitution: var(--warning);
+	--change-substitution-bg: #f7e7c8;
+
+	--change-moved: #e66eb4;
+	--change-moved-bg: #f3c4e5;
+
+	--error: var(--deny);
+
+	--cerasus-blue: #2d69da;
+	--cherry: #dd4886;
+	--yellow: #dabe23;
+	--orange: #eb7e25;
+	--green: #1d9631;
+	--purple: #9431bb;
+	--red: #da2222;
+	--sea: #2eb89a;
+
+	--cerasus-blue-inverse: #9accfc;
+	--cherry-inverse: #ff80b5;
+
+	--login-shadow: 2px 3px 7px 0 #00000025;
+	--profile-button-shadow: 0 0 5px 0 #ffffff25;
+
+	--scrollbar-track: var(--color-gray-300);
+	--scrollbar-thumb: var(--color-gray-400);
+	--scrollbar-thumb-hover: var(--color-gray-500);
+}

@@ -1,0 +1,723 @@
+{
+	"apiVersion": "2.2",
+	"classes": [
+		"1la",
+		"1lb",
+		"2la",
+		"2lb",
+		"2lc",
+		"3la",
+		"3lb",
+		"3lc",
+		"3ld",
+		"1ta",
+		"1tb",
+		"1tc",
+		"1tm",
+		"2ta",
+		"2tb",
+		"2tc",
+		"2tm",
+		"3ta",
+		"3tb",
+		"3tc",
+		"3tm1",
+		"3tm2",
+		"2MOk",
+		"2FJu",
+		"2NŻu",
+		"2SKa",
+		"3KAd",
+		"3ZJe",
+		"3PBl",
+		"3LSt",
+		"3JZa",
+		"3MKo",
+		"3TNi",
+		"3MKa",
+		"3FPa",
+		"3PBu",
+		"3MNo"
+	],
+	"teachers": [
+		{
+			"firstName": "K",
+			"lastName": "Anulewicz-Kujawiak",
+			"initials": "An",
+			"index": 103
+		},
+		{
+			"firstName": "H",
+			"lastName": "Atkonis",
+			"initials": "HA",
+			"index": 7
+		},
+		{
+			"firstName": "M",
+			"lastName": "Bachowski",
+			"initials": "Bh",
+			"index": 87
+		},
+		{
+			"firstName": "R",
+			"lastName": "Bańkowska",
+			"initials": "Ba",
+			"index": 28
+		},
+		{
+			"firstName": "A",
+			"lastName": "Berkman",
+			"initials": "AS",
+			"index": 68
+		},
+		{
+			"firstName": "E",
+			"lastName": "Biaduń",
+			"initials": "EB",
+			"index": 53
+		},
+		{
+			"firstName": "E",
+			"lastName": "Biaduń",
+			"initials": "B2",
+			"index": 54
+		},
+		{
+			"firstName": "M",
+			"lastName": "Bolimowska",
+			"initials": "BM",
+			"index": 89
+		},
+		{ "firstName": "M", "lastName": "Bora", "initials": "Bk", "index": 90 },
+		{
+			"firstName": "M",
+			"lastName": "Borodulia",
+			"initials": "Bo",
+			"index": 69
+		},
+		{
+			"firstName": "K",
+			"lastName": "Borowska",
+			"initials": "AB",
+			"index": 3
+		},
+		{
+			"firstName": "K",
+			"lastName": "Burda",
+			"initials": "KB",
+			"index": 109
+		},
+		{
+			"firstName": "B",
+			"lastName": "Całka",
+			"initials": "CB",
+			"index": 66
+		},
+		{
+			"firstName": "Z",
+			"lastName": "Całka",
+			"initials": "ZC",
+			"index": 91
+		},
+		{ "firstName": "E", "lastName": "Cizio", "initials": "EC", "index": 6 },
+		{
+			"firstName": "M",
+			"lastName": "Dancewicz-Gajda",
+			"initials": "MD",
+			"index": 48
+		},
+		{
+			"firstName": "K",
+			"lastName": "Daniluk",
+			"initials": "KD",
+			"index": 104
+		},
+		{
+			"firstName": "D",
+			"lastName": "Dąber",
+			"initials": "D2",
+			"index": 71
+		},
+		{
+			"firstName": "D",
+			"lastName": "Dąber",
+			"initials": "DD",
+			"index": 70
+		},
+		{
+			"firstName": "E",
+			"lastName": "Dobrzańska",
+			"initials": "ED",
+			"index": 29
+		},
+		{
+			"firstName": "K",
+			"lastName": "Dołomisiewicz",
+			"initials": "K2",
+			"index": 16
+		},
+		{
+			"firstName": "K",
+			"lastName": "Dołomisiewicz",
+			"initials": "Ja",
+			"index": 14
+		},
+		{
+			"firstName": "K",
+			"lastName": "Dołomisiewicz",
+			"initials": "DK",
+			"index": 15
+		},
+		{
+			"firstName": "S",
+			"lastName": "Dorożko",
+			"initials": "SD",
+			"index": 33
+		},
+		{
+			"firstName": "J",
+			"lastName": "Gawiński",
+			"initials": "JG",
+			"index": 105
+		},
+		{
+			"firstName": "M",
+			"lastName": "Giermakowska",
+			"initials": "MG",
+			"index": 34
+		},
+		{
+			"firstName": "M",
+			"lastName": "Grązka",
+			"initials": "Gz",
+			"index": 92
+		},
+		{
+			"firstName": "I",
+			"lastName": "Grudzień",
+			"initials": "I2",
+			"index": 37
+		},
+		{
+			"firstName": "I",
+			"lastName": "Grudzień",
+			"initials": "IG",
+			"index": 36
+		},
+		{
+			"firstName": "W",
+			"lastName": "Gruszka",
+			"initials": "WG",
+			"index": 55
+		},
+		{
+			"firstName": "W",
+			"lastName": "Gruszka",
+			"initials": "G2",
+			"index": 56
+		},
+		{
+			"firstName": "E",
+			"lastName": "Jaskólska",
+			"initials": "J2",
+			"index": 39
+		},
+		{
+			"firstName": "E",
+			"lastName": "Jaskólska",
+			"initials": "EJ",
+			"index": 38
+		},
+		{
+			"firstName": "S",
+			"lastName": "Jezioro",
+			"initials": "SJ",
+			"index": 106
+		},
+		{
+			"firstName": "A",
+			"lastName": "Jones",
+			"initials": "AJ",
+			"index": 18
+		},
+		{
+			"firstName": "Z",
+			"lastName": "Kafarowska",
+			"initials": "ZK",
+			"index": 31
+		},
+		{
+			"firstName": "A",
+			"lastName": "Kamińska",
+			"initials": "AK",
+			"index": 17
+		},
+		{
+			"firstName": "J",
+			"lastName": "Kamola-Okońska",
+			"initials": "JK",
+			"index": 2
+		},
+		{
+			"firstName": "K",
+			"lastName": "Kantor",
+			"initials": "Kn",
+			"index": 72
+		},
+		{
+			"firstName": "S",
+			"lastName": "Kasprzak",
+			"initials": "SK",
+			"index": 1
+		},
+		{
+			"firstName": "P",
+			"lastName": "Kobiałka",
+			"initials": "KP",
+			"index": 73
+		},
+		{ "firstName": "J", "lastName": "Koss", "initials": "Jc", "index": 94 },
+		{
+			"firstName": "J",
+			"lastName": "Kossakowska",
+			"initials": "Kk",
+			"index": 19
+		},
+		{
+			"firstName": "J",
+			"lastName": "Kozłowska",
+			"initials": "KJ",
+			"index": 58
+		},
+		{
+			"firstName": "M",
+			"lastName": "Krakoś",
+			"initials": "MK",
+			"index": 40
+		},
+		{
+			"firstName": "W",
+			"lastName": "Krużel",
+			"initials": "WK",
+			"index": 74
+		},
+		{
+			"firstName": "M",
+			"lastName": "Książczyk",
+			"initials": "KM",
+			"index": 75
+		},
+		{
+			"firstName": "R",
+			"lastName": "Kukla",
+			"initials": "KR",
+			"index": 41
+		},
+		{
+			"firstName": "M",
+			"lastName": "Liszewska",
+			"initials": "Li",
+			"index": 30
+		},
+		{
+			"firstName": "A",
+			"lastName": "Łasiuk",
+			"initials": "ŁA",
+			"index": 76
+		},
+		{
+			"firstName": "M",
+			"lastName": "Łukasiak",
+			"initials": "MŁ",
+			"index": 59
+		},
+		{
+			"firstName": "A",
+			"lastName": "Łukaszewicz",
+			"initials": "AŁ",
+			"index": 60
+		},
+		{
+			"firstName": "A",
+			"lastName": "Maciejczyk",
+			"initials": "AM",
+			"index": 8
+		},
+		{
+			"firstName": "P",
+			"lastName": "Malinowski",
+			"initials": "Ma",
+			"index": 61
+		},
+		{
+			"firstName": "R",
+			"lastName": "Markiewicz",
+			"initials": "RM",
+			"index": 96
+		},
+		{
+			"firstName": "D",
+			"lastName": "Męczkowski",
+			"initials": "Mc",
+			"index": 97
+		},
+		{
+			"firstName": "M",
+			"lastName": "Mołodowiec",
+			"initials": "Mo",
+			"index": 62
+		},
+		{
+			"firstName": "D",
+			"lastName": "Moreno Garcia",
+			"initials": "DM",
+			"index": 32
+		},
+		{
+			"firstName": "J",
+			"lastName": "Naumczuk",
+			"initials": "JN",
+			"index": 49
+		},
+		{
+			"firstName": "Z",
+			"lastName": "Niedbała",
+			"initials": "ZN",
+			"index": 4
+		},
+		{
+			"firstName": "K",
+			"lastName": "Okraszewski",
+			"initials": "KO",
+			"index": 102
+		},
+		{
+			"firstName": "E",
+			"lastName": "Olszewska",
+			"initials": "EO",
+			"index": 63
+		},
+		{
+			"firstName": "A",
+			"lastName": "Oryszewska",
+			"initials": "AO",
+			"index": 64
+		},
+		{
+			"firstName": "M",
+			"lastName": "Osińska",
+			"initials": "O2",
+			"index": 10
+		},
+		{
+			"firstName": "M",
+			"lastName": "Osińska",
+			"initials": "OM",
+			"index": 9
+		},
+		{
+			"firstName": "T",
+			"lastName": "Pawełek",
+			"initials": "PT",
+			"index": 35
+		},
+		{
+			"firstName": "T",
+			"lastName": "Pawlak",
+			"initials": "TP",
+			"index": 50
+		},
+		{
+			"firstName": "M",
+			"lastName": "Piotrowska",
+			"initials": "MP",
+			"index": 27
+		},
+		{
+			"firstName": "M",
+			"lastName": "Piskorska",
+			"initials": "ML",
+			"index": 42
+		},
+		{
+			"firstName": "M",
+			"lastName": "Polak",
+			"initials": "PM",
+			"index": 78
+		},
+		{
+			"firstName": "B",
+			"lastName": "Pożarska",
+			"initials": "PB",
+			"index": 107
+		},
+		{
+			"firstName": "E",
+			"lastName": "Prajsnar",
+			"initials": "EP",
+			"index": 79
+		},
+		{
+			"firstName": "L",
+			"lastName": "Pyzik",
+			"initials": "LP",
+			"index": 80
+		},
+		{
+			"firstName": "M",
+			"lastName": "Roguska",
+			"initials": "MR",
+			"index": 81
+		},
+		{
+			"firstName": "M",
+			"lastName": "Romankiewicz-Pawełek",
+			"initials": "RP",
+			"index": 13
+		},
+		{
+			"firstName": "J",
+			"lastName": "Różański",
+			"initials": "RJ",
+			"index": 82
+		},
+		{
+			"firstName": "E",
+			"lastName": "Rułan",
+			"initials": "ER",
+			"index": 83
+		},
+		{
+			"firstName": "M",
+			"lastName": "Rymarczyk",
+			"initials": "Ry",
+			"index": 84
+		},
+		{
+			"firstName": "P",
+			"lastName": "Sienkiewicz",
+			"initials": "PS",
+			"index": 43
+		},
+		{
+			"firstName": "M",
+			"lastName": "Sierańska",
+			"initials": "Si",
+			"index": 20
+		},
+		{
+			"firstName": "M",
+			"lastName": "Skoraczewski",
+			"initials": "Sc",
+			"index": 44
+		},
+		{
+			"firstName": "M",
+			"lastName": "Skrodzki",
+			"initials": "MS",
+			"index": 85
+		},
+		{
+			"firstName": "K",
+			"lastName": "Sławińska",
+			"initials": "KS",
+			"index": 108
+		},
+		{
+			"firstName": "A",
+			"lastName": "Sokół",
+			"initials": "A2",
+			"index": 46
+		},
+		{
+			"firstName": "A",
+			"lastName": "Sokół",
+			"initials": "Ag",
+			"index": 45
+		},
+		{
+			"firstName": "M",
+			"lastName": "Stasiewicz",
+			"initials": "SM",
+			"index": 47
+		},
+		{
+			"firstName": "R",
+			"lastName": "Strzelec-Polit",
+			"initials": "SR",
+			"index": 21
+		},
+		{
+			"firstName": "A",
+			"lastName": "Szemet",
+			"initials": "S2",
+			"index": 52
+		},
+		{
+			"firstName": "A",
+			"lastName": "Szemet",
+			"initials": "SA",
+			"index": 51
+		},
+		{
+			"firstName": "A",
+			"lastName": "Szyndler",
+			"initials": "SZ",
+			"index": 11
+		},
+		{
+			"firstName": "J",
+			"lastName": "Szyszko",
+			"initials": "Sy",
+			"index": 99
+		},
+		{
+			"firstName": "K",
+			"lastName": "Talmont",
+			"initials": "T2",
+			"index": 23
+		},
+		{
+			"firstName": "K",
+			"lastName": "Talmont",
+			"initials": "KT",
+			"index": 22
+		},
+		{
+			"firstName": "R",
+			"lastName": "Tomaszewski",
+			"initials": "TR",
+			"index": 86
+		},
+		{
+			"firstName": "W",
+			"lastName": "Topolewska",
+			"initials": "WT",
+			"index": 12
+		},
+		{
+			"firstName": "M",
+			"lastName": "Traczyńska",
+			"initials": "Tn",
+			"index": 57
+		},
+		{
+			"firstName": "B",
+			"lastName": "Walczak",
+			"initials": "BW",
+			"index": 110
+		},
+		{
+			"firstName": "M",
+			"lastName": "Werbińska",
+			"initials": "We",
+			"index": 24
+		},
+		{
+			"firstName": "R",
+			"lastName": "Węglarz",
+			"initials": "RW",
+			"index": 65
+		},
+		{
+			"firstName": "A",
+			"lastName": "Wolski",
+			"initials": "WA",
+			"index": 67
+		},
+		{
+			"firstName": "A",
+			"lastName": "Wrona",
+			"initials": "AW",
+			"index": 100
+		},
+		{
+			"firstName": "M",
+			"lastName": "Wysokińska",
+			"initials": "W2",
+			"index": 26
+		},
+		{
+			"firstName": "M",
+			"lastName": "Wysokińska",
+			"initials": "MW",
+			"index": 25
+		},
+		{
+			"firstName": "E",
+			"lastName": "Zdończyk",
+			"initials": "ZE",
+			"index": 5
+		}
+	],
+	"classrooms": [
+		{ "room": "10", "name": "" },
+		{ "room": "11", "name": "Mechatronika" },
+		{ "room": "12", "name": "Mechatronika" },
+		{ "room": "17", "name": "Informatyka" },
+		{ "room": "18", "name": "CISCO" },
+		{ "room": "19", "name": "Mechatronika" },
+		{ "room": "110", "name": "Mechatronika" },
+		{ "room": "111", "name": "Informatyka" },
+		{ "room": "116", "name": "Język angielski" },
+		{ "room": "119", "name": "Mechatronika" },
+		{ "room": "120", "name": "Mechatronika" },
+		{ "room": "121", "name": "CAD" },
+		{ "room": "123", "name": "Język polski" },
+		{ "room": "124", "name": "Jezyk angielski" },
+		{ "room": "125", "name": "Język angielski" },
+		{ "room": "127", "name": "Informatyka" },
+		{ "room": "129", "name": "Mechatronika" },
+		{ "room": "130", "name": "Mechatronika" },
+		{ "room": "200", "name": "Język polski" },
+		{ "room": "201", "name": "Język polski" },
+		{ "room": "205", "name": "Język angielski" },
+		{ "room": "207", "name": "Język polski" },
+		{ "room": "208", "name": "Język polski" },
+		{ "room": "209", "name": "Matematyka" },
+		{ "room": "212", "name": "Matematyka" },
+		{ "room": "213", "name": "Matematyka" },
+		{ "room": "300", "name": "Informatyka" },
+		{ "room": "301", "name": "Informatyka" },
+		{ "room": "302", "name": "Programowanie" },
+		{ "room": "303", "name": "Przedsiębiorczość" },
+		{ "room": "303a", "name": "Języki obce" },
+		{ "room": "304", "name": "Informatyka" },
+		{ "room": "305", "name": "Informatyka" },
+		{ "room": "306", "name": "Matematyka" },
+		{ "room": "308", "name": "Język hiszpański" },
+		{ "room": "309", "name": "Matematyka" },
+		{ "room": "310", "name": "Wiedza o społeczeństwie" },
+		{ "room": "311", "name": "Geografia" },
+		{ "room": "313", "name": "Historia" },
+		{ "room": "314", "name": "Języki obce" },
+		{ "room": "315", "name": "Języki obce" },
+		{ "room": "316", "name": "Języki obce" },
+		{ "room": "317", "name": "Języki obce" },
+		{ "room": "318", "name": "Języki obce" },
+		{ "room": "319", "name": "Języki obce" },
+		{ "room": "320", "name": "Języki obce" },
+		{ "room": "400", "name": "Informatyka" },
+		{ "room": "401", "name": "Informatyka" },
+		{ "room": "402", "name": "Historia" },
+		{ "room": "403", "name": "Matematyka" },
+		{ "room": "403a", "name": "Języki obce" },
+		{ "room": "404", "name": "Biologia" },
+		{ "room": "404a", "name": "Języki obce" },
+		{ "room": "406", "name": "Chemia" },
+		{ "room": "407", "name": "Fizyka" },
+		{ "room": "409", "name": "Religia" },
+		{ "room": "410", "name": "Fizyka" },
+		{ "room": "411", "name": "Matematyka" },
+		{ "room": "412", "name": "Systemy serwerowe" },
+		{
+			"room": "413",
+			"name": "Projektowanie sieci LAN i systemy serwerowe"
+		},
+		{ "room": "417", "name": "Języki obce" },
+		{ "room": "Z1", "name": "Mechatronika" },
+		{ "room": "Z2", "name": "Mechatronika" },
+		{ "room": "POM", "name": "Budynek B pomiary" },
+		{ "room": "LUT", "name": "Budynek B lutowanie" }
+	]
+}

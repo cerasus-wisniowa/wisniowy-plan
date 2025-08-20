@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+[data-theme="dark"] {
+	--background: #131313;
+	--background-secondary: #212124;
+	--background-tertiary: #323235;
+
+	--background-dropdown: #2b2b2d;
+	--background-inverse: #ffffff;
+	--background-inverse-secondary: #e0e0e0;
+
+	--foreground: #ededed;
+	--foreground-secondary: #cccccc;
+	--foreground-tertiary: #9a9a9a;
+
+	--foreground-inverse: #171717;
+	--foreground-inverse-secondary: #4d4d4d;
+	--foreground-inverse-tertiary: #9a9a9a;
+
+	--notification: #ee3040;
+	--deny: #ee4e51;
+	--accept: #51bc61;
+	--warning: #ffca58;
+	--info: #708fdf;
+
+	--change-cancelled: var(--deny);
+	--change-cancelled-bg: #571818;
+
+	--change-substitution: var(--warning);
+	--change-substitution-bg: rgb(71, 51, 14);
+
+	--change-moved: #d85084;
+	--change-moved-bg: #53142c;
+
+	--error: var(--deny);
+
+	--cerasus-blue: #9accfc;
+	--cherry: #ff80b5;
+	--yellow: #ffcd60;
+	--orange: #ffa048;
+	--green: #6bdb7e;
+	--purple: #d67ef8;
+	--red: #ff5959;
+	--sea: #bef0db;
+
+	--cerasus-blue-inverse: #2d69da;
+	--cherry-inverse: #ce5789;
+
+	--scrollbar-track: var(--color-neutral-700);
+	--scrollbar-thumb: var(--color-neutral-500);
+	--scrollbar-thumb-hover: var(--color-neutral-400);
+}

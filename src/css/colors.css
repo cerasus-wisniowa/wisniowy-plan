@@ -1,0 +1,39 @@
+:root[data-color="cerasus-blue"] {
+	--theme: var(--cerasus-blue);
+	--theme-inverse: var(--cerasus-blue-inverse);
+}
+
+:root[data-color="cherry"] {
+	--theme: var(--cherry);
+	--theme-inverse: var(--cherry-inverse);
+}
+
+:root[data-color="yellow"] {
+	--theme: var(--yellow);
+	--theme-inverse: var(--yellow-inverse);
+}
+
+:root[data-color="orange"] {
+	--theme: var(--orange);
+	--theme-inverse: var(--orange-inverse);
+}
+
+:root[data-color="green"] {
+	--theme: var(--green);
+	--theme-inverse: var(--green-inverse);
+}
+
+:root[data-color="purple"] {
+	--theme: var(--purple);
+	--theme-inverse: var(--purple-inverse);
+}
+
+:root[data-color="red"] {
+	--theme: var(--red);
+	--theme-inverse: var(--red-inverse);
+}
+
+:root[data-color="sea"] {
+	--theme: var(--sea);
+	--theme-inverse: var(--sea-inverse);
+}

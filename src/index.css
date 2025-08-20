@@ -1,0 +1,113 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+@import "tailwindcss";
+
+@import "./css/theme-light.css";
+@import "./css/theme-dark.css";
+@import "./css/colors.css";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+@custom-variant cerasus-blue (&:where([data-color="cerasus-blue"], [data-color="cerasus-blue"] *));
+
+@theme {
+	--color-background: var(--background);
+	--color-background-secondary: var(--background-secondary);
+	--color-background-tertiary: var(--background-tertiary);
+
+	--color-background-dropdown: var(--background-dropdown);
+
+	--color-background-inverse: var(--background-inverse);
+	--color-background-inverse-secondary: var(--background-inverse-secondary);
+	--color-background-inverse-tertiary: var(--background-inverse-tertiary);
+
+	--color-foreground: var(--foreground);
+	--color-foreground-secondary: var(--foreground-secondary);
+	--color-foreground-tertiary: var(--foreground-tertiary);
+
+	--color-foreground-inverse: var(--foreground-inverse);
+	--color-foreground-inverse-secondary: var(--foreground-inverse-secondary);
+	--color-foreground-inverse-tertiary: var(--foreground-inverse-tertiary);
+
+	--color-navbar: var(--navbar-background);
+	--color-sidebar: var(--sidebar-background);
+	--color-borders: var(--border);
+	--color-error: var(--error);
+
+	--color-accept: var(--accept);
+	--color-deny: var(--deny);
+	--color-info: var(--info);
+	--color-warning: var(--warning);
+
+	--color-deny-inverse: var(--deny-inverse);
+
+	--color-change-substitution: var(--change-substitution);
+	--color-change-substitution-bg: var(--change-substitution-bg);
+
+	--color-change-cancelled: var(--change-cancelled);
+	--color-change-cancelled-bg: var(--change-cancelled-bg);
+
+	--color-change-moved: var(--change-moved);
+	--color-change-moved-bg: var(--change-moved-bg);
+
+	--color-theme: var(--theme);
+	--color-theme-inverted: var(--theme-inverse);
+
+	--color-cerasus-blue: var(--cerasus-blue);
+	--color-cherry: var(--cherry);
+	--color-yellow: var(--yellow);
+	--color-orange: var(--orange);
+	--color-green: var(--green);
+	--color-purple: var(--purple);
+	--color-red: var(--red);
+	--color-sea: var(--sea);
+
+	--color-cerasus-blue-inverse: var(--cerasus-blue-inverse);
+	--color-cherry-inverse: var(--cherry-inverse);
+
+	--color-sidebar-button: var(--sidebar-button-background);
+	--color-sidebar-button-hover: var(--sidebar-button-background-hover);
+
+	--text-1_5xl: 1.375rem;
+	--text-md: 1rem;
+
+	--margin-2_25: 0.5625rem;
+
+	--radius-standard: 1.125rem;
+
+	--shadow-section: 0 0 5px 0 var(--background-shadow);
+	--shadow-login: var(--login-shadow);
+	--shadow-navbar: 0 0 5px 0 #00000010;
+	--shadow-profile-button: var(--profile-button-shadow);
+
+	--animate-pulse-size: pulse-size 2s cubic-bezier(0.4, 0.2, 0.4, 0.8)
+		infinite;
+	--animate-expand-down: expand-down 250ms cubic-bezier(0.42, 0, 0.58, 1) 1;
+	--animate-collapse-up: collapse-up 250ms cubic-bezier(0.42, 0, 0.58, 1) 1;
+
+	--breakpoint-pc: 72rem;
+}
+
+body {
+	color: var(--foreground);
+	background: var(--background);
+	font-family: "Roboto", Arial, Helvetica, sans-serif;
+}
+
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+::-webkit-scrollbar-track {
+	background: var(--scrollbar-track);
+	border-radius: 12rem;
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--scrollbar-thumb);
+	border-radius: 12rem;
+	transition-duration: 100ms;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: var(--scrollbar-thumb-hover);
+}
