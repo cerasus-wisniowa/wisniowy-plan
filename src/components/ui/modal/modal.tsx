@@ -1,7 +1,6 @@
 import { Modal as RestartModal, Button } from "@restart/ui";
 import { motion, stagger, type Variants } from "motion/react";
 import type React from "react";
-import { useRef } from "react";
 
 type ModalParams = {
 	show: boolean;
