@@ -1,5 +1,5 @@
 import { useChanges } from "../../components/context/changes-provider";
-import TablePage from "../../components/page/table-page";
+import TablePage from "../../layout/table-page";
 import Spinner from "../../components/ui/spinner";
 import Error from "../../assets/icons/error.svg?react";
 import type { Teacher } from "../../lib/definitions/teacher";
@@ -14,29 +14,25 @@ export default function ZastepstwaRoute() {
 
 	if (loading)
 		return (
-			<TablePage>
-				<div className="w-full h-96 content-center">
-					<Spinner className="self-center mx-auto" />
-					<div className="w-full text-center mt-2 text-xl">
-						Ładowanie zastępstw
-					</div>
+			<div className="w-full h-96 content-center">
+				<Spinner className="self-center mx-auto" />
+				<div className="w-full text-center mt-2 text-xl">
+					Ładowanie zastępstw
 				</div>
-			</TablePage>
+			</div>
 		);
 	if (error)
 		return (
-			<TablePage>
-				<div className="w-full h-96 content-center">
-					<Error
-						width={42}
-						height={42}
-						className="self-center mx-auto text-error"
-					/>
-					<div className="w-full text-center mt-2 text-xl">
-						Wystąpił błąd podczas ładowania zastępstw
-					</div>
+			<div className="w-full h-96 content-center">
+				<Error
+					width={42}
+					height={42}
+					className="self-center mx-auto text-error"
+				/>
+				<div className="w-full text-center mt-2 text-xl">
+					Wystąpił błąd podczas ładowania zastępstw
 				</div>
-			</TablePage>
+			</div>
 		);
 
 	const dates = changes!.dates.map((date) => new Date(date));
@@ -138,30 +134,28 @@ export default function ZastepstwaRoute() {
 	};
 
 	return (
-		<TablePage>
-			<div className="p-2">
-				{dates.map((date) => (
-					<Fragment key={date.toDateString()}>
-						<div
-							key={date.toDateString()}
-							className="flex flex-col mt-1 text-md"
-						>
-							<span className="text-foreground-tertiary">
-								{date.toLocaleDateString("pl-PL", {
-									day: "numeric",
-									year: "numeric",
-									month: "long",
-									weekday: "long",
-								})}
-							</span>
-							<div className="text-foreground-secondary flex flex-col gap-2">
-								<Changes date={date} />
-							</div>
+		<div className="p-2">
+			{dates.map((date) => (
+				<Fragment key={date.toDateString()}>
+					<div
+						key={date.toDateString()}
+						className="flex flex-col mt-1 text-md"
+					>
+						<span className="text-foreground-tertiary">
+							{date.toLocaleDateString("pl-PL", {
+								day: "numeric",
+								year: "numeric",
+								month: "long",
+								weekday: "long",
+							})}
+						</span>
+						<div className="text-foreground-secondary flex flex-col gap-2">
+							<Changes date={date} />
 						</div>
-						<Divider className="last:hidden my-3" style="theme" />
-					</Fragment>
-				))}
-			</div>
-		</TablePage>
+					</div>
+					<Divider className="last:hidden my-3" style="theme" />
+				</Fragment>
+			))}
+		</div>
 	);
 }

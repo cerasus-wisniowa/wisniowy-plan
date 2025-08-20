@@ -20,7 +20,7 @@ export default function ApiProvider({
 	const [success, setSuccess] = useState<boolean>(false);
 
 	useEffect(() => {
-		if (api || loading) return;
+		if (api || !loading) return;
 		fetch(config.api + "/api")
 			.then((res) => {
 				if (!res.ok) {

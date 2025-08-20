@@ -11,6 +11,8 @@ import "./index.css";
 import Providers from "./components/context/providers";
 import type { Route } from "./+types/root";
 import Spinner from "./components/ui/spinner";
+import Navbar from "./components/navbar/navbar";
+import Footer from "./components/footer/footer";
 
 export const links: Route.LinksFunction = () => [
 	{ rel: "icon", type: "image/png", href: "/icon.png" },
@@ -66,7 +68,15 @@ export function HydrateFallback() {
 export default function App() {
 	return (
 		<Providers>
-			<Outlet />
+			<div className="flex flex-col justify-between gap-2 min-h-screen bg-background">
+				<div className="text-lg mx-1">
+					<Navbar />
+					<div className="mx-1 pc:mx-auto pc:w-[95%] p-4">
+						<Outlet />
+					</div>
+				</div>
+				<Footer />
+			</div>
 		</Providers>
 	);
 }

@@ -1,5 +1,5 @@
 import { Suspense, useEffect, useState } from "react";
-import TablePage from "../../components/page/table-page";
+import TablePage from "../../layout/table-page";
 import PlanTable from "../../components/plan/plan-table";
 import { type PlanFilters } from "../../components/plan/header/filters/filters";
 import WeekNavigationButton from "../../components/plan/nav/week-navigation-button";
@@ -180,99 +180,95 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 					</motion.div>
 				</Modal>
 			)}
-			<TablePage>
-				<div className="flex flex-col gap-2">
-					<div className="flex gap-4 justify-between">
-						<div className="flex gap-4 not-pc:justify-between w-full">
-							<PlanListDropdown />
-							{width >= pcWidth && hasFilters && (
-								<div className="flex gap-4 not-pc:hidden">
-									{found && (
-										<div className="flex gap-x-6 gap-y-1 self-center flex-wrap">
-											<Filters
-												filters={filters}
-												setFilters={setFilters}
-												plan={plan}
-											/>
-										</div>
-									)}
-								</div>
-							)}
-							{hasFilters && (
-								<Button
-									onClick={() => setMobileFilters(true)}
-									className="pc:hidden bg-background text-foreground-secondary hover:text-theme cursor-pointer rounded-xl h-fit p-1.5 self-center shadow-sm duration-100"
-								>
-									<Tune width={28} height={28} />
-								</Button>
-							)}
-						</div>
-						{width >= pcWidth && plan?.type === "class" && (
-							<ResetFilters className="rounded-xl" />
+			<div className="flex flex-col gap-2">
+				<div className="flex gap-4 justify-between">
+					<div className="flex gap-4 not-pc:justify-between w-full">
+						<PlanListDropdown />
+						{width >= pcWidth && hasFilters && (
+							<div className="flex gap-4 not-pc:hidden">
+								{found && (
+									<div className="flex gap-x-6 gap-y-1 self-center flex-wrap">
+										<Filters
+											filters={filters}
+											setFilters={setFilters}
+											plan={plan}
+										/>
+									</div>
+								)}
+							</div>
+						)}
+						{hasFilters && (
+							<Button
+								onClick={() => setMobileFilters(true)}
+								className="pc:hidden bg-background text-foreground-secondary hover:text-theme cursor-pointer rounded-xl h-fit p-1.5 self-center shadow-sm duration-100"
+							>
+								<Tune width={28} height={28} />
+							</Button>
 						)}
 					</div>
-					{width >= pcWidth ? (
-						<div className="flex justify-between w-full not-pc:hidden">
-							<div className="text-foreground-secondary text-xl self-center flex gap-3">
-								<span className="font-medium">
-									{planList &&
-										getPlanName(
-											query.name,
-											query.type,
-											planList
-										)}
-								</span>
-								<span>{getMonthsSpanString(week, 5)}</span>
-							</div>
-							<div className="self-end">
-								<nav className="flex justify-end gap-2">
-									<WeekNavigationButton type={"backward"} />
-									<WeekNavigationButton type={"forward"} />
-								</nav>
-							</div>
-						</div>
-					) : (
-						<MobileWeekNavigation />
+					{width >= pcWidth && plan?.type === "class" && (
+						<ResetFilters className="rounded-xl" />
 					)}
-
-					{changesLoading && (
-						<div className="flex gap-2 text-warning items-center">
-							<Warning />
-							<div>Trwa ładowanie zastępstw...</div>
-						</div>
-					)}
-					{changesError && (
-						<div className="flex gap-2 text-error items-center">
-							<Error className="" />
-							<div>Wystąpił błąd podczas ładowania zastępstw</div>
-						</div>
-					)}
-					{width >= pcWidth && <Divider style="theme" />}
-					<Suspense
-						fallback={<PlanTableLoading planName={query.name} />}
-					>
-						<div className="">
-							{plan && found ? (
-								<PlanTable plan={plan} filters={filters} />
-							) : found === null ? (
-								<PlanTableLoading planName={query.name} />
-							) : (
-								<div className="w-full min-h-96 items-center justify-center flex flex-col gap-2 py-8">
-									<Error
-										width={42}
-										height={42}
-										className="mt-6 text-error"
-									/>
-									<div className="text-xl text-foreground-secondary">
-										Nie udało się pobrać planu lekcji dla{" "}
-										{query.name}
-									</div>
-								</div>
-							)}
-						</div>
-					</Suspense>
 				</div>
-			</TablePage>
+				{width >= pcWidth ? (
+					<div className="flex justify-between w-full not-pc:hidden">
+						<div className="text-foreground-secondary text-xl self-center flex gap-3">
+							<span className="font-medium">
+								{planList &&
+									getPlanName(
+										query.name,
+										query.type,
+										planList
+									)}
+							</span>
+							<span>{getMonthsSpanString(week, 5)}</span>
+						</div>
+						<div className="self-end">
+							<nav className="flex justify-end gap-2">
+								<WeekNavigationButton type={"backward"} />
+								<WeekNavigationButton type={"forward"} />
+							</nav>
+						</div>
+					</div>
+				) : (
+					<MobileWeekNavigation />
+				)}
+
+				{changesLoading && (
+					<div className="flex gap-2 text-warning items-center">
+						<Warning />
+						<div>Trwa ładowanie zastępstw...</div>
+					</div>
+				)}
+				{changesError && (
+					<div className="flex gap-2 text-error items-center">
+						<Error className="" />
+						<div>Wystąpił błąd podczas ładowania zastępstw</div>
+					</div>
+				)}
+				{width >= pcWidth && <Divider style="theme" />}
+				<Suspense fallback={<PlanTableLoading planName={query.name} />}>
+					<div className="">
+						{plan && found ? (
+							<PlanTable plan={plan} filters={filters} />
+						) : found === null ? (
+							<PlanTableLoading planName={query.name} />
+						) : (
+							<div className="w-full min-h-96 items-center justify-center flex flex-col gap-2 py-8">
+								<Error
+									width={42}
+									height={42}
+									className="mt-6 text-error"
+								/>
+								<div className="text-xl text-foreground-secondary">
+									Nie udało się pobrać planu lekcji dla{" "}
+									{query.name}
+								</div>
+							</div>
+						)}
+					</div>
+				</Suspense>
+			</div>
 		</>
 	);
 }
