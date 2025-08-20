@@ -27,7 +27,7 @@ export default function ChangelogModal({
 			{changelog.map((release, i) => (
 				<motion.div
 					variants={releaseVariants}
-					initial={{ y: 10, opacity: 0 }}
+					initial={{ originY: 10, opacity: 0 }}
 					key={release.version}
 					className="flex flex-col text-start gap-1 h-full px-4"
 				>
@@ -66,7 +66,7 @@ export default function ChangelogModal({
 
 const releaseVariants: Variants = {
 	open: {
-		y: 0,
+		originY: 0,
 		opacity: 1,
 		transition: {
 			ease: "easeInOut",

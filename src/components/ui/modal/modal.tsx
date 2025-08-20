@@ -10,6 +10,8 @@ type ModalParams = {
 	title?: React.ReactNode | string;
 	closeButton?: boolean;
 	className?: string;
+	delayStagger?: number;
+	childDelayStagger?: number;
 };
 
 export default function Modal({
@@ -20,7 +22,34 @@ export default function Modal({
 	title,
 	className,
 	closeButton,
+	delayStagger = 0.15,
+	childDelayStagger = 0.1,
 }: ModalParams) {
+	const modalVariants: Variants = {
+		open: {
+			scaleX: [0, 1, 1],
+			scaleY: [0.1, 0.1, 1],
+			transition: {
+				duration: 0.35,
+				times: [0, 0.3, 1],
+				ease: "easeInOut",
+				delayChildren: stagger(delayStagger, { startDelay: 0.1 }),
+			},
+		},
+	};
+
+	const itemVariants: Variants = {
+		open: {
+			opacity: 1,
+			y: 0,
+			transition: {
+				y: { stiffness: 1000, velocity: -100 },
+				ease: "easeInOut",
+				delayChildren: stagger(childDelayStagger),
+			},
+		},
+	};
+
 	return (
 		<RestartModal
 			show={show}
@@ -68,7 +97,9 @@ export default function Modal({
 				<motion.div
 					variants={itemVariants}
 					initial={itemInitial}
-					className="flex flex-col gap-4 mt-2 overflow-y-auto max-h-[70vh]"
+					className={
+						"flex flex-col gap-4 mt-2 max-h-[70vh] overflow-y-auto"
+					}
 				>
 					{children}
 				</motion.div>
@@ -90,31 +121,6 @@ export default function Modal({
 		</RestartModal>
 	);
 }
-
-const modalVariants: Variants = {
-	open: {
-		scaleX: [0, 1, 1],
-		scaleY: [0.1, 0.1, 1],
-		transition: {
-			duration: 0.35,
-			times: [0, 0.3, 1],
-			ease: "easeInOut",
-			delayChildren: stagger(0.15, { startDelay: 0.1 }),
-		},
-	},
-};
-
-const itemVariants: Variants = {
-	open: {
-		opacity: 1,
-		y: 0,
-		transition: {
-			y: { stiffness: 1000, velocity: -100 },
-			ease: "easeInOut",
-			delayChildren: stagger(0.1),
-		},
-	},
-};
 
 const itemInitial = {
 	opacity: 0,

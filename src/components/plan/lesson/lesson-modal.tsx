@@ -29,7 +29,6 @@ export default function LessonModal({
 			variants={itemVariants}
 			initial={{
 				opacity: 0,
-				y: 10,
 			}}
 			className="flex gap-2"
 		>
@@ -42,6 +41,8 @@ export default function LessonModal({
 			show={show}
 			onHide={() => setShow(false)}
 			closeButton
+			childDelayStagger={0.035}
+			className="not-pc:w-5/6 pc:min-w-96 pc:max-w-140"
 			title={
 				<>
 					Informacje o zajęciach{" "}
@@ -145,7 +146,13 @@ export default function LessonModal({
 					))}
 				</ModalElement>
 				{change && (
-					<motion.div className="flex flex-col">
+					<motion.div
+						variants={itemVariants}
+						initial={{
+							opacity: 0,
+						}}
+						className="flex flex-col"
+					>
 						{change.note && (
 							<div className="flex gap-2">
 								<ModalLabel>UWAGI DO ZASTĘPSTWA</ModalLabel>
@@ -166,7 +173,6 @@ export default function LessonModal({
 
 const itemVariants: Variants = {
 	open: {
-		y: 0,
 		opacity: 1,
 		transition: {
 			ease: "easeInOut",
