@@ -61,7 +61,7 @@ export default function PlanTable({
 
 	return (
 		<>
-			<div className="flex justify-between not-pc:hidden mt-[-0.5rem]">
+			<div className="flex justify-between not-pc:hidden mt-[-0.5rem] min-h-[calc(100vh-21.5rem)]">
 				{[1, 2, 3, 4, 5].map((day) => (
 					<PlanColumn
 						key={day}
@@ -73,7 +73,7 @@ export default function PlanTable({
 					/>
 				))}
 			</div>
-			<div className="pc:hidden self-center mx-auto">
+			<div className="pc:hidden self-center mx-auto min-h-[calc(100vh-26rem)]">
 				<PlanColumn
 					date={getDayOffset(week, mobileDay)}
 					lessons={filterLessons(lessons, {

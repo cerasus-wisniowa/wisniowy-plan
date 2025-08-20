@@ -1,6 +1,16 @@
 import SpinnerIcon from "../../assets/icons/spinner.svg?react";
 
-export type SpinnerStyle = "theme" | "regular" | "cherry";
+const styles = {
+	theme: "text-theme",
+	regular: "text-foreground",
+	cherry: "text-cherry",
+	warning: "text-warning",
+	deny: "text-deny",
+	info: "text-info",
+	accept: "text-accept",
+};
+
+export type SpinnerStyle = keyof typeof styles;
 
 export default function Spinner({
 	style = "theme",
@@ -13,12 +23,6 @@ export default function Spinner({
 	width?: number;
 	height?: number;
 }) {
-	const styles = {
-		theme: "text-theme",
-		regular: "text-foreground",
-		cherry: "text-cherry",
-	};
-
 	return (
 		<SpinnerIcon
 			className={`${styles[style]} ${className} animate-spin`}

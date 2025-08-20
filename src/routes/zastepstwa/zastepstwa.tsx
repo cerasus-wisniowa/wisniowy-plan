@@ -1,5 +1,4 @@
 import { useChanges } from "../../components/context/changes-provider";
-import TablePage from "../../layout/table-page";
 import Spinner from "../../components/ui/spinner";
 import Error from "../../assets/icons/error.svg?react";
 import type { Teacher } from "../../lib/definitions/teacher";

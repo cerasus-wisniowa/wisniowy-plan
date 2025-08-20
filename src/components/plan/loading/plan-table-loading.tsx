@@ -36,7 +36,7 @@ export default function PlanTableLoading({ planName }: { planName: string }) {
 	*/
 
 	return (
-		<div className="w-full min-h-96 items-center justify-center flex flex-col gap-2 py-8">
+		<div className="w-full min-h-96 items-center justify-center flex flex-col gap-2 py-8 my-1">
 			<Spinner />
 			<div className="text-xl text-foreground-secondary">
 				Pobieranie planu lekcji dla {planName}

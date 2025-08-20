@@ -1,6 +1,7 @@
+import type { ApiPlanCacheMeta } from "./api-data";
 import type { Lesson } from "./lesson";
 
-export type Plan = {
+export type Plan = ApiPlanCacheMeta & {
 	lessons: Lesson[];
 	type: PlanType;
 	name: string;
@@ -9,11 +10,6 @@ export type Plan = {
 	generated: string;
 };
 
-export type PlanType = "teacher" | "class" | "classroom";
+export type PlanSource = "planlekcji" | "planlekcji2" | "planlekcji3";
 
-export type Plans = {
-	apiVersion: string;
-	generated: string;
-	lastUpdate: string;
-	plans: Plan[];
-};
+export type PlanType = "teacher" | "class" | "classroom";

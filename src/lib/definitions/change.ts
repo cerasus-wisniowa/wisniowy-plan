@@ -1,3 +1,4 @@
+import type { ApiCacheMeta } from "./api-data";
 import type { Classroom } from "./classroom";
 import type { Section } from "./section";
 import type { Teacher } from "./teacher";
@@ -26,4 +27,8 @@ export const changeTypes = {
 	substitution: "Zastępstwo",
 	no_consequence: "Bez konsekwencji",
 	moved: "Przeniesiono",
+};
+export type Changes = ApiCacheMeta & {
+	changes: Change[];
+	dates: string[];
 };

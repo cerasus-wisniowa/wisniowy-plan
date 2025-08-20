@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import type { Changes } from "../../lib/definitions/changes";
+import type { Changes } from "src/lib/definitions/change";
 import { fetchChanges } from "../../lib/fetch/changes";
 
 export type ChangesContextType = {

@@ -1,4 +1,4 @@
-import type { Changes } from "../definitions/changes";
+import type { Changes } from "../definitions/change";
 import config from "../../data/config.json";
 
 const api = config.api;

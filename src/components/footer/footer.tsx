@@ -27,7 +27,7 @@ export default function Footer() {
 		fetchApiChangelog().then((changelog) => {
 			setApiChangelog(changelog);
 		});
-	}, [api]);
+	}, []);
 
 	return (
 		<div className="w-full self-center mx-auto text-md font-normal">

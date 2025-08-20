@@ -1,5 +1,4 @@
 import { Suspense, useEffect, useState } from "react";
-import TablePage from "../../layout/table-page";
 import PlanTable from "../../components/plan/plan-table";
 import { type PlanFilters } from "../../components/plan/header/filters/filters";
 import WeekNavigationButton from "../../components/plan/nav/week-navigation-button";
@@ -21,13 +20,13 @@ import useWindowDimensions, {
 import { useChanges } from "../../components/context/changes-provider";
 
 import Error from "../../assets/icons/error.svg?react";
-import Warning from "../../assets/icons/warning.svg?react";
 import MobileWeekNavigation from "../../components/plan/nav/mobile-week-navigation";
 import Filters from "../../components/plan/header/filters/filters";
 import PlanTableLoading from "../../components/plan/loading/plan-table-loading";
 import type { Route } from "./+types/plan";
 import { fetchPlanList } from "../../lib/fetch/plan-list";
 import { motion } from "motion/react";
+import Spinner from "../../components/ui/spinner";
 
 export async function clientLoader({ params }: ClientLoaderFunctionArgs) {
 	const query = {
@@ -212,7 +211,7 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 				</div>
 				{width >= pcWidth ? (
 					<div className="flex justify-between w-full not-pc:hidden">
-						<div className="text-foreground-secondary text-xl self-center flex gap-3">
+						<div className="text-foreground-secondary text-xl self-end flex gap-2 items-end">
 							<span className="font-medium">
 								{planList &&
 									getPlanName(
@@ -221,9 +220,13 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 										planList
 									)}
 							</span>
-							<span>{getMonthsSpanString(week, 5)}</span>
+							<span className="text-md text-foreground-tertiary mb-0.5">
+								{plan?.source !== "planlekcji" &&
+									`(${plan?.source})`}
+							</span>
 						</div>
-						<div className="self-end">
+						<div className="self-end flex gap-3 text-foreground-secondary text-xl items-end">
+							<span>{getMonthsSpanString(week, 5)}</span>
 							<nav className="flex justify-end gap-2">
 								<WeekNavigationButton type={"backward"} />
 								<WeekNavigationButton type={"forward"} />
@@ -235,14 +238,14 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 				)}
 
 				{changesLoading && (
-					<div className="flex gap-2 text-warning items-center">
-						<Warning />
+					<div className="flex gap-2 text-warning items-center not-pc:self-center">
+						<Spinner width={24} height={24} style="warning" />
 						<div>Trwa ładowanie zastępstw...</div>
 					</div>
 				)}
 				{changesError && (
-					<div className="flex gap-2 text-error items-center">
-						<Error className="" />
+					<div className="flex gap-2 text-error items-center not-pc:self-center">
+						<Error />
 						<div>Wystąpił błąd podczas ładowania zastępstw</div>
 					</div>
 				)}

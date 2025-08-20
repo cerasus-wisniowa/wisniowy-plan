@@ -63,7 +63,7 @@ export default function ChangelogModal({
 							className="flex flex-col text-start gap-1 h-full px-4"
 						>
 							{i !== 0 && (
-								<div className="w-9/10 mx-auto mb-3">
+								<div className="mx-2 mb-3">
 									<Divider style="secondary" />
 								</div>
 							)}

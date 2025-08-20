@@ -1,4 +1,4 @@
-import type { Changes } from "../definitions/changes";
+import type { Changes } from "../definitions/change";
 import type { Lesson } from "../definitions/lesson";
 import { areDatesEqual } from "./are-dates-equal";
 import { areSectionsEqual } from "./sections-equal";
