@@ -72,5 +72,6 @@ const target =
 			console.log("successful transfers", transfers.successful);
 		});
 
+	ssh.dispose();
 	console.log("Disconnected from " + host);
 })();
