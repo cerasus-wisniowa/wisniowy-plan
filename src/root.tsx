@@ -31,7 +31,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 				<Links />
 				<title>Wiśniowy Plan</title>
 			</head>
-			<body>
+			<body className="overflow-y-hidden">
 				{children}
 				<ScrollRestoration />
 				<Scripts />
@@ -68,7 +68,7 @@ export function HydrateFallback() {
 export default function App() {
 	return (
 		<Providers>
-			<div className="flex flex-col justify-between gap-2 min-h-screen bg-background">
+			<div className="flex flex-col justify-between gap-2 h-screen overflow-y-scroll bg-background">
 				<div className="text-lg mx-1">
 					<Navbar />
 					<div className="mx-1 pc:mx-auto pc:w-[95%] p-4">

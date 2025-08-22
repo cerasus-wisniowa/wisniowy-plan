@@ -6,22 +6,30 @@ concurrency:
     group: ${{ github.workflow }}-${{ github.ref }}
     cancel-in-progress: true
 
-env:
-    NODE_VERSION: "22.x"
-
 jobs:
     ci:
         runs-on: ubuntu-latest
 
+        strategy:
+            matrix:
+                node_version: [22.x, 24.x]
+
         steps:
             - uses: actions/checkout@v4
 
-            - name: Use Node.js ${{ env.NODE_VERSION }}
+            - name: Use Node.js ${{ matrix.node_version }}
               uses: actions/setup-node@v4
               with:
-                  node-version: ${{ env.NODE_VERSION }}
+                  node-version: ${{ matrix.node_version }}
+
             - name: Install dependencies
               run: npm ci
 
             - name: Run CI
               run: npm run ci
+
+            - name: Deploy Test
+              run: npm run deploy
+              env:
+                  PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+                  TARGET: test

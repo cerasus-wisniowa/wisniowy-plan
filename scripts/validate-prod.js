@@ -1,5 +1,6 @@
-import config from "./src/data/config.json" with { type: "json" };
+import config from "../src/data/config.json" with { type: "json" };
 
+const changelog = load(readFileSync("./public/changelog.yml", "utf8"));
 const version = process.env.npm_package_version;
 
 if (!version) {
@@ -13,6 +14,12 @@ if (version.split("-").length > 1) {
 		"You are using a development version of the app. Please use a stable version for production."
 	);
 } else console.log("Stable version detected: " + version);
+
+if (changelog[0].version !== version) {
+	throw new Error(
+		"Latest version in changelog.yml is not the same as the one in package.json."
+	);
+} else console.log("Changelog version matches package version: " + version);
 
 (async () => {
 	const res = await fetch(config.api);
