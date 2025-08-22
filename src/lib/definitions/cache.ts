@@ -11,4 +11,10 @@ export type CachedLesson = {
 	day: number;
 };
 
-export type CachedPlan = {};
+export type CachedPlan = {
+	lastChanged: string;
+	generated: string;
+	lessons: CachedLesson[];
+};
+
+export type LessonNames = { [key: string]: string };

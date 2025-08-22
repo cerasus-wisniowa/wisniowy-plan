@@ -7,7 +7,7 @@ import { fetchPlan } from "../../lib/fetch/plan";
 import type { Plan, PlanType } from "../../lib/definitions/plan";
 import { useWeek } from "../../components/context/week-provider";
 import { getMonthsSpanString } from "../../lib/definitions/date";
-import { redirect, type ClientLoaderFunctionArgs } from "react-router";
+import { replace, type ClientLoaderFunctionArgs } from "react-router";
 import PlanListDropdown from "../../components/plan/header/plan-list-dropdown";
 import { getPlanName } from "../../lib/util/plan-name";
 import { usePlanList } from "../../components/context/plan-list-provider";
@@ -24,7 +24,6 @@ import MobileWeekNavigation from "../../components/plan/nav/mobile-week-navigati
 import Filters from "../../components/plan/header/filters/filters";
 import PlanTableLoading from "../../components/plan/loading/plan-table-loading";
 import type { Route } from "./+types/plan";
-import { fetchPlanList } from "../../lib/fetch/plan-list";
 import { motion } from "motion/react";
 import Spinner from "../../components/ui/spinner";
 
@@ -40,26 +39,24 @@ export async function clientLoader({ params }: ClientLoaderFunctionArgs) {
 	if (type && ["class", "teacher", "classroom"].includes(type)) {
 		query.type = type as PlanType;
 		localStorage.setItem("plan-type", type);
-	} else return redirect(`/plan/${query.type}/${query.name}`);
+	} else return replace(`/plan/${query.type}/${query.name}`);
 	if (name) {
 		query.name = name;
 		localStorage.setItem("plan-name", name);
-	} else return redirect(`/plan/${query.type}/${query.name}`);
+	} else return replace(`/plan/${query.type}/${query.name}`);
 
-	const planList = await fetchPlanList();
-
-	return { query, planList };
+	return query;
 }
 
 export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 	const { loading: changesLoading, error: changesError } = useChanges();
-	const { query, planList } = loaderData;
+	const query = loaderData;
 
 	const { width } = useWindowDimensions();
 
 	const [plan, setPlan] = useState<Plan | null>(null);
 	const [found, setFound] = useState<boolean | null>(null);
-	const { setList } = usePlanList();
+	const { planList } = usePlanList();
 
 	const { week } = useWeek();
 
@@ -71,7 +68,6 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 	const [mobileFilters, setMobileFilters] = useState(false);
 
 	useEffect(() => {
-		setList(planList);
 		setFound(null);
 		fetchPlan(query.type, query.name).then((data) => {
 			if (!data) {
