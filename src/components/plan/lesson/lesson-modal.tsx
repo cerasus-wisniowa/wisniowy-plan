@@ -61,7 +61,7 @@ export default function LessonModal({
 			}
 			backdrop
 		>
-			<div className="flex flex-col gap-2 justify-start">
+			<div className="flex flex-col gap-2 justify-start text-start">
 				<ModalElement>
 					<ModalLabel>DATA</ModalLabel>
 					<span>
