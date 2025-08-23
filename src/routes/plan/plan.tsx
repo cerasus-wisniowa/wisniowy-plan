@@ -1,10 +1,10 @@
-import { Suspense, useEffect, useState } from "react";
+import { useState } from "react";
 import PlanTable from "../../components/plan/plan-table";
-import { type PlanFilters } from "../../components/plan/header/filters/filters";
+import { type PlanFilters } from "../../lib/definitions/filters";
 import WeekNavigationButton from "../../components/plan/nav/week-navigation-button";
 import Divider from "../../components/ui/divider";
-import { getOrFetchPlan } from "../../lib/fetch/plan";
-import type { Plan, PlanType } from "../../lib/definitions/plan";
+import { fetchPlan, getOrFetchPlan } from "../../lib/fetch/plan";
+import type { PlanInfo, PlanType } from "../../lib/definitions/plan";
 import { useWeek } from "../../components/context/week-provider";
 import { getMonthsSpanString } from "../../lib/definitions/date";
 import { replace, type ClientLoaderFunctionArgs } from "react-router";
@@ -22,10 +22,10 @@ import { useChanges } from "../../components/context/changes-provider";
 import Error from "../../assets/icons/error.svg?react";
 import MobileWeekNavigation from "../../components/plan/nav/mobile-week-navigation";
 import Filters from "../../components/plan/header/filters/filters";
-import PlanTableLoading from "../../components/plan/loading/plan-table-loading";
 import type { Route } from "./+types/plan";
 import { motion } from "motion/react";
 import Spinner from "../../components/ui/spinner";
+import { getFilters, saveFilters } from "../../lib/database/filters";
 
 export async function clientLoader({ params }: ClientLoaderFunctionArgs) {
 	const query = {
@@ -45,43 +45,31 @@ export async function clientLoader({ params }: ClientLoaderFunctionArgs) {
 		localStorage.setItem("plan-name", name);
 	} else return replace(`/plan/${query.type}/${query.name}`);
 
-	return query;
+	const lastChanged = localStorage.getItem("last-plan-change");
+	const planInfo = { ...query, source: "planlekcji" } satisfies PlanInfo;
+	let plan = await getOrFetchPlan(planInfo);
+	if (plan?.lastChanged !== lastChanged) plan = await fetchPlan(planInfo);
+
+	const filters = await getFilters(query.name);
+
+	return { query, plan, filters };
 }
 
 export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 	const { loading: changesLoading, error: changesError } = useChanges();
-	const query = loaderData;
+	const { query, plan, filters: storedFilters } = loaderData;
 
 	const { width } = useWindowDimensions();
-
-	const [plan, setPlan] = useState<Plan | null>(null);
-	const [found, setFound] = useState<boolean | null>(null);
 	const { planList } = usePlanList();
-
 	const { week } = useWeek();
 
-	const storedFilters = localStorage.getItem("filters");
-	const parsedFilters = storedFilters ? JSON.parse(storedFilters) : {};
-
-	const [filters, setFilters] = useState<PlanFilters>(parsedFilters);
-
+	const [filters, setFilters] = useState<PlanFilters>(storedFilters);
 	const [mobileFilters, setMobileFilters] = useState(false);
 
-	useEffect(() => {
-		setFound(null);
-		getOrFetchPlan({ ...query, source: "planlekcji" }).then((data) => {
-			if (!data) {
-				setFound(false);
-				return;
-			}
-			setFound(true);
-			setPlan(data);
-		});
-	}, [query, query.name, query.type]);
-
-	useEffect(() => {
-		localStorage.setItem("filters", JSON.stringify(filters));
-	}, [filters]);
+	const updateFilters = (filters: PlanFilters) => {
+		saveFilters({ ...filters });
+		setFilters({ ...filters });
+	};
 
 	const hasFilters =
 		plan?.type === "class" &&
@@ -159,7 +147,7 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 						<div className="flex flex-col gap-4 mt-5 overflow-y-auto items-start">
 							<Filters
 								filters={filters}
-								setFilters={setFilters}
+								updateFilters={updateFilters}
 								plan={plan!}
 							/>
 						</div>
@@ -180,16 +168,12 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 					<div className="flex gap-4 not-pc:justify-between w-full">
 						<PlanListDropdown />
 						{width >= pcWidth && hasFilters && (
-							<div className="flex gap-4 not-pc:hidden">
-								{found && (
-									<div className="flex gap-x-6 gap-y-1 self-center flex-wrap">
-										<Filters
-											filters={filters}
-											setFilters={setFilters}
-											plan={plan}
-										/>
-									</div>
-								)}
+							<div className="flex gap-x-6 gap-y-1 self-center flex-wrap not-pc:hidden">
+								<Filters
+									filters={filters}
+									updateFilters={updateFilters}
+									plan={plan}
+								/>
 							</div>
 						)}
 						{hasFilters && (
@@ -247,27 +231,23 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 					</div>
 				)}
 				{width >= pcWidth && <Divider style="theme" />}
-				<Suspense fallback={<PlanTableLoading planName={query.name} />}>
-					<div className="">
-						{plan && found ? (
-							<PlanTable plan={plan} filters={filters} />
-						) : found === null ? (
-							<PlanTableLoading planName={query.name} />
-						) : (
-							<div className="w-full min-h-96 items-center justify-center flex flex-col gap-2 py-8">
-								<Error
-									width={42}
-									height={42}
-									className="mt-6 text-error"
-								/>
-								<div className="text-xl text-foreground-secondary">
-									Nie udało się pobrać planu lekcji dla{" "}
-									{query.name}
-								</div>
+				<div className="">
+					{plan ? (
+						<PlanTable plan={plan} filters={filters} />
+					) : (
+						<div className="w-full min-h-96 items-center justify-center flex flex-col gap-2 py-8">
+							<Error
+								width={42}
+								height={42}
+								className="mt-6 text-error"
+							/>
+							<div className="text-xl text-foreground-secondary">
+								Nie udało się pobrać planu lekcji dla{" "}
+								{query.name}
 							</div>
-						)}
-					</div>
-				</Suspense>
+						</div>
+					)}
+				</div>
 			</div>
 		</>
 	);

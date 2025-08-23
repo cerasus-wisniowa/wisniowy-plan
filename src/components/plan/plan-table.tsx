@@ -4,7 +4,7 @@ import { filterLessons } from "../../lib/util/filter-lessons";
 import { sortLessons } from "../../lib/util/sort-lessons";
 import { useWeek } from "../context/week-provider";
 import { getDayOffset } from "../../lib/util/get-date-offset";
-import type { PlanFilters } from "./header/filters/filters";
+import type { PlanFilters } from "src/lib/definitions/filters";
 
 export default function PlanTable({
 	filters,
@@ -16,37 +16,31 @@ export default function PlanTable({
 	const { week, mobileDay } = useWeek();
 
 	const filteredLessons = plan.lessons.filter((lesson) => {
-		if (!filters || !filters[plan.name] || lesson.type === "regular")
-			return true;
-		const filts = filters[plan.name];
+		if (!filters || lesson.type === "regular") return true;
 		if (
-			filts.teachers &&
-			Object.keys(filts.teachers).includes(lesson.type)
+			filters.teachers &&
+			Object.keys(filters.teachers).includes(lesson.type)
 		) {
 			const filter =
-				filters[plan.name].teachers![
-					lesson.type as keyof typeof filts.teachers
-				];
+				filters.teachers![lesson.type as keyof typeof filters.teachers];
 			return !filter || filter === lesson.teacher?.initials;
 		} else if (
-			filts.groups &&
-			Object.keys(filts.groups).includes(lesson.type)
+			filters.groups &&
+			Object.keys(filters.groups).includes(lesson.type)
 		) {
 			const filter =
-				filters[plan.name].groups![
-					lesson.type as keyof typeof filts.groups
-				];
+				filters.groups![lesson.type as keyof typeof filters.groups];
 			return (
 				!filter ||
 				filter ==
 					lesson.sections.find((s) => s.class === plan.name)?.group
 			);
 		} else if (
-			filts.exclude &&
-			Object.keys(filts.exclude).includes(lesson.type)
+			filters.exclude &&
+			Object.keys(filters.exclude).includes(lesson.type)
 		) {
-			return !filters[plan.name].exclude![
-				lesson.type as keyof typeof filts.exclude
+			return !filters.exclude![
+				lesson.type as keyof typeof filters.exclude
 			];
 		}
 		return true;
@@ -61,7 +55,7 @@ export default function PlanTable({
 
 	return (
 		<>
-			<div className="flex justify-between not-pc:hidden mt-[-0.5rem] min-h-[calc(100vh-21.5rem)]">
+			<div className="flex justify-between not-pc:hidden mt-[-0.5rem] min-h-[calc(100vh-22rem)]">
 				{[1, 2, 3, 4, 5].map((day) => (
 					<PlanColumn
 						key={day}

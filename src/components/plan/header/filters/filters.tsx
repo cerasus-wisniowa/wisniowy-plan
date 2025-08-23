@@ -4,14 +4,15 @@ import { findTeachers } from "../../../../lib/util/find-teachers";
 import Switch from "../../../ui/switch";
 import TeacherDropdown from "./teacher-filter";
 import GroupFilter from "./group-filter";
+import type { PlanFilters } from "src/lib/definitions/filters";
 
 export default function Filters({
 	filters,
-	setFilters,
+	updateFilters,
 	plan,
 }: {
 	filters: PlanFilters;
-	setFilters: React.Dispatch<React.SetStateAction<PlanFilters>>;
+	updateFilters: (filters: PlanFilters) => void;
 	plan: Plan;
 }) {
 	const hasType = (type: LessonType) =>
@@ -28,26 +29,16 @@ export default function Filters({
 				specialisations.push(l.sections[0].group);
 		});
 
-	const planFilters = filters[plan.name] || {};
 	return (
 		<>
 			{hasType("group") && (
 				<GroupFilter
 					options={[1, 2]}
-					selected={planFilters.groups?.group}
+					selected={filters.groups?.group}
 					onSelect={(i) => {
-						const newGroup =
-							i === planFilters.groups?.group ? undefined : i;
-						setFilters((prev) => ({
-							...prev,
-							[plan.name]: {
-								...prev[plan.name],
-								groups: {
-									...prev[plan.name]?.groups,
-									group: newGroup,
-								},
-							},
-						}));
+						filters.groups.group =
+							i === filters.groups?.group ? undefined : i;
+						updateFilters(filters);
 					}}
 					title="grupa:"
 				/>
@@ -56,22 +47,13 @@ export default function Filters({
 				<div className="flex gap-2">
 					<GroupFilter
 						options={specialisations}
-						selected={planFilters.groups?.specialisation}
+						selected={filters.groups?.specialisation}
 						onSelect={(i) => {
-							const newSpecialisation =
-								i === planFilters.groups?.specialisation
+							filters.groups.specialisation =
+								i === filters.groups?.specialisation
 									? undefined
 									: i;
-							setFilters((prev) => ({
-								...prev,
-								[plan.name]: {
-									...prev[plan.name],
-									groups: {
-										...prev[plan.name]?.groups,
-										specialisation: newSpecialisation,
-									},
-								},
-							}));
+							updateFilters(filters);
 						}}
 						title="specjalizacja:"
 					/>
@@ -82,19 +64,11 @@ export default function Filters({
 					<div className="mr-4">religia:</div>
 					<div className="flex items-center">
 						<Switch
-							checked={planFilters.exclude?.religion !== true}
-							onChange={(checked) =>
-								setFilters((prev) => ({
-									...prev,
-									[plan.name]: {
-										...prev[plan.name],
-										exclude: {
-											...prev[plan.name]?.exclude,
-											religion: !checked,
-										},
-									},
-								}))
-							}
+							checked={filters.exclude?.religion !== true}
+							onChange={(checked) => {
+								filters.exclude.religion = !checked;
+								updateFilters(filters);
+							}}
 						/>
 					</div>
 				</div>
@@ -104,19 +78,11 @@ export default function Filters({
 					<div className="mr-4">etyka:</div>
 					<div className="flex items-center">
 						<Switch
-							checked={planFilters.exclude?.ethics !== true}
-							onChange={(checked) =>
-								setFilters((prev) => ({
-									...prev,
-									[plan.name]: {
-										...prev[plan.name],
-										exclude: {
-											...prev[plan.name]?.exclude,
-											ethics: !checked,
-										},
-									},
-								}))
-							}
+							checked={filters.exclude?.ethics !== true}
+							onChange={(checked) => {
+								filters.exclude.ethics = !checked;
+								updateFilters(filters);
+							}}
 						/>
 					</div>
 				</div>
@@ -124,19 +90,11 @@ export default function Filters({
 			{hasType("english") && (
 				<TeacherDropdown
 					teachers={findTeachers(plan?.lessons || [], "english")}
-					selected={planFilters?.teachers?.english}
-					onSelect={(teacher) =>
-						setFilters((prev) => ({
-							...prev,
-							[plan.name]: {
-								...prev[plan.name],
-								teachers: {
-									...prev[plan.name]?.teachers,
-									english: teacher,
-								},
-							},
-						}))
-					}
+					selected={filters.teachers.english}
+					onSelect={(teacher) => {
+						filters.teachers.english = teacher;
+						updateFilters(filters);
+					}}
 				>
 					język angielski:
 				</TeacherDropdown>
@@ -147,19 +105,11 @@ export default function Filters({
 						plan?.lessons || [],
 						"secondary_language"
 					)}
-					selected={filters[plan.name]?.teachers?.secondary_language}
-					onSelect={(teacher) =>
-						setFilters((prev) => ({
-							...prev,
-							[plan.name]: {
-								...prev[plan.name],
-								teachers: {
-									...prev[plan.name]?.teachers,
-									secondary_language: teacher,
-								},
-							},
-						}))
-					}
+					selected={filters.teachers.secondary_language}
+					onSelect={(teacher) => {
+						filters.teachers.secondary_language = teacher;
+						updateFilters(filters);
+					}}
 				>
 					język obcy drugi:
 				</TeacherDropdown>
@@ -167,19 +117,3 @@ export default function Filters({
 		</>
 	);
 }
-export type PlanFilters = {
-	[class_: string]: {
-		teachers?: {
-			english?: string;
-			secondary_language?: string;
-		};
-		groups?: {
-			group?: string | number;
-			specialisation?: string | number;
-		};
-		exclude?: {
-			religion?: boolean;
-			ethics?: boolean;
-		};
-	};
-};

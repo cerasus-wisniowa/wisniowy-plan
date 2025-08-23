@@ -15,6 +15,8 @@ export default function TablePage({ loaderData }: Route.ComponentProps) {
 
 	useEffect(() => {
 		setList(loaderData);
+		if (loaderData)
+			localStorage.setItem("last-plan-change", loaderData.lastChanged);
 	}, [loaderData, setList]);
 
 	return (

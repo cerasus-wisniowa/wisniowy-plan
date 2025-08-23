@@ -122,14 +122,17 @@ export async function getPlan(planInfo: PlanInfo) {
 			generated: exists.generated,
 			from: 0,
 			height:
-				lessons.sort((a, b) => a.hour - b.hour)[lessons.length - 1]
-					.hour + 1,
-			lastChanged: new Date(exists.lastChanged),
-			lastUpdate: new Date(exists.lastUpdate),
+				lessons.length === 0
+					? 1
+					: lessons.sort((a, b) => a.hour - b.hour)[
+							lessons.length - 1
+						].hour + 1,
+			lastChanged: exists.lastChanged,
+			lastUpdate: exists.lastUpdate,
 			lessons,
-		} satisfies Plan & { lastChanged: Date; lastUpdate: Date };
+		} satisfies Plan & { lastChanged: string; lastUpdate: string };
 
-		return plan;
+		return plan as Plan & { lastChanged: string; lastUpdate: string };
 	} catch (error) {
 		console.error(error);
 		return null;

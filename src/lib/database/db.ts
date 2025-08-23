@@ -1,17 +1,18 @@
 const dbName = "wisniowyPlanDB";
-let version = 1;
+let version = 2;
 
 export enum Stores {
 	Plans = "plans",
 	LessonNames = "lesson-names",
 	TeacherNames = "teacher-names",
 	ClassroomNames = "classroom-names",
+	Filters = "plan-filters",
 }
 
 export const initDB = (): Promise<boolean> => {
 	return new Promise((resolve) => {
 		// open the connection
-		const request = indexedDB.open(dbName);
+		const request = indexedDB.open(dbName, version);
 
 		request.onupgradeneeded = () => {
 			const db = request.result;
@@ -36,6 +37,10 @@ export const initDB = (): Promise<boolean> => {
 				db.createObjectStore(Stores.ClassroomNames, {
 					keyPath: "room",
 				});
+			}
+			if (!db.objectStoreNames.contains(Stores.Filters)) {
+				console.log("Creating filters store");
+				db.createObjectStore(Stores.Filters, { keyPath: "class" });
 			}
 			// no need to resolve here
 		};
