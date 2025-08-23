@@ -4,3 +4,5 @@ export type Teacher = {
 	initials?: string;
 	index?: number;
 };
+
+export type PlanTeacher = Teacher & { initials: string };

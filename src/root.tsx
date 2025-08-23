@@ -13,6 +13,8 @@ import type { Route } from "./+types/root";
 import Spinner from "./components/ui/spinner";
 import Navbar from "./components/navbar/navbar";
 import Footer from "./components/footer/footer";
+import { deleteData, getStoreData, initDB, Stores } from "./lib/database/db";
+import type { IndexedStoredPlan } from "./lib/definitions/db";
 
 export const links: Route.LinksFunction = () => [
 	{ rel: "icon", type: "image/png", href: "/icon.png" },
@@ -53,6 +55,20 @@ export async function clientLoader() {
 			isDark ? "dark" : "light"
 		);
 	}
+	await initDB();
+
+	// asynchronously remove plans older than 180 days
+	getStoreData<IndexedStoredPlan>(Stores.Plans).then((data) =>
+		data
+			.filter(
+				(plan) =>
+					Date.now() - new Date(plan.lastUpdate).getTime() >
+					1000 * 60 * 60 * 24 * 30 * 6
+			)
+			.forEach((plan) => {
+				deleteData(Stores.Plans, plan.id);
+			})
+	);
 }
 
 export function HydrateFallback() {
