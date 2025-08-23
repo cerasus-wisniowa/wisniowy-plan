@@ -4,7 +4,8 @@ import { filterLessons } from "../../lib/util/filter-lessons";
 import { sortLessons } from "../../lib/util/sort-lessons";
 import { useWeek } from "../context/week-provider";
 import { getDayOffset } from "../../lib/util/get-date-offset";
-import type { PlanFilters } from "src/lib/definitions/filters";
+import type { PlanFilters } from "../../lib/definitions/filters";
+import { isDateInRange, planDateLimit } from "../../lib/util/plan-date-limit";
 
 export default function PlanTable({
 	filters,
@@ -16,6 +17,13 @@ export default function PlanTable({
 	const { week, mobileDay } = useWeek();
 
 	const filteredLessons = plan.lessons.filter((lesson) => {
+		if (
+			!isDateInRange(
+				getDayOffset(week, lesson.day),
+				planDateLimit(new Date(plan.generated))
+			)
+		)
+			return false;
 		if (!filters || lesson.type === "regular") return true;
 		if (Object.keys(filters.teachers).includes(lesson.type)) {
 			const filter =
@@ -58,7 +66,7 @@ export default function PlanTable({
 					/>
 				))}
 			</div>
-			<div className="pc:hidden self-center mx-auto min-h-[calc(100vh-26rem)]">
+			<div className="pc:hidden self-center mx-auto h-fit">
 				<PlanColumn
 					date={getDayOffset(week, mobileDay)}
 					lessons={filterLessons(lessons, {

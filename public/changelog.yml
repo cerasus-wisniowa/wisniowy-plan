@@ -10,6 +10,7 @@
       - Usunięto efekty rozmycia w tle.
       - Usprawniono ładowanie planów lekcji.
       - Zaktualizowano wygląd powiadomień o ładowaniu zastępstw.
+      - Ograniczono wyświetlanie planu lekcji do roku szkolnego.
 
 - version: 1.0.2
   date: 2025-08-16
