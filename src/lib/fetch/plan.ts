@@ -1,13 +1,16 @@
-import type { ApiPlan, PlanType } from "../definitions/plan";
+import type { ApiPlan, PlanInfo } from "../definitions/plan";
 import config from "../../data/config.json";
 import { getPlan, savePlan } from "../database/plan";
 
 const api = config.api;
 
-export async function fetchPlan(type: PlanType, name: string) {
-	const fetchedPlan = await fetch(`${api}/api/plans/${type}/${name}`, {
-		mode: "cors",
-	})
+export async function fetchPlan(planInfo: PlanInfo) {
+	const fetchedPlan = await fetch(
+		`${api}/api/plans/${planInfo.type}/${planInfo.name}?source=${planInfo.source}`,
+		{
+			mode: "cors",
+		}
+	)
 		.then((res) => (res.ok ? (res.json() as Promise<ApiPlan>) : null))
 		.catch((err) => {
 			console.log(err);
@@ -17,8 +20,11 @@ export async function fetchPlan(type: PlanType, name: string) {
 	if (!fetchedPlan) return null;
 
 	await savePlan(fetchedPlan);
-	const time = Date.now();
-	console.log(await getPlan(fetchedPlan));
-	console.log(Date.now() - time);
 	return fetchedPlan;
+}
+
+export async function getOrFetchPlan(planInfo: PlanInfo) {
+	const storedPlan = await getPlan(planInfo);
+	if (!storedPlan) return await fetchPlan(planInfo);
+	return storedPlan;
 }

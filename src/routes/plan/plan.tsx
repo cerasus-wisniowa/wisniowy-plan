@@ -3,7 +3,7 @@ import PlanTable from "../../components/plan/plan-table";
 import { type PlanFilters } from "../../components/plan/header/filters/filters";
 import WeekNavigationButton from "../../components/plan/nav/week-navigation-button";
 import Divider from "../../components/ui/divider";
-import { fetchPlan } from "../../lib/fetch/plan";
+import { getOrFetchPlan } from "../../lib/fetch/plan";
 import type { Plan, PlanType } from "../../lib/definitions/plan";
 import { useWeek } from "../../components/context/week-provider";
 import { getMonthsSpanString } from "../../lib/definitions/date";
@@ -69,7 +69,7 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 
 	useEffect(() => {
 		setFound(null);
-		fetchPlan(query.type, query.name).then((data) => {
+		getOrFetchPlan({ ...query, source: "planlekcji" }).then((data) => {
 			if (!data) {
 				setFound(false);
 				return;
@@ -77,7 +77,7 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 			setFound(true);
 			setPlan(data);
 		});
-	}, [query.name, query.type]);
+	}, [query, query.name, query.type]);
 
 	useEffect(() => {
 		localStorage.setItem("filters", JSON.stringify(filters));

@@ -80,11 +80,10 @@ export async function savePlan(plan: ApiPlan) {
 		}
 
 		const id = crypto.randomUUID();
-		const res = await addData<IndexedStoredPlan>(Stores.Plans, {
+		await addData<IndexedStoredPlan>(Stores.Plans, {
 			...data,
 			id,
 		});
-		console.log(res);
 	} catch (error) {
 		console.error(error);
 	}
@@ -92,9 +91,8 @@ export async function savePlan(plan: ApiPlan) {
 
 export async function getPlan(planInfo: PlanInfo) {
 	try {
-		const exists = await getStoreData<IndexedStoredPlan>(Stores.Plans).then(
-			(plans) => plans.find((p) => arePlansEqual(p, planInfo))
-		);
+		const plans = await getStoreData<IndexedStoredPlan>(Stores.Plans);
+		const exists = plans.find((p) => arePlansEqual(p, planInfo));
 		if (!exists) return null;
 
 		const lessonNames = await getStoreData<StoredLessonName>(
