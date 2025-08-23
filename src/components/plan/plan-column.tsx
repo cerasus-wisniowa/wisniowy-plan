@@ -27,12 +27,10 @@ export default function PlanColumn({
 }) {
 	const changeDates = useChanges().changes?.dates.map((d) => new Date(d));
 
-	const dayLessons = lessons.flat().filter((l) => l.day === date.getDay());
+	const dayLessons = lessons.flat().sort((a, b) => a.hour - b.hour);
 
-	const firstLesson = mobile
-		? dayLessons.sort((a, b) => a.hour - b.hour)[0]?.hour || 0
-		: start;
-	const lastLesson = dayLessons.sort((a, b) => b.hour - a.hour)[0]?.hour || 0;
+	const firstLesson = mobile ? dayLessons[0]?.hour || 0 : start;
+	const lastLesson = dayLessons[dayLessons.length - 1]?.hour || 0;
 
 	const holidays = checkHolidays(date);
 	const hasHolidays = holidays.length > 0;

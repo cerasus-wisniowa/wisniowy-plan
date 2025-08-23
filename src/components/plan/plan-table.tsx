@@ -17,28 +17,19 @@ export default function PlanTable({
 
 	const filteredLessons = plan.lessons.filter((lesson) => {
 		if (!filters || lesson.type === "regular") return true;
-		if (
-			filters.teachers &&
-			Object.keys(filters.teachers).includes(lesson.type)
-		) {
+		if (Object.keys(filters.teachers).includes(lesson.type)) {
 			const filter =
-				filters.teachers![lesson.type as keyof typeof filters.teachers];
+				filters.teachers[lesson.type as keyof typeof filters.teachers];
 			return !filter || filter === lesson.teacher?.initials;
-		} else if (
-			filters.groups &&
-			Object.keys(filters.groups).includes(lesson.type)
-		) {
+		} else if (Object.keys(filters.groups).includes(lesson.type)) {
 			const filter =
-				filters.groups![lesson.type as keyof typeof filters.groups];
+				filters.groups[lesson.type as keyof typeof filters.groups];
 			return (
 				!filter ||
 				filter ==
 					lesson.sections.find((s) => s.class === plan.name)?.group
 			);
-		} else if (
-			filters.exclude &&
-			Object.keys(filters.exclude).includes(lesson.type)
-		) {
+		} else if (Object.keys(filters.exclude).includes(lesson.type)) {
 			return !filters.exclude![
 				lesson.type as keyof typeof filters.exclude
 			];

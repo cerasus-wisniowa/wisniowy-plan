@@ -15,10 +15,11 @@ export default function MultiLessonEntry({
 		<span className="text-foreground-tertiary select-none">•</span>
 	);
 
-	let lessonNameWidth = innerWidth * (isMobile() ? 0.4 : 0.32);
+	let lessonNameWidth = innerWidth * (isMobile() ? 0.4 : 0.3);
 	if (pcWidth <= innerWidth) lessonNameWidth /= 5;
 	if (!group) lessonNameWidth += 32;
 	if (!lesson.room) lessonNameWidth += 40;
+	lessonNameWidth += (innerWidth - pcWidth) * 0.1;
 
 	return (
 		<li className="flex gap-1">
