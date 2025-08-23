@@ -2,7 +2,7 @@ import { days } from "../../../lib/definitions/date";
 import { areDatesEqual } from "../../../lib/util/are-dates-equal";
 import { numberArray } from "../../../lib/util/number-array";
 import { useChanges } from "../../context/changes-provider";
-import EmptyLessonElement from "../empty-lesson-element";
+import EmptyLessonElement from "../lesson/empty-lesson-element";
 import LoadingLessonElement from "./loading-lesson-element";
 
 // unused

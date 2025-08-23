@@ -38,6 +38,9 @@
 	--color-info: var(--info);
 	--color-warning: var(--warning);
 
+	--color-deny-bg: var(--deny-bg);
+	--color-warning-bg: var(--warning-bg);
+
 	--color-deny-inverse: var(--deny-inverse);
 
 	--color-change-substitution: var(--change-substitution);

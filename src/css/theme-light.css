@@ -22,8 +22,11 @@
 	--notification: #ee3040;
 	--deny: #dc2626;
 	--accept: #51bc61;
-	--warning: #ffca58;
+	--warning: #ffb43b;
 	--info: #708fdf;
+
+	--deny-bg: #f57878;
+	--warning-bg: rgb(255, 195, 66);
 
 	--deny-inverse: #ee4e51;
 

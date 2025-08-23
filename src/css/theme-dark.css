@@ -23,6 +23,9 @@
 	--warning: #ffca58;
 	--info: #708fdf;
 
+	--deny-bg: #b33436;
+	--warning-bg: #be8a1a;
+
 	--change-cancelled: var(--deny);
 	--change-cancelled-bg: #571818;
 

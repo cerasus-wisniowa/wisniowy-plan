@@ -17,14 +17,12 @@ import { Button, Modal } from "@restart/ui";
 import useWindowDimensions, {
 	pcWidth,
 } from "../../components/hook/use-window-dimensions";
-import { useChanges } from "../../components/context/changes-provider";
 
 import Error from "../../assets/icons/error.svg?react";
 import MobileWeekNavigation from "../../components/plan/nav/mobile-week-navigation";
 import Filters from "../../components/plan/header/filters/filters";
 import type { Route } from "./+types/plan";
 import { motion } from "motion/react";
-import Spinner from "../../components/ui/spinner";
 import { getFilters, saveFilters } from "../../lib/database/filters";
 
 export async function clientLoader({ params }: ClientLoaderFunctionArgs) {
@@ -56,7 +54,6 @@ export async function clientLoader({ params }: ClientLoaderFunctionArgs) {
 }
 
 export default function PlanRoute({ loaderData }: Route.ComponentProps) {
-	const { loading: changesLoading, error: changesError } = useChanges();
 	const { query, plan, filters: storedFilters } = loaderData;
 
 	const { width } = useWindowDimensions();
@@ -216,19 +213,6 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 					</div>
 				) : (
 					<MobileWeekNavigation />
-				)}
-
-				{changesLoading && (
-					<div className="flex gap-2 text-warning items-center not-pc:self-center">
-						<Spinner width={24} height={24} style="warning" />
-						<div>Trwa ładowanie zastępstw...</div>
-					</div>
-				)}
-				{changesError && (
-					<div className="flex gap-2 text-error items-center not-pc:self-center">
-						<Error />
-						<div>Wystąpił błąd podczas ładowania zastępstw</div>
-					</div>
 				)}
 				{width >= pcWidth && <Divider style="theme" />}
 				<div className="">
