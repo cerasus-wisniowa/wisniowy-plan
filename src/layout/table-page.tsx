@@ -1,6 +1,6 @@
 import { Outlet } from "react-router";
 import TableNavigation from "../components/page/table-navigation";
-import { fetchPlanList } from "../lib/fetch/plan-list";
+import { fetchOrGetPlanList } from "../lib/fetch/plan-list";
 import type { Route } from "./+types/table-page";
 import { useEffect } from "react";
 import { usePlanList } from "../components/context/plan-list-provider";
@@ -8,9 +8,10 @@ import NotificationUI from "../components/ui/notification";
 import Spinner from "../components/ui/spinner";
 import { useChanges } from "../components/context/changes-provider";
 import Error from "../assets/icons/error.svg?react";
+import type { ApiPlanList } from "@/lib/definitions/plan-list";
 
 export async function clientLoader() {
-	const planList = await fetchPlanList();
+	const planList = await fetchOrGetPlanList();
 
 	return planList;
 }
@@ -20,8 +21,11 @@ export default function TablePage({ loaderData }: Route.ComponentProps) {
 
 	useEffect(() => {
 		setList(loaderData);
-		if (loaderData)
-			localStorage.setItem("last-plan-change", loaderData.lastChanged);
+		if (loaderData.api)
+			localStorage.setItem(
+				"last-plan-change",
+				(loaderData as ApiPlanList).lastChanged
+			);
 	}, [loaderData, setList]);
 
 	return (

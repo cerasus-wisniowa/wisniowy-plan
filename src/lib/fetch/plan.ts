@@ -25,6 +25,11 @@ export async function fetchPlan(planInfo: PlanInfo) {
 
 export async function getOrFetchPlan(planInfo: PlanInfo) {
 	const storedPlan = await getPlan(planInfo);
-	if (!storedPlan) return await fetchPlan(planInfo);
+	if (!storedPlan)
+		try {
+			return await fetchPlan(planInfo);
+		} catch (error) {
+			console.error(error);
+		}
 	return storedPlan;
 }

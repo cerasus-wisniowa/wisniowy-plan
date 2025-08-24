@@ -80,7 +80,10 @@ export default function Footer() {
 					) : loading ? (
 						"..."
 					) : (
-						<span className="text-deny">brak połączenia</span>
+						<div>
+							API:{" "}
+							<span className="text-deny">brak połączenia</span>
+						</div>
 					)}
 				</div>
 				<div>Made by dudko</div>

@@ -5,7 +5,7 @@ import { usePlanList } from "@/components/context/plan-list-provider";
 import type { PlanType } from "@/lib/definitions/plan";
 import { useParams } from "react-router";
 import Divider from "@/components/ui/divider";
-import { getPlanName } from "@/lib/util/plan-name";
+import { getPlanName, isPlanOnList } from "@/lib/util/plan-list-utils";
 import useWindowDimensions, {
 	pcWidth,
 } from "@/components/hook/use-window-dimensions";
@@ -36,6 +36,8 @@ export default function PlanListDropdown({
 		if (favorites || !planList) return;
 		const favs: FavoritePlan[] = [];
 		for (const raw of rawFavorites) {
+			if (!isPlanOnList(raw.value, raw.type, planList || storedPlansList))
+				continue;
 			const name: string | undefined = getPlanName(
 				raw.value,
 				raw.type,

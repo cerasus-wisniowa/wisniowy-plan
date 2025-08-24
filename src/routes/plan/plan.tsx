@@ -9,7 +9,7 @@ import { useWeek } from "../../components/context/week-provider";
 import { getMonthsSpanString } from "../../lib/definitions/date";
 import { replace, type ClientLoaderFunctionArgs } from "react-router";
 import PlanListDropdown from "../../components/plan/header/plan-list-dropdown";
-import { getPlanName } from "../../lib/util/plan-name";
+import { getPlanName } from "../../lib/util/plan-list-utils";
 import { usePlanList } from "../../components/context/plan-list-provider";
 import Delete from "../../assets/icons/delete.svg?react";
 import Tune from "../../assets/icons/tune.svg?react";
@@ -46,7 +46,13 @@ export async function clientLoader({ params }: ClientLoaderFunctionArgs) {
 	const lastChanged = localStorage.getItem("last-plan-change");
 	const planInfo = { ...query, source: "planlekcji" } satisfies PlanInfo;
 	let plan = await getOrFetchPlan(planInfo);
-	if (plan?.lastChanged !== lastChanged) plan = await fetchPlan(planInfo);
+	if (plan && plan.lastChanged !== lastChanged)
+		try {
+			const fetchedPlan = await fetchPlan(planInfo);
+			if (fetchedPlan) plan = fetchedPlan;
+		} catch (error) {
+			console.error(error);
+		}
 
 	const storedFilters = await getFilters(query.name);
 	const rawFavorites = await getFavorites();
