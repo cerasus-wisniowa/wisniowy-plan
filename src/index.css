@@ -97,7 +97,12 @@ body {
 }
 
 ::-webkit-scrollbar {
-	width: 0.625rem;
+	@media (width >= 72rem /* 1152px */) {
+		width: 0.625rem;
+	}
+	@media not (width >= 72rem /* 1152px */) {
+		width: 0.375rem;
+	}
 }
 
 ::-webkit-scrollbar-track {
