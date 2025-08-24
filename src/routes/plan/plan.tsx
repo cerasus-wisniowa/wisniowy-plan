@@ -13,15 +13,15 @@ import { getPlanName } from "../../lib/util/plan-name";
 import { usePlanList } from "../../components/context/plan-list-provider";
 import Delete from "../../assets/icons/delete.svg?react";
 import Tune from "../../assets/icons/tune.svg?react";
-import { Button, Modal } from "@restart/ui";
+import { Button } from "@restart/ui";
 import useWindowDimensions from "../../components/hook/use-window-dimensions";
 
 import Error from "../../assets/icons/error.svg?react";
 import MobileWeekNavigation from "../../components/plan/nav/mobile-week-navigation";
 import Filters from "../../components/plan/header/filters/filters";
 import type { Route } from "./+types/plan";
-import { motion } from "motion/react";
 import { getFilters, saveFilters } from "../../lib/database/filters";
+import Modal from "../../components/ui/modal/modal";
 
 export async function clientLoader({ params }: ClientLoaderFunctionArgs) {
 	const query = {
@@ -79,7 +79,7 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 				}))
 			}
 			className={
-				"flex bg-background hover:text-foreground text-deny hover:bg-deny cursor-pointer p-1.5 shadow-sm duration-100 w-fit h-fit " +
+				"flex bg-background hover:text-foreground text-deny hover:bg-deny cursor-pointer shadow-sm duration-100 w-12 h-12 pc:p-1.5 pc:w-fit pc:h-fit " +
 				className
 			}
 		>
@@ -93,42 +93,21 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 				<Modal
 					show={mobileFilters && hasFilters}
 					onHide={() => setMobileFilters(false)}
-					renderBackdrop={(props) => (
-						<motion.div
-							{...props}
-							initial={{
-								opacity: 0,
-							}}
-							animate={{
-								opacity: 1,
-							}}
-							transition={{
-								duration: 0.2,
-							}}
-							className="fixed inset-0 bg-black/40 z-300"
-						/>
-					)}
-					autoFocus={false}
-					className="flex-col justify-center align-middle items-center w-screen h-screen text-center z-50"
-				>
-					<motion.div
-						initial={{
-							scale: 0.8,
-							opacity: 0,
-						}}
-						animate={{
-							scale: 1,
-							opacity: 1,
-						}}
-						transition={{
-							type: "spring",
-							damping: 30,
-							stiffness: 500,
-							ease: "easeOut",
-						}}
-						className="fixed z-301 top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 bg-background-secondary rounded-standard shadow-lg py-6 px-8 max-w-full"
-					>
-						<h2 className="text-2xl font-medium">
+					closeButton
+					backdrop
+					customCloseButton={
+						<>
+							<ResetFilters className="items-center w-12 rounded-standard self-center" />
+							<Button
+								onClick={() => setMobileFilters(false)}
+								className="bg-background rounded-standard w-28 hover:bg-theme hover:text-foreground text-theme duration-100 cursor-pointer h-full mr-14"
+							>
+								Zamknij
+							</Button>
+						</>
+					}
+					title={
+						<>
 							Ustawienia wyświetlania dla{" "}
 							<span className="font-semibold text-theme">
 								{planList &&
@@ -138,24 +117,16 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 										planList
 									)}
 							</span>
-						</h2>
-						<div className="flex flex-col gap-4 mt-5 overflow-y-auto items-start">
-							<Filters
-								filters={filters}
-								updateFilters={updateFilters}
-								plan={plan!}
-							/>
-						</div>
-						<div className="flex gap-2 mt-4 h-12 justify-center mr-12">
-							<ResetFilters className="items-center w-12 rounded-standard self-center" />
-							<Button
-								onClick={() => setMobileFilters(false)}
-								className="bg-background rounded-standard w-28 hover:bg-theme hover:text-foreground text-theme duration-100 cursor-pointer"
-							>
-								Zamknij
-							</Button>
-						</div>
-					</motion.div>
+						</>
+					}
+				>
+					<div className="flex flex-col gap-3 mt-2 overflow-y-auto items-start">
+						<Filters
+							filters={filters}
+							updateFilters={updateFilters}
+							plan={plan!}
+						/>
+					</div>
 				</Modal>
 			)}
 			<div className="flex flex-col gap-2">

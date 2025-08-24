@@ -24,18 +24,18 @@ export default function Modal({
 	className,
 	closeButton,
 	customCloseButton,
-	delayStagger = 0.15,
-	childDelayStagger = 0.1,
+	delayStagger = 0.1,
+	childDelayStagger = 0.0625,
 }: ModalParams) {
 	const modalVariants: Variants = {
 		open: {
-			scaleX: [0, 1, 1],
-			scaleY: [0.1, 0.1, 1],
+			scaleX: [0, 1, 1, 1],
+			scaleY: [0.1, 0.1, 0.1, 1],
 			transition: {
 				duration: 0.25,
-				times: [0, 0.4, 1],
-				ease: "easeInOut",
-				delayChildren: stagger(delayStagger, { startDelay: 0.15 }),
+				times: [0, 0.3, 0.45, 1],
+				ease: ["linear", "linear", "easeInOut", "easeInOut"],
+				delayChildren: stagger(delayStagger, { startDelay: 0.1 }),
 			},
 		},
 	};
@@ -114,7 +114,7 @@ export default function Modal({
 						{customCloseButton ?? (
 							<Button
 								onClick={onHide}
-								className="bg-background rounded-standard w-28 hover:bg-theme hover:text-foreground text-theme duration-100 cursor-pointer"
+								className="bg-background rounded-standard w-28 hover:bg-theme hover:text-foreground text-theme duration-100 cursor-pointer h-full"
 							>
 								Zamknij
 							</Button>

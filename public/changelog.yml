@@ -10,6 +10,7 @@
             - Dodano ekran ładowania strony.
             - Zaktualizowano wygląd powiadomień o ładowaniu zastępstw.
             - Ograniczono wyświetlanie planu lekcji do roku szkolnego.
+            - Dodano możliwość wyświetlania dodatkowych dni wolnych.
       - type: "fixed"
         changes:
             - Usprawniono ładowanie planów lekcji.

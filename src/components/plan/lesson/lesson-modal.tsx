@@ -41,7 +41,7 @@ export default function LessonModal({
 			show={show}
 			onHide={() => setShow(false)}
 			closeButton
-			childDelayStagger={0.035}
+			childDelayStagger={0.03}
 			className="not-pc:w-5/6 pc:min-w-96 pc:max-w-140"
 			title={
 				<>
