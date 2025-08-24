@@ -19,14 +19,14 @@ export default function NotificationUI({
 			{show && (
 				<motion.div
 					initial={{
-						y: -100,
+						y: -150,
 					}}
 					animate={{
 						y: 0,
 					}}
 					exit={{
-						y: -100,
-						transitionDuration: 0.15,
+						y: -150,
+						transitionDuration: 0.2,
 					}}
 					transition={{
 						duration: 0.2,
