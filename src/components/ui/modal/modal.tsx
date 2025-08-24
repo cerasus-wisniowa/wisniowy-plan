@@ -30,10 +30,10 @@ export default function Modal({
 			scaleX: [0, 1, 1],
 			scaleY: [0.1, 0.1, 1],
 			transition: {
-				duration: 0.35,
-				times: [0, 0.25, 1],
+				duration: 0.25,
+				times: [0, 0.4, 1],
 				ease: "easeInOut",
-				delayChildren: stagger(delayStagger, { startDelay: 0.1 }),
+				delayChildren: stagger(delayStagger, { startDelay: 0.15 }),
 			},
 		},
 	};
