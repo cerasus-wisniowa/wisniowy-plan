@@ -9,6 +9,7 @@ type ModalParams = {
 	children: React.ReactNode;
 	title?: React.ReactNode | string;
 	closeButton?: boolean;
+	customCloseButton?: React.ReactNode;
 	className?: string;
 	delayStagger?: number;
 	childDelayStagger?: number;
@@ -22,6 +23,7 @@ export default function Modal({
 	title,
 	className,
 	closeButton,
+	customCloseButton,
 	delayStagger = 0.15,
 	childDelayStagger = 0.1,
 }: ModalParams) {
@@ -107,14 +109,16 @@ export default function Modal({
 					<motion.div
 						variants={itemVariants}
 						initial={itemInitial}
-						className="flex gap-2 mt-4 h-12 justify-center"
+						className="flex gap-2 mt-4 h-12 justify-center items-center"
 					>
-						<Button
-							onClick={onHide}
-							className="bg-background rounded-standard w-28 hover:bg-theme hover:text-foreground text-theme duration-100 cursor-pointer"
-						>
-							Zamknij
-						</Button>
+						{customCloseButton ?? (
+							<Button
+								onClick={onHide}
+								className="bg-background rounded-standard w-28 hover:bg-theme hover:text-foreground text-theme duration-100 cursor-pointer"
+							>
+								Zamknij
+							</Button>
+						)}
 					</motion.div>
 				)}
 			</motion.div>

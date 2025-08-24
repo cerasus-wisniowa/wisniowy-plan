@@ -15,7 +15,7 @@ import Navbar from "./components/navbar/navbar";
 import Footer from "./components/footer/footer";
 import { deleteData, getStoreData, initDB, Stores } from "./lib/database/db";
 import type { IndexedStoredPlan } from "./lib/definitions/db";
-import { setupExtraHolidays } from "./lib/util/extra-holidays";
+import { setupExtraHolidays } from "./lib/fetch/extra-holidays";
 
 export const links: Route.LinksFunction = () => [
 	{ rel: "icon", type: "image/png", href: "/icon.png" },
@@ -58,7 +58,7 @@ export async function clientLoader() {
 	}
 	await initDB();
 
-	setupExtraHolidays();
+	await setupExtraHolidays();
 
 	// asynchronously remove plans older than 180 days
 	getStoreData<IndexedStoredPlan>(Stores.Plans).then((data) =>

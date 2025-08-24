@@ -29,7 +29,7 @@ export function parseChangelogLine(
 
 	result = result.flatMap((part) => {
 		if (typeof part !== "string") return [part];
-		let pieces: (string | React.ReactNode)[] = [];
+		const pieces: (string | React.ReactNode)[] = [];
 		let idx = 0;
 		let m;
 		while ((m = inlineCodeRegex.exec(part)) !== null) {
