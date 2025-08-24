@@ -97,7 +97,7 @@ export default function MobileWeekNavigation() {
 	return (
 		<div>
 			<div className="text-center pb-0.5">
-				<label htmlFor="DateTimeFormatOptions">
+				<label htmlFor="date">
 					{getMonthsSpanString(navWeek, 5, "/")}
 				</label>
 				<input
