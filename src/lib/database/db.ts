@@ -1,5 +1,5 @@
 const dbName = "wisniowyPlanDB";
-let version = 2;
+let version = 3;
 
 export enum Stores {
 	Plans = "plans",
@@ -7,6 +7,7 @@ export enum Stores {
 	TeacherNames = "teacher-names",
 	ClassroomNames = "classroom-names",
 	Filters = "plan-filters",
+	Favorites = "favorites",
 }
 
 export const initDB = (): Promise<boolean> => {
@@ -41,6 +42,10 @@ export const initDB = (): Promise<boolean> => {
 			if (!db.objectStoreNames.contains(Stores.Filters)) {
 				console.log("Creating filters store");
 				db.createObjectStore(Stores.Filters, { keyPath: "class" });
+			}
+			if (!db.objectStoreNames.contains(Stores.Favorites)) {
+				console.log("Creating favorites store");
+				db.createObjectStore(Stores.Favorites, { keyPath: "id" });
 			}
 			// no need to resolve here
 		};

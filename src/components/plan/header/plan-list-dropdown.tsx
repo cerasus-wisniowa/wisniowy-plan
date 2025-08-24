@@ -1,41 +1,70 @@
-import Dropdown from "../../ui/dropdown";
-import Arrow from "../../../assets/icons/navigation/next.svg?react";
+import Dropdown from "@/components/ui/dropdown";
+import Arrow from "@/assets/icons/navigation/next.svg?react";
 import { Fragment, useEffect, useState } from "react";
-import { usePlanList } from "../../context/plan-list-provider";
-import type { PlanType } from "../../../lib/definitions/plan";
+import { usePlanList } from "@/components/context/plan-list-provider";
+import type { PlanType } from "@/lib/definitions/plan";
 import { useParams } from "react-router";
-import Divider from "../../ui/divider";
-import { getPlanName } from "../../../lib/util/plan-name";
-import useWindowDimensions, { pcWidth } from "../../hook/use-window-dimensions";
-import Overlay from "../../ui/overlay";
+import Divider from "@/components/ui/divider";
+import { getPlanName } from "@/lib/util/plan-name";
+import useWindowDimensions, {
+	pcWidth,
+} from "@/components/hook/use-window-dimensions";
+import Overlay from "@/components/ui/overlay";
 import PlanListItem from "./plan-list-item";
-import { useFavourites } from "../../context/favourites-provider";
-import Error from "../../../assets/icons/error.svg?react";
-import Spinner from "../../ui/spinner";
+import Error from "@/assets/icons/error.svg?react";
+import Spinner from "@/components/ui/spinner";
 import { motion } from "motion/react";
+import type { FavoritePlan, RawFavoritePlan } from "@/lib/definitions/favorite";
+import { addFavorite, removeFavorite } from "@/lib/database/favorites";
+import type { PlanList } from "@/lib/definitions/plan-list";
 
-export default function PlanListDropdown() {
+export default function PlanListDropdown({
+	rawFavorites,
+	storedPlansList,
+}: {
+	rawFavorites: RawFavoritePlan[];
+	storedPlansList: PlanList;
+}) {
 	const [query, setQuery] = useState<string>();
 	const { planList, error, loading } = usePlanList();
 	const { width } = useWindowDimensions();
 
-	const { favourites } = useFavourites();
-	const [favs, setFavs] = useState([] as (FlatPlan | undefined)[]);
-
+	const [favorites, setFavorites] = useState<FavoritePlan[] | null>(null);
 	const { name } = useParams();
 
 	useEffect(() => {
-		setFavs(
-			favourites.map(
-				(fav) =>
-					planList && {
-						type: fav.type,
-						value: fav.name,
-						name: getPlanName(fav.name, fav.type, planList),
-					}
-			)
-		);
-	}, [favourites, planList]);
+		if (favorites || !planList) return;
+		const favs: FavoritePlan[] = [];
+		for (const raw of rawFavorites) {
+			const name: string | undefined = getPlanName(
+				raw.value,
+				raw.type,
+				planList || storedPlansList
+			);
+			favs.push({ ...raw, name });
+		}
+		setFavorites(favs);
+	}, [favorites, rawFavorites, planList, storedPlansList]);
+
+	const isFavorite = (plan: FavoritePlan) =>
+		favorites?.some(
+			(f) => f.value === plan.value && f.type === plan.type
+		) ?? false;
+
+	const setFavorite = (plan: FavoritePlan) => {
+		if (!favorites) return;
+		if (isFavorite(plan)) {
+			setFavorites(
+				favorites.filter(
+					(f) => f.value !== plan.value || f.type !== plan.type
+				)
+			);
+			removeFavorite(plan);
+		} else {
+			setFavorites([...favorites, plan]);
+			addFavorite(plan);
+		}
+	};
 
 	if (loading) {
 		return (
@@ -93,7 +122,21 @@ export default function PlanListDropdown() {
 	};
 
 	const filtered = [classes, teachers, classrooms];
-	const filteredFavs = favs.filter(filter);
+	const filteredFavs = favorites
+		?.filter(filter)
+		.sort((a, b) => a.name.localeCompare(b.name));
+
+	const favouriteMap = (plan: FavoritePlan, i: number) =>
+		plan && (
+			<PlanListItem
+				key={i}
+				type={plan.type}
+				value={plan.value}
+				name={plan.name}
+				isFavorite={isFavorite(plan)}
+				setFavorite={setFavorite}
+			/>
+		);
 
 	const Toggle = ({ show }: { show: boolean }) => (
 		<div
@@ -134,24 +177,25 @@ export default function PlanListDropdown() {
 					autoFocus
 				/>
 				<ul className="flex flex-col gap-1 overflow-y-auto max-h-[calc(100vh-18rem)]">
-					{!loading && !error && filteredFavs.length > 0 && (
-						<>
-							<li className="text-md font-semibold px-1">
-								ULUBIONE
-							</li>
-							{filteredFavs.map(
-								(plan, i) =>
-									plan && (
-										<PlanListItem
-											key={"F" + i}
-											type={plan.type}
-											value={plan.value}
-											name={plan.name}
-										/>
-									)
-							)}
-						</>
-					)}
+					{!loading &&
+						!error &&
+						filteredFavs &&
+						filteredFavs.length > 0 && (
+							<>
+								<li className="text-md font-semibold px-1">
+									ULUBIONE
+								</li>
+								{filteredFavs
+									.filter((f) => f.type === "class")
+									.map(favouriteMap)}
+								{filteredFavs
+									.filter((f) => f.type === "teacher")
+									.map(favouriteMap)}
+								{filteredFavs
+									.filter((f) => f.type === "classroom")
+									.map(favouriteMap)}
+							</>
+						)}
 					{!loading &&
 						!error &&
 						filtered.map((list, i) => (
@@ -172,6 +216,8 @@ export default function PlanListDropdown() {
 										type={plan.type}
 										value={plan.value}
 										name={plan.name}
+										isFavorite={isFavorite(plan)}
+										setFavorite={setFavorite}
 									/>
 								))}
 							</Fragment>

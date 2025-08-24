@@ -2,34 +2,30 @@ import Dropdown from "@restart/ui/Dropdown";
 import Star from "../../../assets/icons/star.svg?react";
 import StarBorder from "../../../assets/icons/star-border.svg?react";
 import type { PlanType } from "../../../lib/definitions/plan";
-import { useFavourites } from "../../context/favourites-provider";
 import useWindowDimensions, { pcWidth } from "../../hook/use-window-dimensions";
 import { useState } from "react";
 import PlanLink from "../plan-link";
+import type { FavoritePlan } from "@/lib/definitions/favorite";
 
 export default function PlanListItem({
 	type,
 	value,
 	name,
+	isFavorite,
+	setFavorite,
 }: {
 	type: PlanType;
 	value: string;
 	name: string;
+	isFavorite: boolean;
+	setFavorite: (plan: FavoritePlan) => void;
 }) {
-	const { favourites, addFavourite, removeFavourite } = useFavourites();
 	const { width } = useWindowDimensions();
-	const isFavourite = favourites.find(
-		(f) => f.type === type && f.name === value
-	);
 
 	const [showButton, setShowButton] = useState(false);
 
 	const handleFavourite = () => {
-		if (isFavourite) {
-			removeFavourite(type, value);
-		} else {
-			addFavourite(type, value);
-		}
+		setFavorite({ type, name, value });
 	};
 
 	return (
@@ -51,26 +47,26 @@ export default function PlanListItem({
 				<button
 					onClick={handleFavourite}
 					className={`${
-						isFavourite
+						isFavorite
 							? "text-foreground/50"
 							: "text-foreground-secondary/30"
 					} cursor-pointer hover:text-theme duration-100 px-1`}
 				>
-					{isFavourite ? <Star /> : <StarBorder />}
+					{isFavorite ? <Star /> : <StarBorder />}
 				</button>
 			)}
 			{width >= pcWidth && (
 				<button
 					onClick={handleFavourite}
 					className={`${
-						isFavourite
+						isFavorite
 							? "text-foreground/50"
 							: "text-foreground-secondary/30"
 					} cursor-pointer hover:text-theme pr-1 ${
-						showButton || isFavourite ? "" : "hidden"
+						showButton || isFavorite ? "" : "hidden"
 					}`}
 				>
-					{isFavourite ? <Star /> : <StarBorder />}
+					{isFavorite ? <Star /> : <StarBorder />}
 				</button>
 			)}
 		</li>

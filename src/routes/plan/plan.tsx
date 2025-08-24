@@ -16,12 +16,14 @@ import Tune from "../../assets/icons/tune.svg?react";
 import { Button } from "@restart/ui";
 import useWindowDimensions from "../../components/hook/use-window-dimensions";
 
-import Error from "../../assets/icons/error.svg?react";
-import MobileWeekNavigation from "../../components/plan/nav/mobile-week-navigation";
-import Filters from "../../components/plan/header/filters/filters";
+import Error from "@/assets/icons/error.svg?react";
+import MobileWeekNavigation from "@/components/plan/nav/mobile-week-navigation";
+import Filters from "@/components/plan/header/filters/filters";
 import type { Route } from "./+types/plan";
-import { getFilters, saveFilters } from "../../lib/database/filters";
-import Modal from "../../components/ui/modal/modal";
+import { getFilters, saveFilters } from "@/lib/database/filters";
+import Modal from "@/components/ui/modal/modal";
+import { getFavorites } from "@/lib/database/favorites";
+import { getStoredPlansList } from "@/lib/database/plan";
 
 export async function clientLoader({ params }: ClientLoaderFunctionArgs) {
 	const query = {
@@ -46,13 +48,16 @@ export async function clientLoader({ params }: ClientLoaderFunctionArgs) {
 	let plan = await getOrFetchPlan(planInfo);
 	if (plan?.lastChanged !== lastChanged) plan = await fetchPlan(planInfo);
 
-	const filters = await getFilters(query.name);
+	const storedFilters = await getFilters(query.name);
+	const rawFavorites = await getFavorites();
+	const storedPlansList = await getStoredPlansList();
 
-	return { query, plan, filters };
+	return { query, plan, storedFilters, rawFavorites, storedPlansList };
 }
 
 export default function PlanRoute({ loaderData }: Route.ComponentProps) {
-	const { query, plan, filters: storedFilters } = loaderData;
+	const { query, plan, storedFilters, rawFavorites, storedPlansList } =
+		loaderData;
 
 	const { isMobile } = useWindowDimensions();
 	const { planList } = usePlanList();
@@ -132,7 +137,10 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 			<div className="flex flex-col gap-2">
 				<div className="flex gap-4 justify-between">
 					<div className="flex gap-4 not-pc:justify-between w-full">
-						<PlanListDropdown />
+						<PlanListDropdown
+							rawFavorites={rawFavorites}
+							storedPlansList={storedPlansList}
+						/>
 						{!isMobile() && hasFilters && (
 							<div className="flex gap-x-6 gap-y-1 self-center flex-wrap not-pc:hidden">
 								<Filters

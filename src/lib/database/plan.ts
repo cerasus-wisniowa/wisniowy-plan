@@ -12,6 +12,7 @@ import {
 	type Plan,
 	type PlanInfo,
 } from "../definitions/plan";
+import type { PlanList } from "../definitions/plan-list";
 import type { PlanTeacher } from "../definitions/teacher";
 import { saveClassroomName } from "./classroom-name";
 import { addData, getStoreData, Stores, updateData } from "./db";
@@ -137,4 +138,44 @@ export async function getPlan(planInfo: PlanInfo) {
 		console.error(error);
 		return null;
 	}
+}
+
+export async function getStoredPlansList(): Promise<PlanList> {
+	const planList = {
+		class: [],
+		teacher: [],
+		classroom: [],
+	} satisfies PlanList as PlanList;
+
+	try {
+		const plans = await getStoreData<StoredPlan>(Stores.Plans);
+		const teachers = await getStoreData<PlanTeacher>(Stores.TeacherNames);
+		const classrooms = await getStoreData<Classroom>(Stores.ClassroomNames);
+
+		plans.forEach((plan) => {
+			switch (plan.type) {
+				case "teacher": {
+					const teacher = teachers.find(
+						(t) => plan.name === t.initials
+					);
+					if (teacher) planList.teacher.push(teacher);
+					break;
+				}
+				case "class":
+					planList.class.push(plan.name);
+					break;
+				case "classroom": {
+					const classroom = classrooms.find(
+						(r) => plan.name === r.room
+					);
+					if (classroom) planList.classroom.push(classroom);
+					break;
+				}
+			}
+		});
+	} catch (error) {
+		console.error(error);
+	}
+
+	return planList;
 }
