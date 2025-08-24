@@ -20,7 +20,7 @@ export default function MultiLessonEntry({
 	if (!isMobile()) lessonNameWidth /= 5;
 	if (!group) lessonNameWidth += 32;
 	if (!lesson.room) lessonNameWidth += 40;
-	lessonNameWidth += (innerWidth - (pcWidth + 300)) * 0.1;
+	lessonNameWidth += Math.max(0, innerWidth - (pcWidth + 300)) * 0.1;
 
 	return (
 		<li className="flex gap-1">

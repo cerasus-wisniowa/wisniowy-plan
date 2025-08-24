@@ -98,7 +98,7 @@ export default function Modal({
 					variants={itemVariants}
 					initial={itemInitial}
 					className={
-						"flex flex-col gap-4 mt-2 max-h-[70vh] overflow-y-auto"
+						"flex flex-col gap-4 mt-2 max-h-[60vh] overflow-y-auto"
 					}
 				>
 					{children}
