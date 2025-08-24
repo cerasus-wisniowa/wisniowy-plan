@@ -4,6 +4,11 @@ import Divider from "../ui/divider";
 import Modal from "../ui/modal/modal";
 import { motion, type Variants } from "motion/react";
 
+const types = {
+	changed: "Zmiany",
+	fixed: "Poprawki",
+};
+
 export default function ChangelogModal({
 	changelog,
 	show,
@@ -15,6 +20,15 @@ export default function ChangelogModal({
 	title: string;
 	setShow: (show: boolean) => void;
 }) {
+	const Line = ({ children }: { children: string }) => (
+		<li>
+			{parseChangelogLine(
+				children,
+				"dark:text-orange-400 rounded-sm dark:bg-black/25 bg-black/15 text-orange-600 px-1"
+			).flatMap((el) => el)}
+		</li>
+	);
+
 	return (
 		<Modal
 			show={show}
@@ -48,16 +62,29 @@ export default function ChangelogModal({
 							{release.version}
 						</div>
 					</h3>
-					<ul className="list-disc ml-5">
-						{release.changes.map((change, j) => (
-							<li key={j}>
-								{parseChangelogLine(
-									change,
-									"dark:text-orange-400 rounded-sm dark:bg-black/25 bg-black/15 text-orange-600 px-1"
-								).flatMap((el) => el)}
-							</li>
-						))}
-					</ul>
+					{release.changes && (
+						<ul className="list-disc ml-5">
+							{release.changes?.map((change, j) => (
+								<Line key={j}>{change}</Line>
+							))}
+						</ul>
+					)}
+					{release.changeSets && (
+						<div className="flex flex-col gap-2">
+							{release.changeSets?.map((set, j) => (
+								<div key={j}>
+									<h4 className="text-lg font-medium">
+										{types[set.type]}:
+									</h4>
+									<ul className="list-disc ml-5">
+										{set.changes.map((change, k) => (
+											<Line key={k}>{change}</Line>
+										))}
+									</ul>
+								</div>
+							))}
+						</div>
+					)}
 				</motion.div>
 			))}
 		</Modal>

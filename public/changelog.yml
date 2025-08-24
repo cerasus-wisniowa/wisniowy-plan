@@ -1,23 +1,31 @@
 - version: 1.1.0-alpha.0
   date: 2025-08-19
-  changes:
-      - Dodano changelogi.
-      - Ulepszono widok filtrów.
-      - Zaktualizowano widok pozycji w planie z wieloma lekcjami na raz.
-      - Dodano nowe animacje.
-      - Dodano ekran ładowania strony.
-      - Usprawniono działanie ulubionych planów.
-      - Usunięto efekty rozmycia w tle.
-      - Usprawniono ładowanie planów lekcji.
-      - Zaktualizowano wygląd powiadomień o ładowaniu zastępstw.
-      - Ograniczono wyświetlanie planu lekcji do roku szkolnego.
-
+  changeSets:
+      - type: "changed"
+        changes:
+            - Dodano changelogi.
+            - Ulepszono widok filtrów.
+            - Zaktualizowano widok pozycji w planie z wieloma lekcjami na raz.
+            - Dodano nowe animacje.
+            - Dodano ekran ładowania strony.
+            - Zaktualizowano wygląd powiadomień o ładowaniu zastępstw.
+            - Ograniczono wyświetlanie planu lekcji do roku szkolnego.
+      - type: "fixed"
+        changes:
+            - Usprawniono ładowanie planów lekcji.
+            - Usprawniono działanie ulubionych planów.
+            - Usunięto efekty rozmycia w tle w celu optymalizacji.
+            - Poprawiono wyświetlanie stopki na telefonie.
 - version: 1.0.2
   date: 2025-08-16
-  changes:
-      - Dodano stopkę na dole strony z informacjami o wersjach
+  changeSets:
+      - type: "changed"
+        changes:
+            - Dodano stopkę na dole strony z informacjami o wersjach
 
 - version: 1.0.0
   date: 2025-06-21
-  changes:
-      - Pierwsze pełne wydanie
+  changeSets:
+      - type: "changed"
+        changes:
+            - Pierwsze pełne wydanie

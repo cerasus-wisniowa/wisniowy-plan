@@ -1,7 +1,11 @@
 export type Changelog = {
 	version: string;
 	date: Date;
-	changes: string[];
+	changes?: string[];
+	changeSets?: {
+		type: "changed" | "fixed";
+		changes: string[];
+	}[];
 }[];
 
 export type RawChangelog = [
