@@ -72,12 +72,12 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 
 	const ResetFilters = ({ className }: { className?: string }) => (
 		<Button
-			onClick={() =>
-				setFilters((prev) => ({
-					...prev,
-					[query.name]: {},
-				}))
-			}
+			onClick={() => {
+				filters.exclude = {};
+				filters.groups = {};
+				filters.teachers = {};
+				updateFilters({ ...filters });
+			}}
 			className={
 				"flex bg-background hover:text-foreground text-deny hover:bg-deny cursor-pointer shadow-sm duration-100 w-12 h-12 pc:p-1.5 pc:w-fit pc:h-fit " +
 				className
