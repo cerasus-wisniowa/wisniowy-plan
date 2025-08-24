@@ -55,39 +55,33 @@ export default function Footer() {
 				/>
 			)}
 			<div className="flex not-sm:flex-col items-center sm:justify-between mx-8 gap-4 p-4 bg-background text-foreground-tertiary dark:text-white/30 flex-wrap">
-				<div className="flex gap-6">
-					<div>
-						Strona:{" "}
+				<div className="flex not-sm:flex-col sm:gap-6 gap-2 items-center">
+					<Button
+						className={
+							"duration-100 " + siteChangelog
+								? "hover:text-foreground-secondary cursor-pointer"
+								: ""
+						}
+						onClick={() => setShowChangelog("site")}
+					>
+						Strona: v{__VERSION__}
+					</Button>
+					{success ? (
 						<Button
 							className={
-								"duration-100 " + siteChangelog
+								"duration-100 " + apiChangelog
 									? "hover:text-foreground-secondary cursor-pointer"
 									: ""
 							}
-							onClick={() => setShowChangelog("site")}
+							onClick={() => setShowChangelog("api")}
 						>
-							v{__VERSION__}
+							API: {api!.name} v{api!.version}
 						</Button>
-					</div>
-					<div>
-						API:{" "}
-						{success ? (
-							<Button
-								className={
-									"duration-100 " + apiChangelog
-										? "hover:text-foreground-secondary cursor-pointer"
-										: ""
-								}
-								onClick={() => setShowChangelog("api")}
-							>
-								{api!.name + " v" + api!.version}
-							</Button>
-						) : loading ? (
-							"..."
-						) : (
-							<span className="text-deny">brak połączenia</span>
-						)}
-					</div>
+					) : loading ? (
+						"..."
+					) : (
+						<span className="text-deny">brak połączenia</span>
+					)}
 				</div>
 				<div>Made by dudko</div>
 			</div>
