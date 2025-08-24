@@ -14,9 +14,7 @@ import { usePlanList } from "../../components/context/plan-list-provider";
 import Delete from "../../assets/icons/delete.svg?react";
 import Tune from "../../assets/icons/tune.svg?react";
 import { Button, Modal } from "@restart/ui";
-import useWindowDimensions, {
-	pcWidth,
-} from "../../components/hook/use-window-dimensions";
+import useWindowDimensions from "../../components/hook/use-window-dimensions";
 
 import Error from "../../assets/icons/error.svg?react";
 import MobileWeekNavigation from "../../components/plan/nav/mobile-week-navigation";
@@ -56,7 +54,7 @@ export async function clientLoader({ params }: ClientLoaderFunctionArgs) {
 export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 	const { query, plan, filters: storedFilters } = loaderData;
 
-	const { width } = useWindowDimensions();
+	const { isMobile } = useWindowDimensions();
 	const { planList } = usePlanList();
 	const { week } = useWeek();
 
@@ -91,7 +89,7 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 
 	return (
 		<>
-			{width < pcWidth && (
+			{isMobile() && (
 				<Modal
 					show={mobileFilters && hasFilters}
 					onHide={() => setMobileFilters(false)}
@@ -164,7 +162,7 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 				<div className="flex gap-4 justify-between">
 					<div className="flex gap-4 not-pc:justify-between w-full">
 						<PlanListDropdown />
-						{width >= pcWidth && hasFilters && (
+						{!isMobile() && hasFilters && (
 							<div className="flex gap-x-6 gap-y-1 self-center flex-wrap not-pc:hidden">
 								<Filters
 									filters={filters}
@@ -182,11 +180,11 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 							</Button>
 						)}
 					</div>
-					{width >= pcWidth && plan?.type === "class" && (
+					{!isMobile() && plan?.type === "class" && (
 						<ResetFilters className="rounded-xl" />
 					)}
 				</div>
-				{width >= pcWidth ? (
+				{!isMobile() ? (
 					<div className="flex justify-between w-full not-pc:hidden">
 						<div className="text-foreground-secondary text-xl self-end flex gap-2 items-end">
 							<span className="font-medium">
@@ -214,12 +212,12 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 				) : (
 					<MobileWeekNavigation />
 				)}
-				{width >= pcWidth && <Divider style="theme" />}
+				{!isMobile() && <Divider style="theme" />}
 				<div className="">
 					{plan ? (
 						<PlanTable plan={plan} filters={filters} />
 					) : (
-						<div className="w-full min-h-96 items-center justify-center flex flex-col gap-2 py-8">
+						<div className="w-full not-pc:h-80 pc:min-h-[calc(100vh-22.5rem)] items-center justify-center text-center flex flex-col gap-2 pb-8">
 							<Error
 								width={42}
 								height={42}

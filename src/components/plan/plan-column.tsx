@@ -81,13 +81,13 @@ export default function PlanColumn({
 					`}
 				>
 					{hasHolidays ? (
-						<div className="self-center text-foreground-secondary my-auto text-center content-center h-52 pc:h-80">
+						<div className="self-center text-foreground-secondary my-auto text-center content-center h-80">
 							{holidays.map((h) => (
 								<div key={h.name}>{h.name}</div>
 							))}
 						</div>
 					) : mobile && dayLessons.length === 0 ? (
-						<div className="self-center text-foreground-secondary my-auto text-center content-center h-52">
+						<div className="self-center text-foreground-secondary my-auto text-center content-center h-80">
 							brak zaplanowanych zajęć
 						</div>
 					) : (

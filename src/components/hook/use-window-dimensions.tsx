@@ -15,6 +15,8 @@ export default function useWindowDimensions() {
 		getWindowDimensions()
 	);
 
+	const isMobile = () => windowDimensions.width < pcWidth;
+
 	useEffect(() => {
 		function handleResize() {
 			setWindowDimensions(getWindowDimensions());
@@ -24,9 +26,5 @@ export default function useWindowDimensions() {
 		return () => window.removeEventListener("resize", handleResize);
 	}, []);
 
-	return windowDimensions;
-}
-
-export function isMobile() {
-	return innerWidth < pcWidth;
+	return { ...windowDimensions, isMobile };
 }

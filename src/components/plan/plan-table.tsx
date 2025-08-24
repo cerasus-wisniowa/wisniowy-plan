@@ -6,6 +6,7 @@ import { useWeek } from "../context/week-provider";
 import { getDayOffset } from "../../lib/util/get-date-offset";
 import type { PlanFilters } from "../../lib/definitions/filters";
 import { isDateInRange, planDateLimit } from "../../lib/util/plan-date-limit";
+import useWindowDimensions from "../hook/use-window-dimensions";
 
 export default function PlanTable({
 	filters,
@@ -15,6 +16,7 @@ export default function PlanTable({
 	plan: Plan;
 }) {
 	const { week, mobileDay } = useWeek();
+	const { isMobile } = useWindowDimensions();
 
 	const filteredLessons = plan.lessons.filter((lesson) => {
 		if (
@@ -54,30 +56,33 @@ export default function PlanTable({
 
 	return (
 		<>
-			<div className="flex justify-between not-pc:hidden mt-[-0.5rem] min-h-[calc(100vh-22rem)]">
-				{[1, 2, 3, 4, 5].map((day) => (
+			{isMobile() ? (
+				<div className="self-center mx-auto h-fit">
 					<PlanColumn
-						key={day}
-						date={getDayOffset(week, day)}
-						lessons={filterLessons(lessons, { day })}
+						date={getDayOffset(week, mobileDay)}
+						lessons={filterLessons(lessons, {
+							day: mobileDay,
+						})}
 						start={start}
 						class={plan.name}
 						planType={plan.type}
+						mobile
 					/>
-				))}
-			</div>
-			<div className="pc:hidden self-center mx-auto h-fit">
-				<PlanColumn
-					date={getDayOffset(week, mobileDay)}
-					lessons={filterLessons(lessons, {
-						day: mobileDay,
-					})}
-					start={start}
-					class={plan.name}
-					planType={plan.type}
-					mobile
-				/>
-			</div>
+				</div>
+			) : (
+				<div className="flex justify-between mt-[-0.5rem] min-h-[calc(100vh-22rem)]">
+					{[1, 2, 3, 4, 5].map((day) => (
+						<PlanColumn
+							key={day}
+							date={getDayOffset(week, day)}
+							lessons={filterLessons(lessons, { day })}
+							start={start}
+							class={plan.name}
+							planType={plan.type}
+						/>
+					))}
+				</div>
+			)}
 		</>
 	);
 }

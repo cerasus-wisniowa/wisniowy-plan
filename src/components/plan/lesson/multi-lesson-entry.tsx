@@ -1,4 +1,4 @@
-import { isMobile, pcWidth } from "../../hook/use-window-dimensions";
+import useWindowDimensions, { pcWidth } from "../../hook/use-window-dimensions";
 import type { Lesson } from "../../../lib/definitions/lesson";
 import PlanLink from "../plan-link";
 
@@ -10,16 +10,17 @@ export default function MultiLessonEntry({
 	class: string;
 }) {
 	const group = lesson.sections.find((s) => s.class === class_)?.group;
+	const { isMobile } = useWindowDimensions();
 
 	const Separator = () => (
 		<span className="text-foreground-tertiary select-none">•</span>
 	);
 
 	let lessonNameWidth = innerWidth * (isMobile() ? 0.4 : 0.3);
-	if (pcWidth <= innerWidth) lessonNameWidth /= 5;
+	if (!isMobile()) lessonNameWidth /= 5;
 	if (!group) lessonNameWidth += 32;
 	if (!lesson.room) lessonNameWidth += 40;
-	lessonNameWidth += (innerWidth - pcWidth) * 0.1;
+	lessonNameWidth += (innerWidth - (pcWidth + 300)) * 0.1;
 
 	return (
 		<li className="flex gap-1">
