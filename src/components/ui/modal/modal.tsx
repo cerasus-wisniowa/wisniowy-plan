@@ -70,20 +70,20 @@ export default function Modal({
 								transition={{
 									duration: 0.2,
 								}}
-								className="fixed inset-0 bg-black/40 z-300"
+								className="fixed inset-0 bg-black/40 z-499"
 							/>
 						)
 					: undefined
 			}
 			autoFocus={false}
 			enforceFocus={false}
-			className="flex-col justify-center align-middle items-center w-screen h-screen text-center z-50"
+			className="flex-col justify-center align-middle items-center w-screen h-screen text-center"
 		>
 			<motion.div
 				animate={"open"}
 				variants={modalVariants}
 				className={
-					"fixed z-301 top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 bg-background-secondary rounded-standard shadow-lg pt-6 pb-3 px-6 " +
+					"fixed z-500 top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 bg-background-secondary rounded-standard shadow-lg pt-6 pb-3 px-6 " +
 					className
 				}
 			>

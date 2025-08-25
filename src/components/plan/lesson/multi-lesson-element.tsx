@@ -6,6 +6,7 @@ import LessonHour from "./lesson-hour";
 import MultiLessonEntry from "./multi-lesson-entry";
 import Overlay from "../../ui/overlay";
 import Dropdown from "@/components/ui/dropdown/dropdown";
+import { motion, type Variants } from "motion/react";
 
 export default function MultiLessonElement({
 	stackedLesson,
@@ -42,22 +43,24 @@ export default function MultiLessonElement({
 							</div>
 						)}
 						position="bottom"
-						// backdrop={
-						// 	<Overlay
-						// 		visible
-						// 		className="z-4 bg-black/20 dark:bg-black/40 fixed top-0 left-0 w-full h-full"
-						// 	/>
-						// }
+						backdrop={
+							<Overlay
+								visible
+								className="z-4 bg-black/20 dark:bg-black/40 fixed top-0 left-0 w-full h-full"
+							/>
+						}
 					>
 						<ul className="w-80 p-2 flex flex-col gap-4">
 							{stackedLesson.lessons.map((l, i) => (
-								<SingleLessonElement
-									key={i}
-									class={class_}
-									lesson={l}
-									planType={planType}
-									date={date}
-								/>
+								<motion.div variants={lessonVariants}>
+									<SingleLessonElement
+										key={i}
+										class={class_}
+										lesson={l}
+										planType={planType}
+										date={date}
+									/>
+								</motion.div>
 							))}
 						</ul>
 					</Dropdown>
@@ -66,3 +69,20 @@ export default function MultiLessonElement({
 		</LessonElement>
 	);
 }
+
+const lessonVariants: Variants = {
+	open: {
+		x: [-8, 0],
+		opacity: [0, 1],
+		transition: {
+			y: { duration: 0.25, ease: "easeInOut" },
+		},
+	},
+	closed: {
+		x: [0, -5],
+		opacity: [1, 0],
+		transition: {
+			y: { duration: 0.2, ease: "easeInOut" },
+		},
+	},
+};
