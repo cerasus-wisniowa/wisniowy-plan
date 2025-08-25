@@ -3,7 +3,7 @@ import LessonElement from "./lesson-element";
 import { useChanges } from "../../context/changes-provider";
 import { findChange } from "../../../lib/util/find-change";
 import { changeTypes } from "../../../lib/definitions/change";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 
 import { useWeek } from "../../context/week-provider";
 import { getDayOffset } from "../../../lib/util/get-date-offset";
@@ -69,7 +69,11 @@ export default function SingleLessonElement({
 	const teacher = change?.substitutionTeacher ? (
 		teacherName
 	) : (
-		<PlanLink name={lesson.teacher?.initials} type="teacher">
+		<PlanLink
+			name={lesson.teacher?.initials}
+			type="teacher"
+			className="line-clamp-1"
+		>
 			{teacherName}
 		</PlanLink>
 	);
@@ -83,21 +87,25 @@ export default function SingleLessonElement({
 		<PlanLink
 			name={change?.classroom?.room || lesson.room?.room}
 			type="classroom"
-			className="pl-1"
+			className="pl-1 line-clamp-1"
 		>
 			{classroom}
 		</PlanLink>
 	);
 
-	const classElement = lesson.sections.map((s) => (
-		<Fragment key={s.class + "/" + s.group}>
-			<PlanLink name={s.class} type="class">
-				{s.class}
-			</PlanLink>
-			<span className="text-xs">{s.group && "-" + s.group}</span>
-			<span className="last:hidden">, </span>
-		</Fragment>
-	));
+	const classElement = (
+		<div className="flex gap-0.5">
+			{lesson.sections.map((s, i) => (
+				<span key={i} className="w-full flex items-center">
+					<PlanLink name={s.class} type="class" className="truncate">
+						{s.class}
+					</PlanLink>
+					<span className="text-xs">{s.group && "-" + s.group}</span>
+					{i < lesson.sections.length - 1 && <span>, </span>}
+				</span>
+			))}
+		</div>
+	);
 
 	let notes = change?.note;
 	if (change?.generated) {
@@ -209,11 +217,11 @@ export default function SingleLessonElement({
 													.join(", ")
 											: classroomName
 									}
-									className={`self-end max-w-14 line-clamp-1 ${
+									className={`self-end line-clamp-1 ${
 										change
 											? changeStyles.text[change.type]
 											: ""
-									}`}
+									} ${planType === "classroom" ? "max-w-24 min-w-fit" : "max-w-14"}`}
 								>
 									{planType === "classroom"
 										? classElement

@@ -8,6 +8,7 @@ const styles = {
 	deny: "text-deny",
 	info: "text-info",
 	accept: "text-accept",
+	inherit: "",
 };
 
 export type SpinnerStyle = keyof typeof styles;

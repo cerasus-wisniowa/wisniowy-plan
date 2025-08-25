@@ -1,5 +1,7 @@
 import { Link } from "react-router";
 import type { PlanType } from "../../lib/definitions/plan";
+import { useState } from "react";
+import Spinner from "../ui/spinner";
 
 export default function PlanLink({
 	children,
@@ -14,6 +16,8 @@ export default function PlanLink({
 	className?: string;
 	title?: string;
 }) {
+	const [loading, setLoading] = useState(false);
+
 	if (!name) return children;
 	return (
 		<Link
@@ -22,8 +26,9 @@ export default function PlanLink({
 			className={
 				"hover:text-theme duration-100 cursor-pointer " + className
 			}
+			onClick={() => setLoading(true)}
 		>
-			{children}
+			{loading ? <Spinner className="w-[0.8lh] h-[0.8lh]" /> : children}
 		</Link>
 	);
 }
