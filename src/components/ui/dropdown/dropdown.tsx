@@ -3,6 +3,7 @@ import { AnimatePresence, motion, stagger, type Variants } from "motion/react";
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
 import { useDropdown } from "./dropdown-provider";
+import { sleep } from "@/lib/util/sleep";
 
 type DropdownPosition =
 	| "top"
@@ -22,6 +23,7 @@ type DropdownProps = {
 	backdrop?: React.ReactNode;
 	hideDelay?: number;
 	className?: string;
+	disableScroll?: boolean;
 };
 
 export default function Dropdown({
@@ -32,6 +34,7 @@ export default function Dropdown({
 	backdrop,
 	hideDelay = 0.15,
 	className,
+	disableScroll,
 }: DropdownProps) {
 	const [show, setShow] = useDropdown();
 	const toggleRef = useRef<HTMLButtonElement>(null);
@@ -56,6 +59,15 @@ export default function Dropdown({
 		setXOffset(xMultiplier * toggleRef.current.offsetWidth);
 		setYOffset(yMultiplier * toggleRef.current.offsetHeight);
 	}, [isBottom, isLeft, isRight, isTop, position, toggleRef]);
+
+	useEffect(() => {
+		if (show && disableScroll)
+			document.documentElement.classList.add("overflow-y-hidden");
+		else
+			sleep(hideDelay * 1000 + 50).then(() =>
+				document.documentElement.classList.remove("overflow-y-hidden")
+			);
+	}, [disableScroll, hideDelay, show]);
 
 	const originX = isLeft ? 1 : isRight ? 0 : 0.5;
 	const originY = isTop ? 1 : isBottom ? 0 : 0.5;

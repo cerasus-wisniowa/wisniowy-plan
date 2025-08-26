@@ -168,6 +168,7 @@ export default function PlanListDropdown({
 					/>
 				}
 				hideDelay={0.25}
+				disableScroll
 			>
 				<div className="p-1 flex flex-col gap-2">
 					<motion.div
