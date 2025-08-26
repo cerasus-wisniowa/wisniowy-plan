@@ -1,22 +1,20 @@
-import Dropdown from "@/components/ui/dropdown";
+import Dropdown from "@/components/ui/dropdown/dropdown";
 import Arrow from "@/assets/icons/navigation/next.svg?react";
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { usePlanList } from "@/components/context/plan-list-provider";
 import type { PlanType } from "@/lib/definitions/plan";
 import { useParams } from "react-router";
 import Divider from "@/components/ui/divider";
 import { getPlanName, isPlanOnList } from "@/lib/util/plan-list-utils";
-import useWindowDimensions, {
-	pcWidth,
-} from "@/components/hook/use-window-dimensions";
 import Overlay from "@/components/ui/overlay";
 import PlanListItem from "./plan-list-item";
 import Error from "@/assets/icons/error.svg?react";
 import Spinner from "@/components/ui/spinner";
-import { motion } from "motion/react";
+import { motion, stagger, type Variants } from "motion/react";
 import type { FavoritePlan, RawFavoritePlan } from "@/lib/definitions/favorite";
 import { addFavorite, removeFavorite } from "@/lib/database/favorites";
 import type { PlanList } from "@/lib/definitions/plan-list";
+import DropdownProvider from "@/components/ui/dropdown/dropdown-provider";
 
 export default function PlanListDropdown({
 	rawFavorites,
@@ -27,7 +25,6 @@ export default function PlanListDropdown({
 }) {
 	const [query, setQuery] = useState<string>();
 	const { planList, error, loading } = usePlanList();
-	const { width } = useWindowDimensions();
 
 	const [favorites, setFavorites] = useState<FavoritePlan[] | null>(null);
 	const { name } = useParams();
@@ -160,30 +157,39 @@ export default function PlanListDropdown({
 	);
 
 	return (
-		<Dropdown
-			placement={width < pcWidth ? "bottom" : undefined}
-			toggle={(show) => <Toggle show={show} />}
-			className="mx-2"
-			backdrop={
-				<Overlay
-					visible
-					className="z-4 bg-black/20 dark:bg-black/40 fixed top-0 left-0 w-full h-full"
-				/>
-			}
-		>
-			<div className="p-1 flex flex-col gap-2">
-				<input
-					className="py-1 px-2 bg-background rounded-xl"
-					placeholder="wyszukaj"
-					onChange={(e) => setQuery(e.target.value)}
-					autoFocus
-				/>
-				<ul className="flex flex-col gap-1 overflow-y-auto max-h-[calc(100vh-18rem)]">
-					{!loading &&
-						!error &&
-						filteredFavs &&
-						filteredFavs.length > 0 && (
-							<>
+		<DropdownProvider>
+			<Dropdown
+				position={"bottom-right"}
+				toggle={(show) => <Toggle show={show} />}
+				backdrop={
+					<Overlay
+						visible
+						className="z-4 bg-black/20 dark:bg-black/40 fixed top-0 left-0 w-full h-full"
+					/>
+				}
+				hideDelay={0.25}
+			>
+				<div className="p-1 flex flex-col gap-2">
+					<motion.div
+						className=" bg-background rounded-xl"
+						variants={inputVariants}
+					>
+						<motion.input
+							variants={variants}
+							className="py-1 px-2 w-full rounded-xl"
+							placeholder="wyszukaj"
+							onChange={(e) => setQuery(e.target.value)}
+							autoFocus
+						/>
+					</motion.div>
+					<ul className="flex flex-col gap-1 overflow-y-auto max-h-[calc(100vh-18rem)]">
+						{!loading && !error && filteredFavs && (
+							<motion.div
+								variants={variants}
+								className={
+									filteredFavs.length > 0 ? "" : "hidden"
+								}
+							>
 								<li className="text-md font-semibold px-1">
 									ULUBIONE
 								</li>
@@ -196,36 +202,80 @@ export default function PlanListDropdown({
 								{filteredFavs
 									.filter((f) => f.type === "classroom")
 									.map(favouriteMap)}
-							</>
+							</motion.div>
 						)}
-					{!loading &&
-						!error &&
-						filtered.map((list, i) => (
-							<Fragment key={i}>
-								{list[0] && (
-									<>
-										<li className="first:hidden pr-2 py-1">
-											<Divider style="theme" />
-										</li>
-										<li className="text-md font-semibold px-1">
-											{names[list[0].type]}
-										</li>
-									</>
-								)}
-								{list.map((plan, j) => (
-									<PlanListItem
-										key={i + "/" + j}
-										type={plan.type}
-										value={plan.value}
-										name={plan.name}
-										isFavorite={isFavorite(plan)}
-										setFavorite={setFavorite}
-									/>
-								))}
-							</Fragment>
-						))}
-				</ul>
-			</div>
-		</Dropdown>
+						{!loading &&
+							!error &&
+							filtered.map((list, i) => (
+								<motion.div key={i} variants={variants}>
+									{list[0] &&
+										((filteredFavs &&
+											filteredFavs.length > 0) ||
+											i > 0) && (
+											<li className="pr-2 py-1">
+												<Divider style="theme" />
+											</li>
+										)}
+
+									{list[0] && (
+										<>
+											<li className="text-md font-semibold px-1">
+												{names[list[0].type]}
+											</li>
+										</>
+									)}
+									{list.map((plan, j) => (
+										<PlanListItem
+											key={i + "/" + j}
+											type={plan.type}
+											value={plan.value}
+											name={plan.name}
+											isFavorite={isFavorite(plan)}
+											setFavorite={setFavorite}
+										/>
+									))}
+								</motion.div>
+							))}
+					</ul>
+				</div>
+			</Dropdown>
+		</DropdownProvider>
 	);
 }
+
+const variants: Variants = {
+	open: {
+		opacity: [0, 1],
+		transition: {
+			duration: 0.2,
+		},
+	},
+	closed: {
+		opacity: 0,
+		transition: {
+			duration: 0.15,
+		},
+	},
+};
+
+const inputVariants: Variants = {
+	open: {
+		scaleX: [0, 1],
+		originX: 0,
+		transition: {
+			duration: 0.1,
+			ease: "easeInOut",
+			delay: 0.1,
+			delayChildren: stagger(undefined, { startDelay: 0.1 }),
+		},
+	},
+	closed: {
+		scaleX: 0,
+		originX: 0,
+		transition: {
+			duration: 0.08,
+			ease: "easeInOut",
+			delay: 0.2,
+		},
+	},
+};

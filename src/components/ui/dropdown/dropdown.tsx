@@ -2,6 +2,7 @@ import { Button } from "@restart/ui";
 import { AnimatePresence, motion, stagger, type Variants } from "motion/react";
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
+import { useDropdown } from "./dropdown-provider";
 
 type DropdownPosition =
 	| "top"
@@ -19,6 +20,8 @@ type DropdownProps = {
 	position: DropdownPosition;
 	offset?: [number, number];
 	backdrop?: React.ReactNode;
+	hideDelay?: number;
+	className?: string;
 };
 
 export default function Dropdown({
@@ -27,8 +30,10 @@ export default function Dropdown({
 	position: pos,
 	offset = [0, 0],
 	backdrop,
+	hideDelay = 0.15,
+	className,
 }: DropdownProps) {
-	const [show, setShow] = useState(false);
+	const [show, setShow] = useDropdown();
 	const toggleRef = useRef<HTMLButtonElement>(null);
 	const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -68,10 +73,10 @@ export default function Dropdown({
 			scaleX: [0, 1, null, null],
 			scaleY: [0.05, null, null, 1],
 			transition: {
-				duration: 0.3,
+				duration: 0.25,
 				times: [0, 0.3, 0.45, 1],
 				ease: ["linear", "linear", "easeInOut", "easeInOut"],
-				delayChildren: stagger(0.1, { startDelay: 0.2 }),
+				delayChildren: stagger(0.1, { startDelay: 0.15 }),
 			},
 		},
 		closed: {
@@ -79,10 +84,30 @@ export default function Dropdown({
 			scaleX: [1, null, null, 0],
 			scaleY: [1, 0.1, null, null],
 			transition: {
-				duration: 0.3,
+				duration: 0.25,
 				times: [0, 0.55, 0.7, 1],
-				ease: ["easeInOut", "easeInOut", "linear", "linear"],
-				delay: 0.25,
+				ease: ["linear", "linear", "easeInOut", "easeInOut"],
+				delay: hideDelay + 0.05,
+			},
+		},
+	};
+
+	const contentVariants: Variants = {
+		open: {
+			opacity: [0, 1],
+			transition: {
+				duration: 0.2,
+				ease: "easeInOut",
+				delayChildren: stagger(0.05),
+			},
+		},
+		closed: {
+			opacity: [1, 0],
+			transition: {
+				duration: 0.2,
+				delay: hideDelay,
+				ease: "easeInOut",
+				delayChildren: stagger(0.03, { from: "last" }),
 			},
 		},
 	};
@@ -105,7 +130,8 @@ export default function Dropdown({
 							animate={"open"}
 							exit={"closed"}
 							className={
-								"absolute px-2 py-1 bg-background-secondary rounded-standard z-350 shadow-md"
+								"absolute px-2 py-1 bg-background-secondary rounded-standard z-350 shadow-md " +
+								className
 							}
 						>
 							<motion.div
@@ -121,7 +147,7 @@ export default function Dropdown({
 								animate={{ opacity: 1, zIndex: 300 }}
 								exit={{
 									opacity: 0,
-									transition: { delay: 0.45 },
+									transition: { delay: 0.35 },
 								}}
 								transition={{ duration: 0.2 }}
 								onClick={() => setShow(false)}
@@ -135,28 +161,6 @@ export default function Dropdown({
 		</div>
 	);
 }
-
-const contentVariants: Variants = {
-	open: {
-		opacity: [0, 1],
-		y: 0,
-		transition: {
-			duration: 0.2,
-			ease: "easeInOut",
-			delayChildren: stagger(0.05),
-		},
-	},
-	closed: {
-		opacity: [1, 0],
-		y: 0,
-		transition: {
-			duration: 0.2,
-			delay: 0.15,
-			ease: "easeInOut",
-			delayChildren: stagger(0.05, { from: "last" }),
-		},
-	},
-};
 
 const style = {
 	top: "flex-col-reverse items-center",

@@ -1,4 +1,3 @@
-import Dropdown from "@restart/ui/Dropdown";
 import Star from "../../../assets/icons/star.svg?react";
 import StarBorder from "../../../assets/icons/star-border.svg?react";
 import type { PlanType } from "../../../lib/definitions/plan";
@@ -34,7 +33,7 @@ export default function PlanListItem({
 			onMouseEnter={() => setShowButton(true)}
 			onMouseLeave={() => setShowButton(false)}
 		>
-			<Dropdown.Item className="w-full hover:text-theme duration-100 text-md">
+			<div className="w-full hover:text-theme duration-100 text-md">
 				<PlanLink
 					type={type}
 					name={value}
@@ -42,7 +41,7 @@ export default function PlanListItem({
 				>
 					{name}
 				</PlanLink>
-			</Dropdown.Item>
+			</div>
 			{width < pcWidth && (
 				<button
 					onClick={handleFavourite}
