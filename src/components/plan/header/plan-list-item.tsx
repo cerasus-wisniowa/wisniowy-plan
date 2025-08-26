@@ -5,6 +5,7 @@ import useWindowDimensions, { pcWidth } from "../../hook/use-window-dimensions";
 import { useState } from "react";
 import PlanLink from "../plan-link";
 import type { FavoritePlan } from "@/lib/definitions/favorite";
+import DropdownItem from "@/components/ui/dropdown/dropdown-item";
 
 export default function PlanListItem({
 	type,
@@ -33,7 +34,7 @@ export default function PlanListItem({
 			onMouseEnter={() => setShowButton(true)}
 			onMouseLeave={() => setShowButton(false)}
 		>
-			<div className="w-full hover:text-theme duration-100 text-md">
+			<DropdownItem className="w-full hover:text-theme duration-100 text-md">
 				<PlanLink
 					type={type}
 					name={value}
@@ -41,7 +42,7 @@ export default function PlanListItem({
 				>
 					{name}
 				</PlanLink>
-			</div>
+			</DropdownItem>
 			{width < pcWidth && (
 				<button
 					onClick={handleFavourite}

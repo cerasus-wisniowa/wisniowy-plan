@@ -29,7 +29,7 @@ type DropdownProps = {
 export default function Dropdown({
 	children,
 	toggle,
-	position: pos,
+	position,
 	offset = [0, 0],
 	backdrop,
 	hideDelay = 0.15,
@@ -39,8 +39,6 @@ export default function Dropdown({
 	const [show, setShow] = useDropdown();
 	const toggleRef = useRef<HTMLButtonElement>(null);
 	const dropdownRef = useRef<HTMLDivElement>(null);
-
-	const [position] = useState<DropdownPosition>(pos);
 
 	const [xOffset, setXOffset] = useState<number>(0);
 	const [yOffset, setYOffset] = useState<number>(0);
@@ -53,7 +51,7 @@ export default function Dropdown({
 	useEffect(() => {
 		if (!toggleRef.current) return;
 		const xMultiplier =
-			position === "left" ? -1 : position === "right" ? 1 : 0;
+			position === "left" ? 1 : position === "right" ? -1 : 0;
 		const yMultiplier = isTop ? -1 : isBottom ? 1 : 0;
 
 		setXOffset(xMultiplier * toggleRef.current.offsetWidth);
@@ -125,7 +123,7 @@ export default function Dropdown({
 	};
 
 	return (
-		<div className={"flex flex-col " + style[pos]}>
+		<div className={"flex flex-col " + style[position]}>
 			<Button
 				ref={toggleRef}
 				className="cursor-pointer"
@@ -142,7 +140,7 @@ export default function Dropdown({
 							animate={"open"}
 							exit={"closed"}
 							className={
-								"absolute px-2 py-1 bg-background-secondary rounded-standard z-350 shadow-md " +
+								"absolute bg-background-secondary rounded-standard z-350 shadow-md " +
 								className
 							}
 						>

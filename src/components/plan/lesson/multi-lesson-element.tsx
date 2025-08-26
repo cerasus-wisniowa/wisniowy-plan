@@ -44,7 +44,7 @@ export default function MultiLessonElement({
 									rozwiń {overflow > 0 && `(+${overflow})`}
 								</div>
 							)}
-							className="max-w-screen"
+							className="max-w-screen px-2 py-1"
 							position="bottom"
 							backdrop={
 								<Overlay

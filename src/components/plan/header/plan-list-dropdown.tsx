@@ -159,7 +159,7 @@ export default function PlanListDropdown({
 	return (
 		<DropdownProvider>
 			<Dropdown
-				position={"bottom-right"}
+				position="bottom-right"
 				toggle={(show) => <Toggle show={show} />}
 				backdrop={
 					<Overlay
@@ -169,76 +169,73 @@ export default function PlanListDropdown({
 				}
 				hideDelay={0.25}
 				disableScroll
+				className="px-2 py-1"
 			>
-				<div className="p-1 flex flex-col gap-2">
-					<motion.div
-						className=" bg-background rounded-xl"
-						variants={inputVariants}
-					>
-						<motion.input
+				<motion.div
+					className="bg-background rounded-xl"
+					variants={inputVariants}
+				>
+					<motion.input
+						variants={variants}
+						className="py-1 px-2 w-full rounded-xl"
+						placeholder="wyszukaj"
+						onChange={(e) => setQuery(e.target.value)}
+						autoFocus
+					/>
+				</motion.div>
+				<ul className="flex flex-col gap-1 overflow-y-auto max-h-[calc(100vh-18rem)] mt-2">
+					{!loading && !error && filteredFavs && (
+						<motion.div
 							variants={variants}
-							className="py-1 px-2 w-full rounded-xl"
-							placeholder="wyszukaj"
-							onChange={(e) => setQuery(e.target.value)}
-							autoFocus
-						/>
-					</motion.div>
-					<ul className="flex flex-col gap-1 overflow-y-auto max-h-[calc(100vh-18rem)]">
-						{!loading && !error && filteredFavs && (
-							<motion.div
-								variants={variants}
-								className={
-									filteredFavs.length > 0 ? "" : "hidden"
-								}
-							>
-								<li className="text-md font-semibold px-1">
-									ULUBIONE
-								</li>
-								{filteredFavs
-									.filter((f) => f.type === "class")
-									.map(favouriteMap)}
-								{filteredFavs
-									.filter((f) => f.type === "teacher")
-									.map(favouriteMap)}
-								{filteredFavs
-									.filter((f) => f.type === "classroom")
-									.map(favouriteMap)}
-							</motion.div>
-						)}
-						{!loading &&
-							!error &&
-							filtered.map((list, i) => (
-								<motion.div key={i} variants={variants}>
-									{list[0] &&
-										((filteredFavs &&
-											filteredFavs.length > 0) ||
-											i > 0) && (
-											<li className="pr-2 py-1">
-												<Divider style="theme" />
-											</li>
-										)}
-
-									{list[0] && (
-										<>
-											<li className="text-md font-semibold px-1">
-												{names[list[0].type]}
-											</li>
-										</>
+							className={filteredFavs.length > 0 ? "" : "hidden"}
+						>
+							<li className="text-md font-semibold px-1">
+								ULUBIONE
+							</li>
+							{filteredFavs
+								.filter((f) => f.type === "class")
+								.map(favouriteMap)}
+							{filteredFavs
+								.filter((f) => f.type === "teacher")
+								.map(favouriteMap)}
+							{filteredFavs
+								.filter((f) => f.type === "classroom")
+								.map(favouriteMap)}
+						</motion.div>
+					)}
+					{!loading &&
+						!error &&
+						filtered.map((list, i) => (
+							<motion.div key={i} variants={variants}>
+								{list[0] &&
+									((filteredFavs &&
+										filteredFavs.length > 0) ||
+										i > 0) && (
+										<li className="pr-2 py-1">
+											<Divider style="theme" />
+										</li>
 									)}
-									{list.map((plan, j) => (
-										<PlanListItem
-											key={i + "/" + j}
-											type={plan.type}
-											value={plan.value}
-											name={plan.name}
-											isFavorite={isFavorite(plan)}
-											setFavorite={setFavorite}
-										/>
-									))}
-								</motion.div>
-							))}
-					</ul>
-				</div>
+
+								{list[0] && (
+									<>
+										<li className="text-md font-semibold px-1">
+											{names[list[0].type]}
+										</li>
+									</>
+								)}
+								{list.map((plan, j) => (
+									<PlanListItem
+										key={i + "/" + j}
+										type={plan.type}
+										value={plan.value}
+										name={plan.name}
+										isFavorite={isFavorite(plan)}
+										setFavorite={setFavorite}
+									/>
+								))}
+							</motion.div>
+						))}
+				</ul>
 			</Dropdown>
 		</DropdownProvider>
 	);
