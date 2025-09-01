@@ -33,6 +33,7 @@ export default function MultiLessonElement({
 							lesson={lesson}
 							key={i}
 							class={class_}
+							date={date}
 						/>
 					))}
 				</ul>
