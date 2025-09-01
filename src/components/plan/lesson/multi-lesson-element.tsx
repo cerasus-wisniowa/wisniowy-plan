@@ -52,6 +52,7 @@ export default function MultiLessonElement({
 									className="z-4 bg-black/20 dark:bg-black/40 fixed top-0 left-0 w-full h-full"
 								/>
 							}
+							hideDelay={0.075}
 						>
 							<ul className="w-80 max-w-[95vw] p-2 flex flex-col gap-4">
 								{stackedLesson.lessons.map((l, i) => (
@@ -76,17 +77,17 @@ export default function MultiLessonElement({
 
 const lessonVariants: Variants = {
 	open: {
-		y: [-12, 0],
+		x: [-12, 0],
 		opacity: [0, 1],
 		transition: {
-			y: { duration: 0.25, ease: "easeInOut" },
+			x: { duration: 0.15, ease: "easeInOut" },
 		},
 	},
 	closed: {
-		y: [0, -8],
+		x: [0, -8],
 		opacity: [1, 0],
 		transition: {
-			y: { duration: 0.2, ease: "easeInOut" },
+			x: { duration: 0.1, ease: "easeInOut" },
 		},
 	},
 };

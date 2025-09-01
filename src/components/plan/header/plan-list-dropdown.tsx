@@ -167,7 +167,7 @@ export default function PlanListDropdown({
 						className="z-4 bg-black/20 dark:bg-black/40 fixed top-0 left-0 w-full h-full"
 					/>
 				}
-				hideDelay={0.25}
+				hideDelay={0.15}
 				disableScroll
 				className="px-2 py-1"
 			>
@@ -251,7 +251,7 @@ const variants: Variants = {
 	closed: {
 		opacity: 0,
 		transition: {
-			duration: 0.15,
+			duration: 0.075,
 		},
 	},
 };
@@ -261,10 +261,10 @@ const inputVariants: Variants = {
 		scaleX: [0, 1],
 		originX: 0,
 		transition: {
-			duration: 0.1,
+			duration: 0.075,
 			ease: "easeInOut",
-			delay: 0.1,
-			delayChildren: stagger(undefined, { startDelay: 0.1 }),
+			delay: 0.075,
+			delayChildren: stagger(undefined, { startDelay: 0.075 }),
 		},
 	},
 	closed: {
@@ -273,7 +273,7 @@ const inputVariants: Variants = {
 		transition: {
 			duration: 0.08,
 			ease: "easeInOut",
-			delay: 0.2,
+			delay: 0.1,
 		},
 	},
 };

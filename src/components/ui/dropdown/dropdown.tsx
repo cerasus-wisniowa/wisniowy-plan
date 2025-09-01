@@ -114,10 +114,10 @@ export default function Dropdown({
 		closed: {
 			opacity: [1, 0],
 			transition: {
-				duration: 0.2,
+				duration: 0.075,
 				delay: hideDelay,
 				ease: "easeInOut",
-				delayChildren: stagger(0.03, { from: "last" }),
+				delayChildren: stagger(0.025, { from: "last" }),
 			},
 		},
 	};
@@ -157,7 +157,7 @@ export default function Dropdown({
 								animate={{ opacity: 1, zIndex: 300 }}
 								exit={{
 									opacity: 0,
-									transition: { delay: 0.35 },
+									transition: { delay: hideDelay + 0.1 },
 								}}
 								transition={{ duration: 0.2 }}
 								onClick={() => setShow(false)}
