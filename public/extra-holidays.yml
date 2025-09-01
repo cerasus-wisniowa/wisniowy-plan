@@ -3,3 +3,7 @@
 
 - name: Rozpoczęcie roku szkolnego
   date: 2025-09-01
+
+- name: Ferie zimowe
+  date: 2025-01-19
+  end: 2025-02-01

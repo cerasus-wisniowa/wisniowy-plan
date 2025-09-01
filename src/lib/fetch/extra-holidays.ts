@@ -1,4 +1,5 @@
 import {
+	addRangeHoliday,
 	addSingleHoliday,
 	checkHolidays,
 } from "@dudek26/node-ferie/dist/holidays";
@@ -15,11 +16,22 @@ export async function setupExtraHolidays() {
 	const holidays = load(text) as ExtraHoliday[];
 
 	for (const holiday of holidays) {
-		addExtraHoliday(holiday.name, new Date(holiday.date));
+		if (holiday.end)
+			addExtraRangeHoliday(
+				holiday.name,
+				new Date(holiday.date),
+				new Date(holiday.end)
+			);
+		else addExtraHoliday(holiday.name, new Date(holiday.date));
 	}
 }
 
 function addExtraHoliday(name: string, date: Date) {
 	if (checkHolidays(date).find((h) => h.name === name)) return;
 	addSingleHoliday(name, "school", date);
+}
+
+function addExtraRangeHoliday(name: string, start: Date, end: Date) {
+	if (checkHolidays(start).find((h) => h.name === name)) return;
+	addRangeHoliday(name, "school", start, end);
 }
