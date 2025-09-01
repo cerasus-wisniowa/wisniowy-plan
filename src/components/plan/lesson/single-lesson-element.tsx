@@ -3,7 +3,7 @@ import LessonElement from "./lesson-element";
 import { useChanges } from "../../context/changes-provider";
 import { findChange } from "../../../lib/util/find-change";
 import { changeTypes } from "../../../lib/definitions/change";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useWeek } from "../../context/week-provider";
 import { getDayOffset } from "../../../lib/util/get-date-offset";
@@ -53,6 +53,10 @@ export default function SingleLessonElement({
 	const { changes } = useChanges();
 
 	const [showModal, setShowModal] = useState(false);
+
+	useEffect(() => {
+		setShowModal(false);
+	}, [lesson]);
 
 	const change =
 		changes && findChange(lesson, changes, getDayOffset(week, lesson.day));

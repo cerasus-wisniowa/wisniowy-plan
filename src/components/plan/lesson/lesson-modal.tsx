@@ -4,6 +4,7 @@ import Modal from "../../../components/ui/modal/modal";
 import { changeStyles } from "./single-lesson-element";
 import bells from "../../../data/bells.json";
 import { motion, type Variants } from "motion/react";
+import PlanLink from "../plan-link";
 
 type LessonModalProps = {
 	show: boolean;
@@ -101,11 +102,15 @@ export default function LessonModal({
 				<ModalElement>
 					<ModalLabel>NAUCZYCIEL</ModalLabel>
 					<span>
-						<span className={`${change ? "line-through" : ""}`}>
+						<PlanLink
+							type="teacher"
+							name={lesson.teacher?.initials}
+							className={`${change ? "line-through" : ""}`}
+						>
 							{lesson.teacher?.firstName}.{" "}
 							{lesson.teacher?.lastName} (
 							{lesson.teacher?.initials})
-						</span>
+						</PlanLink>
 						{change?.substitutionTeacher &&
 							` → ${change.substitutionTeacher.firstName} ${change.substitutionTeacher.lastName}`}
 					</span>
@@ -114,7 +119,9 @@ export default function LessonModal({
 					<ModalElement>
 						<ModalLabel>SALA</ModalLabel>
 						<span>
-							<span
+							<PlanLink
+								type="classroom"
+								name={lesson.room.room}
 								className={`${
 									change?.type === "cancelled" ||
 									(change?.classroom &&
@@ -125,7 +132,7 @@ export default function LessonModal({
 								}`}
 							>
 								{lesson.room.room} - {lesson.room.name}
-							</span>
+							</PlanLink>
 							{change?.classroom &&
 								change?.classroom.room !== lesson.room.room &&
 								` → ${change.classroom.room} - ${change.classroom.name}`}
@@ -134,12 +141,14 @@ export default function LessonModal({
 				)}
 				<ModalElement>
 					<ModalLabel>
-						ODDZIAŁ{lesson.sections.length > 1 ? "Y" : ""}
+						ODDZIAŁ{lesson.sections.length > 1 && "Y"}
 					</ModalLabel>
 
 					{lesson.sections.map((s) => (
 						<span key={s.class + "/" + s.group}>
-							{s.class}
+							<PlanLink type="class" name={s.class}>
+								{s.class}
+							</PlanLink>
 							{s.group && " - gr. " + s.group}
 							<span className="last:hidden">, </span>
 						</span>
