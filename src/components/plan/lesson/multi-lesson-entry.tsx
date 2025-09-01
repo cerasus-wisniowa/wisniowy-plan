@@ -16,7 +16,7 @@ export default function MultiLessonEntry({
 		<span className="text-foreground-tertiary select-none">•</span>
 	);
 
-	let lessonNameWidth = innerWidth * (isMobile() ? 0.4 : 0.3);
+	let lessonNameWidth = innerWidth * (isMobile() ? 0.35 : 0.3);
 	if (!isMobile()) lessonNameWidth /= 5;
 	if (!group) lessonNameWidth += 32;
 	if (!lesson.room) lessonNameWidth += 40;

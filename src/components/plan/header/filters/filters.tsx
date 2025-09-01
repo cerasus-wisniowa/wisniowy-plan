@@ -43,22 +43,6 @@ export default function Filters({
 					title="grupa:"
 				/>
 			)}
-			{hasType("specialisation") && (
-				<div className="flex gap-2">
-					<GroupFilter
-						options={specialisations}
-						selected={filters.groups?.specialisation}
-						onSelect={(i) => {
-							filters.groups.specialisation =
-								i === filters.groups?.specialisation
-									? undefined
-									: i;
-							updateFilters(filters);
-						}}
-						title="specjalizacja:"
-					/>
-				</div>
-			)}
 			{hasType("religion") && (
 				<div className="flex pc:self-center text-foreground-secondary">
 					<div className="mr-4">religia:</div>
@@ -112,6 +96,21 @@ export default function Filters({
 					}}
 				>
 					język obcy drugi:
+				</TeacherDropdown>
+			)}
+			{hasType("specialisation") && (
+				<TeacherDropdown
+					teachers={findTeachers(
+						plan?.lessons || [],
+						"specialisation"
+					)}
+					selected={filters.teachers?.specialisation}
+					onSelect={(teacher) => {
+						filters.teachers.specialisation = teacher;
+						updateFilters(filters);
+					}}
+				>
+					specjalizacja:
 				</TeacherDropdown>
 			)}
 		</>

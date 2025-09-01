@@ -3,10 +3,10 @@ export type PlanFilters = {
 	teachers: {
 		english?: string;
 		secondary_language?: string;
+		specialisation?: string;
 	};
 	groups: {
 		group?: string | number;
-		specialisation?: string | number;
 	};
 	exclude: {
 		religion?: boolean;

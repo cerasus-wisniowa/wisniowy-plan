@@ -9,9 +9,14 @@ import Spinner from "../components/ui/spinner";
 import { useChanges } from "../components/context/changes-provider";
 import Error from "../assets/icons/error.svg?react";
 import type { ApiPlanList } from "@/lib/definitions/plan-list";
+import { cleanPlans } from "@/lib/database/plan";
 
 export async function clientLoader() {
 	const planList = await fetchOrGetPlanList();
+
+	if (planList.api) {
+		cleanPlans(planList);
+	}
 
 	return planList;
 }

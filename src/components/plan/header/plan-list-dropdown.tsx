@@ -183,7 +183,7 @@ export default function PlanListDropdown({
 						autoFocus
 					/>
 				</motion.div>
-				<ul className="flex flex-col gap-1 overflow-y-auto max-h-[calc(100vh-18rem)] mt-2">
+				<ul className="flex flex-col gap-1 overflow-y-auto max-h-[calc(100vh-23rem)] mt-2">
 					{!loading && !error && filteredFavs && (
 						<motion.div
 							variants={variants}

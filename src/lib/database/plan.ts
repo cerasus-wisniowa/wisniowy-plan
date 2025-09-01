@@ -17,7 +17,7 @@ import type { PlanList } from "../definitions/plan-list";
 import type { PlanTeacher } from "../definitions/teacher";
 import { classSortPredicate } from "../util/plan-list-utils";
 import { saveClassroomName } from "./classroom-name";
-import { addData, getStoreData, Stores, updateData } from "./db";
+import { addData, deleteData, getStoreData, Stores, updateData } from "./db";
 import { saveLessonName } from "./lesson-name";
 import { saveTeacherName } from "./teacher-name";
 
@@ -149,6 +149,7 @@ export async function getStoredPlansList(
 		class: [],
 		teacher: [],
 		classroom: [],
+		source: source,
 	} satisfies PlanList as PlanList;
 
 	try {
@@ -185,4 +186,26 @@ export async function getStoredPlansList(
 	planList.class.sort(classSortPredicate);
 
 	return planList;
+}
+
+export async function cleanPlans(planList: PlanList) {
+	const plans = await getStoreData<IndexedStoredPlan>(Stores.Plans);
+
+	plans
+		.filter((plan) => plan.source === planList.source)
+		.forEach((plan) => {
+			if (plan.type === "class" && !planList.class.includes(plan.name)) {
+				deleteData(Stores.Plans, plan.id);
+			} else if (
+				plan.type === "teacher" &&
+				!planList.teacher.some((t) => t.initials === plan.name)
+			) {
+				deleteData(Stores.Plans, plan.id);
+			} else if (
+				plan.type === "classroom" &&
+				!planList.classroom.some((r) => r.room === plan.name)
+			) {
+				deleteData(Stores.Plans, plan.id);
+			}
+		});
 }
