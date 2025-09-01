@@ -5,6 +5,7 @@ import Overlay from "@/components/ui/overlay";
 import { motion, stagger, type Variants } from "motion/react";
 import DropdownItem from "@/components/ui/dropdown/dropdown-item";
 import DropdownProvider from "@/components/ui/dropdown/dropdown-provider";
+import useWindowDimensions from "@/components/hook/use-window-dimensions";
 
 export default function TeacherDropdown({
 	children,
@@ -20,6 +21,8 @@ export default function TeacherDropdown({
 	const teacher = teachers.find((t) => t.initials === selected);
 	const teacherName = (teacher: Teacher) =>
 		`${teacher.firstName}. ${teacher.lastName} (${teacher.initials})`;
+
+	const { isMobile } = useWindowDimensions();
 
 	const Toggle = ({ show }: { show: boolean }) => (
 		<div className="rounded-standard justify-between bg-background items-center flex gap-2 p-2 pl-3 text-foreground-secondary hover:bg-black/15 dark:hover:bg-white/20 duration-100 max-w-60 shadow-sm">
@@ -45,7 +48,7 @@ export default function TeacherDropdown({
 			</div>
 			<DropdownProvider>
 				<Dropdown
-					position="bottom-right"
+					position={isMobile() ? "bottom-left" : "bottom-right"}
 					toggle={(show) => <Toggle show={show} />}
 					backdrop={
 						<Overlay

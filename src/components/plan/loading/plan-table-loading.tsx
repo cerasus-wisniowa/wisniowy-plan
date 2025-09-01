@@ -1,5 +1,6 @@
 import Spinner from "../../../components/ui/spinner";
 
+// unused
 export default function PlanTableLoading({ planName }: { planName: string }) {
 	/*
 	const { week, mobileDay } = useWeek();

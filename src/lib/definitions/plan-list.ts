@@ -6,6 +6,8 @@ export type PlanList = {
 	class: string[];
 	teacher: Teacher[];
 	classroom: Classroom[];
+	lastUpdate?: string;
+	isUpdating?: boolean;
 };
 
 export type ApiPlanList = PlanList & ApiPlanCacheMeta;

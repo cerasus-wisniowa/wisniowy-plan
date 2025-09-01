@@ -70,7 +70,7 @@ export default function PlanTable({
 					/>
 				</div>
 			) : (
-				<div className="flex justify-between mt-[-0.5rem] min-h-[calc(100vh-22rem)]">
+				<div className="flex justify-between mt-[-0.5rem] min-h-[calc(100vh-24rem)]">
 					{[1, 2, 3, 4, 5].map((day) => (
 						<PlanColumn
 							key={day}

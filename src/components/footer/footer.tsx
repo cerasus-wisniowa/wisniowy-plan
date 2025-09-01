@@ -30,7 +30,7 @@ export default function Footer() {
 	}, []);
 
 	return (
-		<div className="w-full self-center mx-auto text-md font-normal">
+		<div className="w-full self-center mx-auto text-sm pc:text-md font-normal">
 			<div className="self-center mx-4">
 				<Divider style="footer" />
 			</div>
@@ -54,8 +54,8 @@ export default function Footer() {
 					changelog={apiChangelog}
 				/>
 			)}
-			<div className="flex not-sm:flex-col items-center sm:justify-between mx-8 gap-4 p-4 bg-background text-foreground-tertiary dark:text-white/30 flex-wrap">
-				<div className="flex not-sm:flex-col sm:gap-6 gap-2 items-center">
+			<div className="flex not-sm:flex-col items-center sm:justify-between mx-8 gap-3 pc:gap-4 p-4 bg-background text-foreground-tertiary dark:text-white/30 flex-wrap">
+				<div className="flex flex-1 not-sm:flex-col sm:gap-6 gap-2 items-center">
 					<Button
 						className={
 							"duration-100 " + siteChangelog
@@ -86,7 +86,7 @@ export default function Footer() {
 						</div>
 					)}
 				</div>
-				<div>Made by dudko</div>
+				<div className="flex-1 text-end">Made by dudko</div>
 			</div>
 		</div>
 	);

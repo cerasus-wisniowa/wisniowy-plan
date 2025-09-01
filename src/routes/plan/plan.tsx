@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PlanTable from "../../components/plan/plan-table";
 import { type PlanFilters } from "../../lib/definitions/filters";
 import WeekNavigationButton from "../../components/plan/nav/week-navigation-button";
@@ -17,6 +17,7 @@ import { Button } from "@restart/ui";
 import useWindowDimensions from "../../components/hook/use-window-dimensions";
 
 import Error from "@/assets/icons/error.svg?react";
+import Warning from "@/assets/icons/warning.svg?react";
 import MobileWeekNavigation from "@/components/plan/nav/mobile-week-navigation";
 import Filters from "@/components/plan/header/filters/filters";
 import type { Route } from "./+types/plan";
@@ -24,6 +25,7 @@ import { getFilters, saveFilters } from "@/lib/database/filters";
 import Modal from "@/components/ui/modal/modal";
 import { getFavorites } from "@/lib/database/favorites";
 import { getStoredPlansList } from "@/lib/database/plan";
+import { dateIfYesterday } from "@/lib/util/date-utils";
 
 export async function clientLoader({ params }: ClientLoaderFunctionArgs) {
 	const query = {
@@ -32,6 +34,7 @@ export async function clientLoader({ params }: ClientLoaderFunctionArgs) {
 			("class" as PlanType),
 		name: localStorage.getItem("plan-name") || "1la",
 	};
+	const source = "planlekcji";
 
 	const { type, name } = params;
 	if (type && ["class", "teacher", "classroom"].includes(type)) {
@@ -43,7 +46,7 @@ export async function clientLoader({ params }: ClientLoaderFunctionArgs) {
 		localStorage.setItem("plan-name", name);
 	} else return replace(`/plan/${query.type}/${query.name}`);
 
-	const lastChanged = localStorage.getItem("last-plan-change");
+	const lastChanged = localStorage.getItem("last-plan-change-" + source);
 	const planInfo = { ...query, source: "planlekcji" } satisfies PlanInfo;
 	let plan = await getOrFetchPlan(planInfo);
 	if (plan && plan.lastChanged !== lastChanged)
@@ -58,7 +61,14 @@ export async function clientLoader({ params }: ClientLoaderFunctionArgs) {
 	const rawFavorites = await getFavorites();
 	const storedPlansList = await getStoredPlansList();
 
-	return { query, plan, storedFilters, rawFavorites, storedPlansList };
+	return {
+		query,
+		plan,
+		storedFilters,
+		rawFavorites,
+		storedPlansList,
+		lastChanged,
+	};
 }
 
 export default function PlanRoute({ loaderData }: Route.ComponentProps) {
@@ -71,6 +81,10 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 
 	const [filters, setFilters] = useState<PlanFilters>(storedFilters);
 	const [mobileFilters, setMobileFilters] = useState(false);
+
+	useEffect(() => {
+		setFilters(storedFilters);
+	}, [storedFilters]);
 
 	const updateFilters = (filters: PlanFilters) => {
 		saveFilters({ ...filters });
@@ -180,11 +194,6 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 										planList
 									)}
 							</span>
-							<span className="text-md text-foreground-tertiary mb-0.5">
-								{plan &&
-									plan.source !== "planlekcji" &&
-									`(${plan.source})`}
-							</span>
 						</div>
 						<div className="self-end flex gap-3 text-foreground-secondary text-xl items-end">
 							<span>{getMonthsSpanString(week, 5)}</span>
@@ -200,7 +209,41 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 				{!isMobile() && <Divider style="theme" />}
 				<div className="">
 					{plan ? (
-						<PlanTable plan={plan} filters={filters} />
+						<>
+							<PlanTable plan={plan} filters={filters} />
+							<div className="pc:mx-6 text-sm pc:text-md text-foreground-inverse-secondary pt-2 flex gap-1 pc:gap-4 justify-between not-pc:flex-col not-pc:text-center">
+								{planList?.isUpdating ? (
+									<div className="flex items-center gap-1 text-warning">
+										<Warning />
+										<div>
+											Trwa aktualizacja planów. Odśwież
+											stronę za kilka minut.
+										</div>
+									</div>
+								) : (
+									<div>
+										Ostatnia aktualizacja:{" "}
+										{planList?.lastUpdate
+											? dateIfYesterday(
+													new Date(
+														planList.lastUpdate
+													)
+												)
+											: (plan.lastUpdate ?? "?")}
+									</div>
+								)}
+								<div>
+									wygenerowano:{" "}
+									{new Date(
+										plan.generated
+									).toLocaleDateString("pl-PL", {
+										day: "numeric",
+										month: "long",
+										year: "numeric",
+									})}
+								</div>
+							</div>
+						</>
 					) : (
 						<div className="w-full not-pc:h-80 pc:min-h-[calc(100vh-22.5rem)] items-center justify-center text-center flex flex-col gap-2 pb-8">
 							<Error
