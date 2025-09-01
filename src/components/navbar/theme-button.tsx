@@ -145,14 +145,16 @@ const itemVariants: Variants = {
 		opacity: [0, 1],
 		y: [6, 0],
 		transition: {
-			y: { duration: 0.1, ease: "easeOut" },
+			duration: 0.15,
+			ease: "easeInOut",
 		},
 	},
 	closed: {
 		opacity: 0,
 		y: 6,
 		transition: {
-			y: { duration: 0.075, ease: "easeIn" },
+			duration: 0.1,
+			ease: "easeInOut",
 		},
 	},
 };
