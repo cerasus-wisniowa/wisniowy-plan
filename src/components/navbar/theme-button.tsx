@@ -89,6 +89,7 @@ export default function ThemeButton() {
 						className="z-4 bg-black/20 dark:bg-black/40 fixed top-0 left-0 w-full h-full"
 					/>
 				}
+				hideDelay={0.08}
 			>
 				<motion.div
 					variants={containerVariants}
