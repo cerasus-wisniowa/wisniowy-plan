@@ -20,6 +20,10 @@
   date: 2025-01-19
   end: 2025-02-01
 
+- name: Egzaminy maturalne
+  date: 2025-05-04
+  end: 2025-05-07
+
 - name: Dzień wolny od zajęć
   date: 2026-06-05
 
