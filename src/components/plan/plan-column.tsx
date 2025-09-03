@@ -9,6 +9,7 @@ import EmptyLessonElement from "./lesson/empty-lesson-element";
 import SingleLessonElement from "./lesson/single-lesson-element";
 import { nextDate, previousDate } from "../../lib/util/date-utils";
 import MultiLessonElement from "./lesson/multi-lesson-element";
+import { cn } from "@/lib/util/classname";
 
 export default function PlanColumn({
 	lessons,
@@ -35,6 +36,8 @@ export default function PlanColumn({
 	const holidays = checkHolidays(date);
 	const hasHolidays = holidays.length > 0;
 
+	const isToday = areDatesEqual(date, new Date());
+
 	const nextHasHolidays =
 		hasHolidays &&
 		!mobile &&
@@ -47,17 +50,19 @@ export default function PlanColumn({
 		checkHolidays(previousDate(date)).length > 0;
 
 	return (
-		<div className="flex mb-1 mt-2 not-first:border-l-1 border-theme/50 flex-1 w-full">
+		<div className="flex mb-2 mt-2 not-first:border-l-1 border-theme/50 flex-1 w-full">
 			<div
-				className={`flex flex-col px-3 my-1 w-full items-center
-					${
-						hasHolidays
-							? `bg-deny/10
+				className={cn(
+					"flex flex-col px-3 pb-2 w-full h-full items-center",
+					hasHolidays
+						? `bg-deny/10
 						${nextHasHolidays ? "" : "rounded-r-standard mr-3"}
 						${previousHasHolidays ? "" : "rounded-l-standard ml-3"}
 						`
+						: isToday
+							? "pc:bg-info/5"
 							: ""
-					}`}
+				)}
 			>
 				{mobile ?? (
 					<div
