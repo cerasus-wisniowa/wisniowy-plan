@@ -3,18 +3,20 @@ import LessonElement from "./lesson-element";
 import { useChanges } from "../../context/changes-provider";
 import { findChange } from "../../../lib/util/find-change";
 import { changeTypes } from "../../../lib/definitions/change";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { useWeek } from "../../context/week-provider";
 import { getDayOffset } from "../../../lib/util/get-date-offset";
 import type { PlanType } from "../../../lib/definitions/plan";
 import PlanLink from "../plan-link";
-import { Button } from "@restart/ui";
+import { Button, Overlay } from "@restart/ui";
 
 import Next from "../../../assets/icons/navigation/next.svg?react";
 import Note from "../../../assets/icons/note.svg?react";
 import LessonHour from "./lesson-hour";
 import LessonModal from "./lesson-modal";
+import { cn } from "@/lib/util/classname";
+import { motion } from "motion/react";
 
 export const changeStyles = {
 	labelBackground: {
@@ -51,8 +53,11 @@ export default function SingleLessonElement({
 	const { week } = useWeek();
 	const group = lesson.sections.find((s) => s.class === class_)?.group;
 	const { changes } = useChanges();
+	const noteRef = useRef<HTMLSpanElement>(null);
+	const containterRef = useRef<HTMLDivElement>(null);
 
 	const [showModal, setShowModal] = useState(false);
+	const [showNote, setShowNote] = useState(false);
 
 	useEffect(() => {
 		setShowModal(false);
@@ -127,19 +132,60 @@ export default function SingleLessonElement({
 				change={change}
 			/>
 			<LessonElement style={change?.type}>
-				<div className="h-full flex flex-col w-full">
+				<div
+					ref={containterRef}
+					className="h-full flex flex-col w-full"
+				>
 					<div className="flex justify-between text-sm ">
 						{change ? (
 							<div
-								className={`ml-[-0.5rem] dark:text-background text-foreground font-medium pl-1 pr-2 rounded-r-full flex items-center ${
-									changeStyles.labelBackground[change?.type]
-								}`}
+								className={cn(
+									"ml-[-0.5rem] dark:text-background text-foreground font-medium pl-1 pr-2 rounded-r-full flex items-center select-none",
+									changeStyles.labelBackground[change?.type],
+									notes && "cursor-help"
+								)}
+								onMouseEnter={() => setShowNote(true)}
+								onMouseLeave={() => setShowNote(false)}
 							>
 								<span>{changeTypes[change.type]} </span>
 								{notes && (
-									<span title={notes} className="ml-1">
-										<Note width={16} height={16} />
-									</span>
+									<>
+										<span ref={noteRef} className="ml-1">
+											<Note width={16} height={16} />
+										</span>
+										<Overlay
+											show={showNote}
+											target={noteRef}
+											container={containterRef}
+											placement="right"
+											rootClose
+											offset={[0, 8]}
+										>
+											{(props, { arrowProps }) => (
+												<motion.div
+													initial={{ opacity: 0 }}
+													animate={{ opacity: 1 }}
+													transition={{
+														duration: 0.05,
+													}}
+													{...props}
+													className="absolute"
+												>
+													<div
+														{...arrowProps}
+														style={arrowProps.style}
+														className={cn(
+															"absolute w-4 h-4 z-[-1]",
+															"before:absolute before:rotate-45 before:bg-background before:top-0 before:left-0 before:w-3 before:h-3"
+														)}
+													/>
+													<div className="py-1 px-2 text-center text-sm rounded bg-background text-foreground-secondary ">
+														{notes}
+													</div>
+												</motion.div>
+											)}
+										</Overlay>
+									</>
 								)}
 							</div>
 						) : (

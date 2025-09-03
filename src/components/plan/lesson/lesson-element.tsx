@@ -1,4 +1,7 @@
+import { cn } from "@/lib/util/classname";
 import type { ChangeType } from "../../../lib/definitions/change";
+
+export const lessonHeight = "h-[6.875rem]";
 
 export default function LessonElement({
 	children,
@@ -18,10 +21,11 @@ export default function LessonElement({
 
 	return (
 		<li
-			className={
-				"w-full h-28 bg-background p-2 pr-3 rounded-standard shadow-sm text-md flex gap-1 justify-between text-foreground-secondary " +
-				(style && styles[style])
-			}
+			className={cn(
+				"w-full bg-background p-2 pr-3 rounded-standard shadow-sm text-md flex gap-1 justify-between text-foreground-secondary",
+				style && styles[style],
+				lessonHeight
+			)}
 		>
 			{children}
 		</li>
