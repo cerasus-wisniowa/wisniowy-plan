@@ -140,7 +140,7 @@ export default function PlanListDropdown({
 	const Toggle = ({ show }: { show: boolean }) => (
 		<div
 			onClick={() => setQuery(undefined)}
-			className="rounded-standard bg-background flex gap-2 p-2 pl-3 text-foreground-secondary hover:bg-black/15 dark:hover:bg-white/20 duration-100 shadow-sm"
+			className="rounded-standard h-10 bg-background flex gap-2 p-1 items-center pl-3 text-foreground-secondary hover:bg-black/15 dark:hover:bg-white/20 duration-100 shadow-sm"
 		>
 			<div>{name}</div>
 			<motion.div

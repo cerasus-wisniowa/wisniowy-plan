@@ -11,12 +11,14 @@
             - Zaktualizowano wygląd powiadomień o ładowaniu zastępstw.
             - Ograniczono wyświetlanie planu lekcji do roku szkolnego.
             - Dodano możliwość wyświetlania dodatkowych dni wolnych.
+            - Dodano informacje o ostatniej aktualizacji planu i dacie wygenerowania.
+            - Ułatwiono dostęp do filtrowania lekcji po grupie na urządzeniach mobilnych.
       - type: "fixed"
         changes:
             - Usprawniono ładowanie planów lekcji.
             - Usprawniono działanie ulubionych planów.
             - Usunięto efekty rozmycia w tle w celu optymalizacji.
-            - Poprawiono wyświetlanie stopki na telefonie.
+            - Poprawiono wyświetlanie stopki na urządzeniach mobilnych.
 - version: 1.0.2
   date: 2025-08-16
   changeSets:

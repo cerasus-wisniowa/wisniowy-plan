@@ -19,13 +19,15 @@ import useWindowDimensions from "../../components/hook/use-window-dimensions";
 import Error from "@/assets/icons/error.svg?react";
 import Warning from "@/assets/icons/warning.svg?react";
 import MobileWeekNavigation from "@/components/plan/nav/mobile-week-navigation";
-import Filters from "@/components/plan/header/filters/filters";
 import type { Route } from "./+types/plan";
 import { getFilters, saveFilters } from "@/lib/database/filters";
 import Modal from "@/components/ui/modal/modal";
 import { getFavorites } from "@/lib/database/favorites";
 import { getStoredPlansList } from "@/lib/database/plan";
 import { dateIfYesterday } from "@/lib/util/date-utils";
+import Filters from "@/components/plan/header/filters/filters";
+import { hasType } from "@/lib/util/has-lesson-type";
+import GroupFilter from "@/components/plan/header/filters/group-filter";
 
 export async function clientLoader({ params }: ClientLoaderFunctionArgs) {
 	const query = {
@@ -157,11 +159,27 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 			<div className="flex flex-col gap-2">
 				<div className="flex gap-4 justify-between">
 					<div className="flex gap-4 not-pc:justify-between w-full">
-						<PlanListDropdown
-							rawFavorites={rawFavorites}
-							storedPlansList={storedPlansList}
-						/>
-						{!isMobile() && hasFilters && (
+						<div className="flex gap-2">
+							<PlanListDropdown
+								rawFavorites={rawFavorites}
+								storedPlansList={storedPlansList}
+							/>
+							{isMobile() &&
+								hasType(plan?.lessons || [], "group") && (
+									<GroupFilter
+										options={[1, 2]}
+										selected={filters.groups?.group}
+										onSelect={(i) => {
+											filters.groups.group =
+												i === filters.groups?.group
+													? undefined
+													: i;
+											updateFilters(filters);
+										}}
+									/>
+								)}
+						</div>
+						{hasFilters && !isMobile() && (
 							<div className="flex gap-x-6 gap-y-1 self-center flex-wrap not-pc:hidden">
 								<Filters
 									filters={filters}
@@ -170,6 +188,7 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 								/>
 							</div>
 						)}
+
 						{hasFilters && (
 							<Button
 								onClick={() => setMobileFilters(true)}

@@ -4,7 +4,7 @@ type GroupFilterProps = {
 	selected?: string | number;
 	options: (string | number)[];
 	onSelect: (value: string | number) => void;
-	title: string;
+	title?: string;
 };
 
 export default function GroupFilter({
@@ -15,7 +15,9 @@ export default function GroupFilter({
 }: GroupFilterProps) {
 	return (
 		<div className="flex h-full text-foreground-secondary pc:self-center">
-			<div className="h-10 mr-3 my-auto content-center">{title}</div>
+			{title && (
+				<div className="h-10 mr-3 my-auto content-center">{title}</div>
+			)}
 			<div className="content-center bg-background rounded-standard flex h-10 items-center self-center">
 				{options.map((i) => (
 					<Button

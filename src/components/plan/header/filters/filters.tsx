@@ -1,10 +1,10 @@
-import type { LessonType } from "../../../../lib/definitions/lesson";
 import type { Plan } from "../../../../lib/definitions/plan";
 import { findTeachers } from "../../../../lib/util/find-teachers";
 import Switch from "../../../ui/switch";
 import TeacherDropdown from "./teacher-filter";
 import GroupFilter from "./group-filter";
 import type { PlanFilters } from "src/lib/definitions/filters";
+import { hasType } from "@/lib/util/has-lesson-type";
 
 export default function Filters({
 	filters,
@@ -15,9 +15,6 @@ export default function Filters({
 	updateFilters: (filters: PlanFilters) => void;
 	plan: Plan;
 }) {
-	const hasType = (type: LessonType) =>
-		plan.lessons.some((l) => l.type === type);
-
 	const specialisations: (string | number)[] = [];
 	plan.lessons
 		.filter((l) => l.type === "specialisation")
@@ -31,7 +28,7 @@ export default function Filters({
 
 	return (
 		<>
-			{hasType("group") && (
+			{hasType(plan.lessons, "group") && (
 				<GroupFilter
 					options={[1, 2]}
 					selected={filters.groups?.group}
@@ -43,7 +40,7 @@ export default function Filters({
 					title="grupa:"
 				/>
 			)}
-			{hasType("religion") && (
+			{hasType(plan.lessons, "religion") && (
 				<div className="flex pc:self-center text-foreground-secondary">
 					<div className="mr-4">religia:</div>
 					<div className="flex items-center">
@@ -57,7 +54,7 @@ export default function Filters({
 					</div>
 				</div>
 			)}
-			{hasType("ethics") && (
+			{hasType(plan.lessons, "ethics") && (
 				<div className="flex pc:self-center text-foreground-secondary">
 					<div className="mr-4">etyka:</div>
 					<div className="flex items-center">
@@ -71,7 +68,7 @@ export default function Filters({
 					</div>
 				</div>
 			)}
-			{hasType("english") && (
+			{hasType(plan.lessons, "english") && (
 				<TeacherDropdown
 					teachers={findTeachers(plan?.lessons || [], "english")}
 					selected={filters.teachers.english}
@@ -83,7 +80,7 @@ export default function Filters({
 					język angielski:
 				</TeacherDropdown>
 			)}
-			{hasType("secondary_language") && (
+			{hasType(plan.lessons, "secondary_language") && (
 				<TeacherDropdown
 					teachers={findTeachers(
 						plan?.lessons || [],
@@ -98,7 +95,7 @@ export default function Filters({
 					język obcy drugi:
 				</TeacherDropdown>
 			)}
-			{hasType("specialisation") && (
+			{hasType(plan.lessons, "specialisation") && (
 				<TeacherDropdown
 					teachers={findTeachers(
 						plan?.lessons || [],
