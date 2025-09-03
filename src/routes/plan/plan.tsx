@@ -146,6 +146,7 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 							</span>
 						</>
 					}
+					className="w-[90%] max-h-[90%]"
 				>
 					<div className="flex flex-col gap-3 mt-2 overflow-y-auto items-start">
 						<Filters
@@ -159,7 +160,7 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 			<div className="flex flex-col gap-2">
 				<div className="flex gap-4 justify-between">
 					<div className="flex gap-4 not-pc:justify-between w-full">
-						<div className="flex gap-2">
+						<div className="flex gap-2 self-center">
 							<PlanListDropdown
 								rawFavorites={rawFavorites}
 								storedPlansList={storedPlansList}
