@@ -40,6 +40,8 @@
 
 	--color-deny-bg: var(--deny-bg);
 	--color-warning-bg: var(--warning-bg);
+	--color-accept-bg: var(--accept-bg);
+	--color-info-bg: var(--info-bg);
 
 	--color-deny-inverse: var(--deny-inverse);
 

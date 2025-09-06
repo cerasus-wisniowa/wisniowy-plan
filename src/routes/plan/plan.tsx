@@ -17,7 +17,6 @@ import { Button } from "@restart/ui";
 import useWindowDimensions from "../../components/hook/use-window-dimensions";
 
 import Error from "@/assets/icons/error.svg?react";
-import Warning from "@/assets/icons/warning.svg?react";
 import MobileWeekNavigation from "@/components/plan/nav/mobile-week-navigation";
 import type { Route } from "./+types/plan";
 import { getFilters, saveFilters } from "@/lib/database/filters";
@@ -28,6 +27,7 @@ import { dateIfYesterday } from "@/lib/util/date-utils";
 import Filters from "@/components/plan/header/filters/filters";
 import { hasType } from "@/lib/util/has-lesson-type";
 import GroupFilter from "@/components/plan/header/filters/group-filter";
+import { useNotifications } from "@/components/context/notifications-provider";
 
 export async function clientLoader({ params }: ClientLoaderFunctionArgs) {
 	const query = {
@@ -80,13 +80,27 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 	const { isMobile } = useWindowDimensions();
 	const { planList } = usePlanList();
 	const { week } = useWeek();
+	const { addNotification } = useNotifications();
 
 	const [filters, setFilters] = useState<PlanFilters>(storedFilters);
 	const [mobileFilters, setMobileFilters] = useState(false);
+	const [notified, setNotified] = useState(false);
 
 	useEffect(() => {
 		setFilters(storedFilters);
 	}, [storedFilters]);
+
+	useEffect(() => {
+		if (planList?.isUpdating && !notified) {
+			addNotification({
+				type: "warning",
+				title: "Aktualizacja planu",
+				message:
+					"Trwa aktualizacja planu zajęć, odśwież stronę za kilka minut",
+			});
+			setNotified(true);
+		}
+	}, [addNotification, notified, planList?.isUpdating]);
 
 	const updateFilters = (filters: PlanFilters) => {
 		saveFilters({ ...filters });
@@ -232,26 +246,15 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 						<>
 							<PlanTable plan={plan} filters={filters} />
 							<div className="pc:mx-6 text-sm pc:text-md text-foreground-inverse-secondary pt-2 flex gap-1 pc:gap-4 justify-between not-pc:flex-col not-pc:text-center">
-								{planList?.isUpdating ? (
-									<div className="flex items-center gap-1 text-warning">
-										<Warning />
-										<div>
-											Trwa aktualizacja planów. Odśwież
-											stronę za kilka minut.
-										</div>
-									</div>
-								) : (
-									<div>
-										Ostatnia aktualizacja:{" "}
-										{planList?.lastUpdate
-											? dateIfYesterday(
-													new Date(
-														planList.lastUpdate
-													)
-												)
-											: (plan.lastUpdate ?? "?")}
-									</div>
-								)}
+								<div>
+									Ostatnia aktualizacja:{" "}
+									{planList?.lastUpdate
+										? dateIfYesterday(
+												new Date(planList.lastUpdate)
+											)
+										: (plan.lastUpdate ?? "?")}
+								</div>
+
 								<div>
 									wygenerowano:{" "}
 									{new Date(

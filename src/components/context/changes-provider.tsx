@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import type { Changes } from "src/lib/definitions/change";
 import { fetchChanges } from "../../lib/fetch/changes";
+import { useNotifications } from "./notifications-provider";
 
 export type ChangesContextType = {
 	changes?: Changes;
@@ -20,6 +21,8 @@ export default function ChangesProvider({
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<Error | null>(null);
 
+	const { addNotification } = useNotifications();
+
 	const updateChanges = () => {
 		setLoading(true);
 	};
@@ -32,10 +35,15 @@ export default function ChangesProvider({
 				setLoading(false);
 			} else {
 				setError(new Error("Failed to fetch changes"));
+				addNotification({
+					type: "error",
+					title: "Błąd",
+					message: "Wystąpił błąd podczas pobierania zastępstw.",
+				});
 				setLoading(false);
 			}
 		});
-	}, [loading]);
+	}, [addNotification, loading]);
 
 	return (
 		<ChangesContext.Provider

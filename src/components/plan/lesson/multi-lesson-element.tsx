@@ -57,9 +57,11 @@ export default function MultiLessonElement({
 						>
 							<ul className="w-80 max-w-[95vw] p-2 flex flex-col gap-4">
 								{stackedLesson.lessons.map((l, i) => (
-									<motion.div variants={lessonVariants}>
+									<motion.div
+										key={i}
+										variants={lessonVariants}
+									>
 										<SingleLessonElement
-											key={i}
 											class={class_}
 											lesson={l}
 											planType={planType}

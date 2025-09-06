@@ -4,10 +4,6 @@ import { fetchOrGetPlanList } from "../lib/fetch/plan-list";
 import type { Route } from "./+types/table-page";
 import { useEffect } from "react";
 import { usePlanList } from "../components/context/plan-list-provider";
-import NotificationUI from "../components/ui/notification";
-import Spinner from "../components/ui/spinner";
-import { useChanges } from "../components/context/changes-provider";
-import Error from "../assets/icons/error.svg?react";
 import type { ApiPlanList } from "@/lib/definitions/plan-list";
 import { cleanPlans } from "@/lib/database/plan";
 
@@ -22,7 +18,6 @@ export async function clientLoader() {
 }
 export default function TablePage({ loaderData }: Route.ComponentProps) {
 	const { setList } = usePlanList();
-	const { loading, error } = useChanges();
 
 	useEffect(() => {
 		setList(loaderData);
@@ -35,14 +30,6 @@ export default function TablePage({ loaderData }: Route.ComponentProps) {
 
 	return (
 		<div className="self-center mt-4">
-			<NotificationUI show={loading} style="warning">
-				<Spinner width={32} height={32} style="regular" />
-				<div>Pobieranie zastępstw...</div>
-			</NotificationUI>
-			<NotificationUI show={error ? true : false} style="error">
-				<Error width={32} height={32} />
-				<div>Błąd pobierania zastępstw</div>
-			</NotificationUI>
 			<div className="flex gap-2 justify-center items-end md:max-w-[90%] mx-auto">
 				<TableNavigation href="/plan">plan zajęć</TableNavigation>
 				<TableNavigation href="/zastepstwa">zastępstwa</TableNavigation>

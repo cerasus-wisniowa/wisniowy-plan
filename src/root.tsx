@@ -11,11 +11,13 @@ import "./index.css";
 import Providers from "./components/context/providers";
 import type { Route } from "./+types/root";
 import Spinner from "./components/ui/spinner";
-import Navbar from "./components/navbar/navbar";
-import Footer from "./components/footer/footer";
 import { deleteData, getStoreData, initDB, Stores } from "./lib/database/db";
 import type { IndexedStoredPlan } from "./lib/definitions/db";
 import { setupExtraHolidays } from "./lib/fetch/extra-holidays";
+import Status from "./components/ui/status";
+import Footer from "./components/footer/footer";
+import Navbar from "./components/navbar/navbar";
+import NotificationsOverlay from "./components/ui/notifications/notifications-overlay";
 
 export const links: Route.LinksFunction = () => [
 	{ rel: "icon", type: "image/png", href: "/icon.png" },
@@ -87,7 +89,9 @@ export function HydrateFallback() {
 export default function App() {
 	return (
 		<Providers>
+			<NotificationsOverlay />
 			<div className="flex flex-col justify-between gap-2 h-screen bg-background">
+				<Status />
 				<div className="text-lg mx-1">
 					<Navbar />
 					<div className="mx-1 pc:mx-auto pc:w-[95%] p-4">
