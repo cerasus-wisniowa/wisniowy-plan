@@ -8,7 +8,7 @@
             - Zaktualizowano widok pozycji w planie z wieloma lekcjami na raz.
             - Dodano nowe animacje.
             - Dodano ekran ładowania strony.
-            - Zaktualizowano wygląd powiadomień o ładowaniu zastępstw.
+            - Zaktualizowano powiadomienia na stronie.
             - Ograniczono wyświetlanie planu lekcji do roku szkolnego.
             - Dodano możliwość wyświetlania dodatkowych dni wolnych.
             - Dodano informacje o ostatniej aktualizacji planu i dacie wygenerowania.
@@ -19,6 +19,7 @@
             - Usprawniono działanie ulubionych planów.
             - Usunięto efekty rozmycia w tle w celu optymalizacji.
             - Poprawiono wyświetlanie stopki na urządzeniach mobilnych.
+            - Naprawiono filtrowanie specjalizacji.
 - version: 1.0.2
   date: 2025-08-16
   changeSets:

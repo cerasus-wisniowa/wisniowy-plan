@@ -37,7 +37,7 @@ export default function ChangesProvider({
 				setError(new Error("Failed to fetch changes"));
 				addNotification({
 					type: "error",
-					title: "Błąd",
+					title: "Błąd zastępstw",
 					message: "Wystąpił błąd podczas pobierania zastępstw.",
 				});
 				setLoading(false);

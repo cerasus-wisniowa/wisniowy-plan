@@ -8,9 +8,26 @@ import {
 	fetchApiChangelog,
 	fetchSiteChangelog,
 } from "../../lib/fetch/changelog";
+import { useNotifications } from "../context/notifications-provider";
 
 export default function Footer() {
 	const { api, success, loading } = useApi();
+	const { addNotification } = useNotifications();
+
+	const [notified, setNotified] = useState(false);
+
+	useEffect(() => {
+		if (loading) return;
+		if (!success && !notified) {
+			setNotified(true);
+			addNotification({
+				title: "Błąd połączenia",
+				message:
+					"Nie udało się połączyć z API. Strona działa w trybie offline.",
+				type: "error",
+			});
+		}
+	}, [success, loading, addNotification, notified]);
 
 	const [siteChangelog, setSiteChangelog] = useState<Changelog | null>(null);
 	const [apiChangelog, setApiChangelog] = useState<Changelog | null>(null);
