@@ -23,7 +23,7 @@ import { getFilters, saveFilters } from "@/lib/database/filters";
 import Modal from "@/components/ui/modal/modal";
 import { getFavorites } from "@/lib/database/favorites";
 import { getStoredPlansList } from "@/lib/database/plan";
-import { dateIfYesterday } from "@/lib/util/date-utils";
+import { dateIfYesterday, relativeDateString } from "@/lib/util/date-utils";
 import Filters from "@/components/plan/header/filters/filters";
 import { hasType } from "@/lib/util/has-lesson-type";
 import GroupFilter from "@/components/plan/header/filters/group-filter";
@@ -97,6 +97,7 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 				title: "Aktualizacja planu",
 				message:
 					"Trwa aktualizacja planu zajęć, odśwież stronę za kilka minut",
+				duration: 5000,
 			});
 			setNotified(true);
 		}
@@ -127,6 +128,12 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 			<Delete width={28} height={28} className="mx-auto" />
 		</Button>
 	);
+
+	const lastUpdate = planList?.lastUpdate
+		? new Date(planList.lastUpdate)
+		: plan?.lastUpdate
+			? new Date(plan.lastUpdate)
+			: undefined;
 
 	return (
 		<>
@@ -247,16 +254,16 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 							<PlanTable plan={plan} filters={filters} />
 							<div className="pc:mx-6 text-sm pc:text-md text-foreground-inverse-secondary pt-2 flex gap-1 pc:gap-4 justify-between not-pc:flex-col not-pc:text-center">
 								<div>
-									Ostatnia aktualizacja:{" "}
-									{planList?.lastUpdate
-										? dateIfYesterday(
-												new Date(planList.lastUpdate)
-											)
-										: (plan.lastUpdate ?? "?")}
+									Zaktualizowano{" "}
+									{lastUpdate
+										? `${relativeDateString(
+												lastUpdate
+											)} (${dateIfYesterday(lastUpdate)})`
+										: "?"}
 								</div>
 
 								<div>
-									wygenerowano:{" "}
+									wygenerowano{" "}
 									{new Date(
 										plan.generated
 									).toLocaleDateString("pl-PL", {
