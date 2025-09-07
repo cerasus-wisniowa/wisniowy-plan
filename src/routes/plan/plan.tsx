@@ -28,6 +28,7 @@ import Filters from "@/components/plan/header/filters/filters";
 import { hasType } from "@/lib/util/has-lesson-type";
 import GroupFilter from "@/components/plan/header/filters/group-filter";
 import { useNotifications } from "@/components/context/notifications-provider";
+import useDate from "@/components/hook/use-date";
 
 export async function clientLoader({ params }: ClientLoaderFunctionArgs) {
 	const query = {
@@ -81,6 +82,7 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 	const { planList } = usePlanList();
 	const { week } = useWeek();
 	const { addNotification } = useNotifications();
+	const date = useDate();
 
 	const [filters, setFilters] = useState<PlanFilters>(storedFilters);
 	const [mobileFilters, setMobileFilters] = useState(false);
@@ -257,6 +259,7 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 									Zaktualizowano{" "}
 									{lastUpdate
 										? `${relativeDateString(
+												date,
 												lastUpdate
 											)} (${dateIfYesterday(lastUpdate)})`
 										: "?"}

@@ -25,17 +25,21 @@ export function dateIfYesterday(date: Date) {
 	return date.toLocaleString("pl-PL", options);
 }
 
-export function relativeDateString(date: Date) {
-	const today = new Date(Date.now());
-	const difference = date.getTime() - today.getTime();
+export function relativeDateString(first: Date, second: Date) {
+	const difference = second.getTime() - first.getTime();
 
 	const [unit, ms] = timeDifferenceUnit(difference);
 	if (unit === "second") {
 		return "przed chwilą";
 	}
 
+	const value =
+		difference < 0
+			? Math.ceil(difference / ms)
+			: Math.floor(difference / ms);
+
 	return new Intl.RelativeTimeFormat("pl-PL", { numeric: "auto" }).format(
-		Math.floor(difference / ms),
+		value,
 		unit
 	);
 }
