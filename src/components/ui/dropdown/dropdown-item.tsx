@@ -12,7 +12,7 @@ export default function DropdownItem({
 	const [, setShow] = useDropdown();
 
 	return (
-		<li
+		<div
 			onClick={() => {
 				if (onClick) onClick();
 				setShow(false);
@@ -20,6 +20,6 @@ export default function DropdownItem({
 			className={className}
 		>
 			{children}
-		</li>
+		</div>
 	);
 }
