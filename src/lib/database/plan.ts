@@ -79,6 +79,10 @@ export async function savePlan(plan: ApiPlan) {
 		);
 		if (exists) {
 			await updateData<StoredPlan>(Stores.Plans, exists.id, data);
+			localStorage.setItem(
+				"last-plan-change-" + plan.source,
+				plan.lastChanged
+			);
 			return;
 		}
 

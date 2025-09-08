@@ -23,12 +23,12 @@ import { getFilters, saveFilters } from "@/lib/database/filters";
 import Modal from "@/components/ui/modal/modal";
 import { getFavorites } from "@/lib/database/favorites";
 import { getStoredPlansList } from "@/lib/database/plan";
-import { dateIfYesterday, relativeDateString } from "@/lib/util/date-utils";
 import Filters from "@/components/plan/header/filters/filters";
 import { hasType } from "@/lib/util/has-lesson-type";
 import GroupFilter from "@/components/plan/header/filters/group-filter";
 import { useNotifications } from "@/components/context/notifications-provider";
-import useDate from "@/components/hook/use-date";
+import { useStatus } from "@/components/context/status-provider";
+import PlanTableFooter from "@/components/plan/plan-table-footer";
 
 export async function clientLoader({ params }: ClientLoaderFunctionArgs) {
 	const query = {
@@ -37,7 +37,6 @@ export async function clientLoader({ params }: ClientLoaderFunctionArgs) {
 			("class" as PlanType),
 		name: localStorage.getItem("plan-name") || "1la",
 	};
-	const source = "planlekcji";
 
 	const { type, name } = params;
 	if (type && ["class", "teacher", "classroom"].includes(type)) {
@@ -49,16 +48,8 @@ export async function clientLoader({ params }: ClientLoaderFunctionArgs) {
 		localStorage.setItem("plan-name", name);
 	} else return replace(`/plan/${query.type}/${query.name}`);
 
-	const lastChanged = localStorage.getItem("last-plan-change-" + source);
 	const planInfo = { ...query, source: "planlekcji" } satisfies PlanInfo;
-	let plan = await getOrFetchPlan(planInfo);
-	if (plan && plan.lastChanged !== lastChanged)
-		try {
-			const fetchedPlan = await fetchPlan(planInfo);
-			if (fetchedPlan) plan = fetchedPlan;
-		} catch (error) {
-			console.error(error);
-		}
+	const plan = await getOrFetchPlan(planInfo);
 
 	const storedFilters = await getFilters(query.name);
 	const rawFavorites = await getFavorites();
@@ -70,23 +61,30 @@ export async function clientLoader({ params }: ClientLoaderFunctionArgs) {
 		storedFilters,
 		rawFavorites,
 		storedPlansList,
-		lastChanged,
 	};
 }
 
 export default function PlanRoute({ loaderData }: Route.ComponentProps) {
-	const { query, plan, storedFilters, rawFavorites, storedPlansList } =
-		loaderData;
+	const {
+		query,
+		plan: loadedPlan,
+		storedFilters,
+		rawFavorites,
+		storedPlansList,
+	} = loaderData;
 
 	const { isMobile } = useWindowDimensions();
 	const { planList } = usePlanList();
 	const { week } = useWeek();
 	const { addNotification } = useNotifications();
-	const date = useDate();
+	const [, setStatus] = useStatus();
+
+	const source = "planlekcji";
 
 	const [filters, setFilters] = useState<PlanFilters>(storedFilters);
 	const [mobileFilters, setMobileFilters] = useState(false);
 	const [notified, setNotified] = useState(false);
+	const [plan, setPlan] = useState(loadedPlan);
 
 	useEffect(() => {
 		setFilters(storedFilters);
@@ -104,6 +102,32 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 			setNotified(true);
 		}
 	}, [addNotification, notified, planList?.isUpdating]);
+
+	useEffect(() => setPlan(loadedPlan), [loadedPlan]);
+
+	useEffect(() => {
+		const lastChanged = localStorage.getItem("last-plan-change-" + source);
+		if (loadedPlan && loadedPlan.lastChanged !== lastChanged) {
+			console.log("updating plan " + loadedPlan.name);
+			console.log(loadedPlan.lastChanged + " -> " + lastChanged);
+			setStatus("Aktualizacja danych...");
+			try {
+				const planInfo = {
+					name: loadedPlan.name,
+					type: loadedPlan.type,
+					source: "planlekcji",
+				} satisfies PlanInfo;
+				fetchPlan(planInfo)
+					.then((p) => setPlan(p))
+					.catch((error) => {
+						console.error(error);
+					})
+					.finally(() => setStatus(null));
+			} catch (error) {
+				console.error(error);
+			}
+		}
+	}, [loadedPlan, query, setStatus]);
 
 	const updateFilters = (filters: PlanFilters) => {
 		saveFilters({ ...filters });
@@ -232,8 +256,8 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 							<span className="font-medium">
 								{planList &&
 									getPlanName(
-										query.name,
-										query.type,
+										plan!.name,
+										plan!.type,
 										planList
 									)}
 							</span>
@@ -254,28 +278,10 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 					{plan ? (
 						<>
 							<PlanTable plan={plan} filters={filters} />
-							<div className="pc:mx-6 text-sm pc:text-md text-foreground-inverse-secondary pt-2 flex gap-1 pc:gap-4 justify-between not-pc:flex-col not-pc:text-center">
-								<div>
-									Zaktualizowano{" "}
-									{lastUpdate
-										? `${relativeDateString(
-												date,
-												lastUpdate
-											)} (${dateIfYesterday(lastUpdate)})`
-										: "?"}
-								</div>
-
-								<div>
-									wygenerowano{" "}
-									{new Date(
-										plan.generated
-									).toLocaleDateString("pl-PL", {
-										day: "numeric",
-										month: "long",
-										year: "numeric",
-									})}
-								</div>
-							</div>
+							<PlanTableFooter
+								lastUpdate={lastUpdate}
+								generated={new Date(plan.generated)}
+							/>
 						</>
 					) : (
 						<div className="w-full not-pc:h-80 pc:min-h-[calc(100vh-22.5rem)] items-center justify-center text-center flex flex-col gap-2 pb-8">
