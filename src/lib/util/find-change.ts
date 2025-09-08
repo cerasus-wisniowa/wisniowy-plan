@@ -1,7 +1,7 @@
 import type { Changes } from "../definitions/change";
 import type { Lesson } from "../definitions/lesson";
 import { areDatesEqual } from "./are-dates-equal";
-import { areSectionsEqual } from "./sections-equal";
+// import { areSectionsEqual } from "./sections-equal";
 import { areChangeTeachersEqual } from "./teachers-equal";
 
 export function findChange(lesson: Lesson, changes: Changes, date: Date) {
@@ -11,7 +11,7 @@ export function findChange(lesson: Lesson, changes: Changes, date: Date) {
 			lesson.teacher &&
 			change.hour === lesson.hour &&
 			areDatesEqual(changeDate, date) &&
-			areSectionsEqual(change.sections, lesson.sections) &&
+			// areSectionsEqual(change.sections, lesson.sections) &&
 			areChangeTeachersEqual(change, lesson.teacher)
 		);
 	});
