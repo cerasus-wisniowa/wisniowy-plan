@@ -105,7 +105,7 @@ export default function SingleLessonElement({
 	const classElement = (
 		<div className="flex gap-0.5">
 			{lesson.sections.map((s, i) => (
-				<span key={i} className="w-full flex items-center">
+				<span key={i} className="w-full flex items-baseline">
 					<PlanLink name={s.class} type="class" className="truncate">
 						{s.class}
 					</PlanLink>

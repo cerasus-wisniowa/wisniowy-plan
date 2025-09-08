@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react";
-import PlanTable from "../../components/plan/plan-table";
-import { type PlanFilters } from "../../lib/definitions/filters";
-import WeekNavigationButton from "../../components/plan/nav/week-navigation-button";
-import Divider from "../../components/ui/divider";
-import { fetchPlan, getOrFetchPlan } from "../../lib/fetch/plan";
-import type { PlanInfo, PlanType } from "../../lib/definitions/plan";
-import { useWeek } from "../../components/context/week-provider";
-import { getMonthsSpanString } from "../../lib/definitions/date";
+import PlanTable from "@/components/plan/plan-table";
+import { type PlanFilters } from "@/lib/definitions/filters";
+import WeekNavigationButton from "@/components/plan/nav/week-navigation-button";
+import Divider from "@/components/ui/divider";
+import { fetchPlan } from "@/lib/fetch/plan";
+import type { PlanInfo, PlanType } from "@/lib/definitions/plan";
+import { useWeek } from "@/components/context/week-provider";
+import { getMonthsSpanString } from "@/lib/definitions/date";
 import { replace, type ClientLoaderFunctionArgs } from "react-router";
-import PlanListDropdown from "../../components/plan/header/plan-list-dropdown";
-import { getPlanName } from "../../lib/util/plan-list-utils";
-import { usePlanList } from "../../components/context/plan-list-provider";
-import Delete from "../../assets/icons/delete.svg?react";
-import Tune from "../../assets/icons/tune.svg?react";
+import PlanListDropdown from "@/components/plan/header/plan-list-dropdown";
+import { getPlanName } from "@/lib/util/plan-list-utils";
+import { usePlanList } from "@/components/context/plan-list-provider";
+import Delete from "@/assets/icons/delete.svg?react";
+import Tune from "@/assets/icons/tune.svg?react";
 import { Button } from "@restart/ui";
-import useWindowDimensions from "../../components/hook/use-window-dimensions";
+import useWindowDimensions from "@/components/hook/use-window-dimensions";
 
 import Error from "@/assets/icons/error.svg?react";
 import MobileWeekNavigation from "@/components/plan/nav/mobile-week-navigation";
@@ -22,13 +22,14 @@ import type { Route } from "./+types/plan";
 import { getFilters, saveFilters } from "@/lib/database/filters";
 import Modal from "@/components/ui/modal/modal";
 import { getFavorites } from "@/lib/database/favorites";
-import { getStoredPlansList } from "@/lib/database/plan";
+import { getPlan, getStoredPlansList } from "@/lib/database/plan";
 import Filters from "@/components/plan/header/filters/filters";
 import { hasType } from "@/lib/util/has-lesson-type";
 import GroupFilter from "@/components/plan/header/filters/group-filter";
 import { useNotifications } from "@/components/context/notifications-provider";
 import { useStatus } from "@/components/context/status-provider";
 import PlanTableFooter from "@/components/plan/plan-table-footer";
+import PlanTableLoading from "@/components/plan/loading/plan-table-loading";
 
 export async function clientLoader({ params }: ClientLoaderFunctionArgs) {
 	const query = {
@@ -49,7 +50,7 @@ export async function clientLoader({ params }: ClientLoaderFunctionArgs) {
 	} else return replace(`/plan/${query.type}/${query.name}`);
 
 	const planInfo = { ...query, source: "planlekcji" } satisfies PlanInfo;
-	const plan = await getOrFetchPlan(planInfo);
+	const plan = await getPlan(planInfo);
 
 	const storedFilters = await getFilters(query.name);
 	const rawFavorites = await getFavorites();
@@ -85,6 +86,7 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 	const [mobileFilters, setMobileFilters] = useState(false);
 	const [notified, setNotified] = useState(false);
 	const [plan, setPlan] = useState(loadedPlan);
+	const [planLoading, setPlanLoading] = useState(true);
 
 	useEffect(() => {
 		setFilters(storedFilters);
@@ -103,18 +105,20 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 		}
 	}, [addNotification, notified, planList?.isUpdating]);
 
-	useEffect(() => setPlan(loadedPlan), [loadedPlan]);
-
 	useEffect(() => {
 		const lastChanged = localStorage.getItem("last-plan-change-" + source);
-		if (loadedPlan && loadedPlan.lastChanged !== lastChanged) {
-			console.log("updating plan " + loadedPlan.name);
-			console.log(loadedPlan.lastChanged + " -> " + lastChanged);
+		setPlan(loadedPlan);
+		setPlanLoading(true);
+		if (!loadedPlan || loadedPlan.lastChanged !== lastChanged) {
+			console.log("Updating plan " + query.name);
+			console.log(
+				(loadedPlan?.lastChanged ?? "never") + " -> " + lastChanged
+			);
 			setStatus("Aktualizacja danych...");
 			try {
 				const planInfo = {
-					name: loadedPlan.name,
-					type: loadedPlan.type,
+					name: loadedPlan?.name || query.name,
+					type: loadedPlan?.type || query.type,
 					source: "planlekcji",
 				} satisfies PlanInfo;
 				fetchPlan(planInfo)
@@ -122,7 +126,10 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 					.catch((error) => {
 						console.error(error);
 					})
-					.finally(() => setStatus(null));
+					.finally(() => {
+						setStatus(null);
+						setPlanLoading(false);
+					});
 			} catch (error) {
 				console.error(error);
 			}
@@ -155,11 +162,7 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 		</Button>
 	);
 
-	const lastUpdate = planList?.lastUpdate
-		? new Date(planList.lastUpdate)
-		: plan?.lastUpdate
-			? new Date(plan.lastUpdate)
-			: undefined;
+	const lastUpdate = plan?.lastUpdate ? new Date(plan.lastUpdate) : undefined;
 
 	return (
 		<>
@@ -256,8 +259,8 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 							<span className="font-medium">
 								{planList &&
 									getPlanName(
-										plan!.name,
-										plan!.type,
+										plan?.name || query.name,
+										plan?.type || query.type,
 										planList
 									)}
 							</span>
@@ -283,6 +286,14 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 								generated={new Date(plan.generated)}
 							/>
 						</>
+					) : planLoading && planList ? (
+						<PlanTableLoading
+							planName={getPlanName(
+								query.name,
+								query.type,
+								planList
+							)}
+						/>
 					) : (
 						<div className="w-full not-pc:h-80 pc:min-h-[calc(100vh-22.5rem)] items-center justify-center text-center flex flex-col gap-2 pb-8">
 							<Error
