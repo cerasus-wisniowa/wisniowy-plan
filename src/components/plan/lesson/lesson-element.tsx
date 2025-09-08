@@ -1,7 +1,7 @@
 import { cn } from "@/lib/util/classname";
 import type { ChangeType } from "../../../lib/definitions/change";
 
-export const lessonHeight = "h-[6.875rem]";
+export const lessonHeight = "h-[6.75rem]";
 
 export default function LessonElement({
 	children,

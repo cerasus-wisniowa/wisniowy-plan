@@ -197,9 +197,10 @@ export default function SingleLessonElement({
 						<div className="flex gap-1 justify-between">
 							<div className="flex gap-1.5">
 								<div
-									className={`content-end h-full mb-6 text-md/5.5 font-medium ${
+									className={cn(
+										"content-end h-full mb-6 text-md/5 font-medium",
 										change && changeStyles.text[change.type]
-									}`}
+									)}
 								>
 									{lesson.hour}.
 								</div>
@@ -208,9 +209,10 @@ export default function SingleLessonElement({
 										lessonName +
 										(group ? ` (gr. ${group})` : "")
 									}
-									className={`content-end h-full overflow-hidden overflow-ellipsis line-clamp-2 text-md/5.5 font-medium ${
+									className={cn(
+										"content-end h-full overflow-hidden overflow-ellipsis line-clamp-2 text-md/5 font-medium",
 										change && changeStyles.text[change.type]
-									}`}
+									)}
 								>
 									{lessonName}{" "}
 									{group && (
@@ -243,9 +245,10 @@ export default function SingleLessonElement({
 												.join(", ")
 										: teacherName
 								}
-								className={`text-foreground-secondary max-w-42 line-clamp-1 ml-5 ${
+								className={cn(
+									"text-foreground-secondary max-w-42 line-clamp-1 ml-5",
 									change && changeStyles.text[change.type]
-								}`}
+								)}
 							>
 								{planType === "teacher"
 									? classElement
