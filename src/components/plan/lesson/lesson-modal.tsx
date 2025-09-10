@@ -1,7 +1,7 @@
 import { type Change, changeTypes } from "../../../lib/definitions/change";
 import type { Lesson } from "../../../lib/definitions/lesson";
 import Modal from "../../../components/ui/modal/modal";
-import { changeStyles } from "./single-lesson-element";
+import { changeStyles } from "./plan-lesson-element";
 import bells from "../../../data/bells.json";
 import { motion, type Variants } from "motion/react";
 import PlanLink from "../plan-link";

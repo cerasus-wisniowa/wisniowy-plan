@@ -22,7 +22,7 @@ export default function LessonElement({
 	return (
 		<li
 			className={cn(
-				"w-full bg-background p-2 pr-3 rounded-standard shadow-sm text-md flex gap-1 justify-between text-foreground-secondary",
+				"w-full bg-background p-2 pr-3 rounded-xl shadow-sm text-md flex flex-col gap-0.5 text-foreground-secondary",
 				style && styles[style],
 				lessonHeight
 			)}

@@ -6,10 +6,10 @@ import { areDatesEqual } from "../../lib/util/are-dates-equal";
 import { numberArray } from "../../lib/util/number-array";
 import { useChanges } from "../context/changes-provider";
 import EmptyLessonElement from "./lesson/empty-lesson-element";
-import SingleLessonElement from "./lesson/single-lesson-element";
 import { nextDate, previousDate } from "../../lib/util/date-utils";
 import MultiLessonElement from "./lesson/multi-lesson-element";
 import { cn } from "@/lib/util/classname";
+import PlanLessonElement from "./lesson/plan-lesson-element";
 
 export default function PlanColumn({
 	lessons,
@@ -78,7 +78,7 @@ export default function PlanColumn({
 					</div>
 				)}
 				<ul
-					className={`w-full h-full flex flex-col gap-4 not-pc:rounded-t-standard ${
+					className={`w-full h-full flex flex-col gap-3 not-pc:rounded-t-standard ${
 						hasHolidays ? "" : ""
 					}
 					${!mobile && nextHasHolidays ? "rounded-br-lg" : "rounded-br-standard"}
@@ -123,11 +123,10 @@ export default function PlanColumn({
 								);
 							}
 							return (
-								<SingleLessonElement
+								<PlanLessonElement
 									date={date}
 									lesson={lesson}
 									class={class_}
-									key={i}
 									planType={planType}
 								/>
 							);

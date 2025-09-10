@@ -3,7 +3,7 @@ import type { Lesson } from "../../../lib/definitions/lesson";
 import PlanLink from "../plan-link";
 import { useChanges } from "@/components/context/changes-provider";
 import { findChange } from "@/lib/util/find-change";
-import { changeStyles } from "./single-lesson-element";
+import { changeStyles } from "./plan-lesson-element";
 
 export default function MultiLessonEntry({
 	lesson,

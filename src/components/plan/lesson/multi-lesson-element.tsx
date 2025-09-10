@@ -1,13 +1,13 @@
 import type { PlanType } from "../../../lib/definitions/plan";
 import type { StackedLesson } from "../../../lib/definitions/sorted-lessons";
 import LessonElement from "./lesson-element";
-import SingleLessonElement from "./single-lesson-element";
 import LessonHour from "./lesson-hour";
 import MultiLessonEntry from "./multi-lesson-entry";
 import Overlay from "../../ui/overlay";
 import Dropdown from "@/components/ui/dropdown/dropdown";
 import { motion, type Variants } from "motion/react";
 import DropdownProvider from "@/components/ui/dropdown/dropdown-provider";
+import PlanLessonElement from "./plan-lesson-element";
 
 export default function MultiLessonElement({
 	stackedLesson,
@@ -25,7 +25,7 @@ export default function MultiLessonElement({
 
 	return (
 		<LessonElement>
-			<div className="flex flex-col justify-between w-full">
+			<div className="flex flex-col justify-between w-full h-full">
 				<LessonHour hour={stackedLesson.hour} />
 				<ul className="flex flex-col text-sm/4">
 					{stackedLesson.lessons.slice(0, limit).map((lesson, i) => (
@@ -61,7 +61,7 @@ export default function MultiLessonElement({
 										key={i}
 										variants={lessonVariants}
 									>
-										<SingleLessonElement
+										<PlanLessonElement
 											class={class_}
 											lesson={l}
 											planType={planType}
