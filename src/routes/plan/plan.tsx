@@ -108,8 +108,9 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 	useEffect(() => {
 		const lastChanged = localStorage.getItem("last-plan-change-" + source);
 		setPlan(loadedPlan);
-		setPlanLoading(true);
+
 		if (!loadedPlan || loadedPlan.lastChanged !== lastChanged) {
+			setPlanLoading(true);
 			console.log("Updating plan " + query.name);
 			console.log(
 				(loadedPlan?.lastChanged ?? "never") + " -> " + lastChanged
@@ -122,7 +123,9 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 					source: "planlekcji",
 				} satisfies PlanInfo;
 				fetchPlan(planInfo)
-					.then((p) => setPlan(p))
+					.then((p) => {
+						setPlan(p);
+					})
 					.catch((error) => {
 						console.error(error);
 					})
@@ -133,7 +136,7 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 			} catch (error) {
 				console.error(error);
 			}
-		}
+		} else setPlanLoading(false);
 	}, [loadedPlan, query, setStatus]);
 
 	const updateFilters = (filters: PlanFilters) => {
@@ -162,7 +165,12 @@ export default function PlanRoute({ loaderData }: Route.ComponentProps) {
 		</Button>
 	);
 
-	const lastUpdate = plan?.lastUpdate ? new Date(plan.lastUpdate) : undefined;
+	const lastUpdate =
+		planList?.lastUpdate && !planLoading
+			? new Date(planList.lastUpdate)
+			: plan?.lastUpdate
+				? new Date(plan.lastUpdate)
+				: undefined;
 
 	return (
 		<>

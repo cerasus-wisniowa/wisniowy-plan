@@ -27,7 +27,7 @@ export default function MultiLessonElement({
 		<LessonElement>
 			<div className="flex flex-col justify-between w-full">
 				<LessonHour hour={stackedLesson.hour} />
-				<ul className="flex flex-col text-sm/4.25">
+				<ul className="flex flex-col text-sm/4">
 					{stackedLesson.lessons.slice(0, limit).map((lesson, i) => (
 						<MultiLessonEntry
 							lesson={lesson}
