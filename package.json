@@ -15,7 +15,7 @@
 	},
 	"dependencies": {
 		"@dudek26/node-ferie": "^1.0.0",
-		"@react-router/node": "^7.8.1",
+		"@react-router/node": "^7.9.4",
 		"@restart/ui": "^1.9.4",
 		"@tailwindcss/vite": "^4.1.8",
 		"dotenv": "^17.2.1",
