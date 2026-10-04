@@ -20,7 +20,7 @@
 		"@tailwindcss/vite": "^4.1.8",
 		"dotenv": "^17.2.1",
 		"isbot": "^5",
-		"js-yaml": "^4.1.0",
+		"js-yaml": "^4.3.2",
 		"motion": "^12.23.12",
 		"node-ssh": "^13.2.1",
 		"react": "^19.1.0",
